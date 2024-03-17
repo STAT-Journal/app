@@ -8,6 +8,8 @@ import { useColorScheme } from '@/components/useColorScheme';
 import { useClientOnlyValue } from '@/components/useClientOnlyValue';
 
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
+//COLE: Apply FontAwesome filter to the above site to get accurate list of icons
+//Possible options for text entry icon: 'plus-square-o', 'pencil-square-o', 'comment-o'
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>['name'];
   color: string;
@@ -52,6 +54,13 @@ export default function TabLayout() {
         options={{
           title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="three"
+        options={{
+          title: 'Text Entry  ',
+          tabBarIcon: ({ color }) => <TabBarIcon name="plus-square-o" color={color} />,
         }}
       />
     </Tabs>

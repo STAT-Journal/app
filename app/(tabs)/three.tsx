@@ -4,20 +4,24 @@ import { Text, View } from '@/components/Themed';
 import EntryList from '@/components/EntryList';
 import Entry from '@/components/Entry';
 import React from 'react';
-
+interface ExistingEntry {
+    title: string;
+    description: string;
+}
 export default function TabThreeScreen() {
+    const someDatabaseResults: ExistingEntry[] = [
+        { title: 'Existing entry 1', description: 'Description 1' },
+        { title: 'Existing entry 2', description: 'Description 2' },
+        { title: 'Existing entry 3', description: 'Description 3' },
+    ];
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Tab Three</Text>
+            
             <EntryList
-                childComponents={[
-                    { title: 'Title 1', description: 'Description 1' },
-                    { title: 'Title 2', description: 'Description 2' },
-                    { title: 'Title 3', description: 'Description 3' },
-                ]}
+                ExistingEntries={someDatabaseResults}
             />
-            <Entry title="Title" description="Description" />
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+            
         </View>
 
 
@@ -29,6 +33,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    padding: 20,
+    
   },
   title: {
     fontSize: 20,

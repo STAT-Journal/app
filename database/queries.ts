@@ -52,6 +52,15 @@ export const addEntryToDB = (title: string, description: string) => new Promise<
     db.transaction(tx => {
         tx.executeSql('insert into entries (title, description) values (?, ?)', [title, description], () => {
             resolve();
+            //Print newly added entry's id
+            tx.executeSql('select last_insert_rowid()', [], (_, { rows }) => {
+                console.log("acutal ID:");
+                console.log(rows._array[0]['last_insert_rowid()']);
+            }, (_, error) => {
+                console.error(error);
+                return true;
+            });
+
         }, (_, error) => {
             reject(error);
             return true;
@@ -66,6 +75,18 @@ export const getEntries = (): Promise<Entry[]> => {
             tx.executeSql('select * from entries', [], (_, { rows }) => {
                 console.log((rows._array))
                 resolve(rows._array);
+            }, (_, error) => {
+                reject(error);
+                return true;
+            });
+        });
+    });
+}
+export const removeEntryFromDB = (column: string, value: any): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        db.transaction(tx => {
+            tx.executeSql(`DELETE FROM entries WHERE ${column} = ?`, [value], () => {
+                resolve();
             }, (_, error) => {
                 reject(error);
                 return true;

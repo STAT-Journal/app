@@ -28,5 +28,8 @@ const Entry :React.FC<Props> = ({ onSubmit }) => {
                 onChangeText={setDescription}
             />
             <Button title="Submit" onPress={handleSubmit} />
-
+        </View>
+    );
+};
+export default Entry;
 

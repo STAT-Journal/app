@@ -1,10 +1,5 @@
 import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
-import CalendarEvents from '@/components/CalendarEvents';
-import React from 'react';
-
 
 import CalendarEvents from '@/components/CalendarEvents';
 import React from 'react';

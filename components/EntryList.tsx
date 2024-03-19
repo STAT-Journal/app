@@ -4,6 +4,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import Entry from './Entry';
 
 interface ExistingEntry {
+
     title: string;
     description: string;
 }
@@ -27,11 +28,14 @@ const ListComponent: React.FC<Props> = ({ ExistingEntries }) => {
         <ScrollView style={styles.container}>
             {entries.map((child, index) => (
                 <View key={index} style={styles.listContainer}>
+
                     <Text style={styles.title}>{child.title}</Text>
                     <Text style={styles.description}>{child.description}</Text>
                 </View>
             ))}
+
             <Entry onSubmit={addEntry} />
+
         </ScrollView>
     );
 };

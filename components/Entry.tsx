@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 
@@ -29,8 +28,5 @@ const Entry :React.FC<Props> = ({ onSubmit }) => {
                 onChangeText={setDescription}
             />
             <Button title="Submit" onPress={handleSubmit} />
-        </View>
-    );
-};
 
-export default Entry;
+

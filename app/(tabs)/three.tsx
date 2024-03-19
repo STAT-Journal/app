@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Text, View } from '@/components/Themed';
 import EntryList from '@/components/EntryList';
+
 import React from 'react';
 interface ExistingEntry {
     title: string;
@@ -21,6 +22,7 @@ export default function TabThreeScreen() {
                 ExistingEntries={someDatabaseResults}
             />
             
+
         </View>
 
 
@@ -32,8 +34,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+
     padding: 20,
     
+
   },
   title: {
     fontSize: 20,

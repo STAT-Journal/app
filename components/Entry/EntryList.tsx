@@ -48,7 +48,7 @@ const EntryList: React.FC<Props> = () => {
             {entries.map((child, index) => (
                 <IndividualEntry index={index} id={child.id} title={child.title} description={child.description} refresh={reloadEntries} />
             ))}
-
+            
             <TextEntry onSubmit={addNewEntry} refresh={reloadEntries}/>
 
         </ScrollView>
@@ -67,6 +67,20 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 8,
+    },
+    inputBox: {
+        
+        zIndex: 10,
+        marginBottom: 36,
+        alignSelf: 'center',
+        
+        width: "80%",
+        borderWidth: 1,
+    },
+    fill: {
+        flexGrow: 1,
+        flex: 1,
+        height: hp('30%'),
     },
 });
 

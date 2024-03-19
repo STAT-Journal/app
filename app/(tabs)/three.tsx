@@ -7,7 +7,7 @@ import EntryList from '@/components/Entry/EntryList';
 
 export default function TabThreeScreen() {
      
-
+    
     return (
         <View style={styles.container}>
             <EntryList/>

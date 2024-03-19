@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button } from 'react-native';
 
+
 interface Props {
-    onSubmit: (title: string, description: string) => void;
+    onSubmit: (title:string, description:string) => void;
 }
 
-const Entry :React.FC<Props> = ({ onSubmit }) => {
+const TextEntry :React.FC<Props> = ({ onSubmit }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
     const handleSubmit = () => {
-        // Pass title and description to sibling element
-        // Implement your logic here
+        
         onSubmit(title, description);
     };
 
@@ -31,5 +31,5 @@ const Entry :React.FC<Props> = ({ onSubmit }) => {
         </View>
     );
 };
-export default Entry;
+export default TextEntry;
 

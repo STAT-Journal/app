@@ -1,24 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import Entry from './Entry';
+import {Entry} from '@/database/models';
+import TextEntry from '@/components/TextEntry';
+import { addEntryToDB, getEntries } from '@/database/queries';
 
-interface ExistingEntry {
 
-    title: string;
-    description: string;
-}
+interface Props {}
 
-interface Props {
-    ExistingEntries: ExistingEntry[];
-}
 
-const ListComponent: React.FC<Props> = ({ ExistingEntries }) => {
-    const [entries, setEntries] = useState<ExistingEntry[]>(ExistingEntries);
+
+const EntryList: React.FC<Props> = () => {
+    const [entries, setEntries] = useState<Entry[]>([]);
     
+    //On component mount, get all entries from the database
+    useEffect(() => {
+        getEntries()
+          .then((data: Entry[]) => {
+            setEntries(data);
+            
+        })
+          .catch(error => console.error(error));
+      }, []);
 
-    const addEntry = (title: string, description: string) => {
-        setEntries([...entries, { title, description }]);
+
+    const addNewEntry = (title:string, description:string) => {
+        addEntryToDB(title, description).then(() => {
+            setEntries([...entries, {id: entries.length + 1, title:title, description:description}]);
+        });
+
 
     }
     
@@ -34,7 +44,7 @@ const ListComponent: React.FC<Props> = ({ ExistingEntries }) => {
                 </View>
             ))}
 
-            <Entry onSubmit={addEntry} />
+            <TextEntry onSubmit={addNewEntry} />
 
         </ScrollView>
     );
@@ -64,4 +74,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ListComponent;
+export default EntryList;

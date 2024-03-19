@@ -1,18 +1,32 @@
-import React from 'react';
-import { View, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button } from 'react-native';
 
-interface ChildComponentProps {
-    title: string;
-    description: string;
+interface Props {
+    onSubmit: (title: string, description: string) => void;
 }
 
-const ChildComponent: React.FC<ChildComponentProps> = ({ title, description }) => {
+const Entry :React.FC<Props> = ({ onSubmit }) => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+    const handleSubmit = () => {
+        // Pass title and description to sibling element
+        // Implement your logic here
+        onSubmit(title, description);
+    };
+
     return (
         <View>
-            <TextInput value={title} onChangeText={(text) => console.log(text)} />
-            <TextInput value={description} onChangeText={(text) => console.log(text)} />
-        </View>
-    );
-};
+            <TextInput
+                placeholder="Title"
+                value={title}
+                onChangeText={setTitle}
+            />
+            <TextInput
+                placeholder="Description"
+                value={description}
+                onChangeText={setDescription}
+            />
+            <Button title="Submit" onPress={handleSubmit} />
 
-export default ChildComponent;
+

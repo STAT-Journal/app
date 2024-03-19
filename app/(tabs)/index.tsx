@@ -5,6 +5,10 @@ import { Text, View } from '@/components/Themed';
 import CalendarEvents from '@/components/CalendarEvents';
 import React from 'react';
 
+
+import CalendarEvents from '@/components/CalendarEvents';
+import React from 'react';
+
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>

@@ -44,14 +44,17 @@ const EntryList: React.FC<Props> = () => {
 
 
     return (
+        <>
         <ScrollView style={styles.container}>
             {entries.map((child, index) => (
                 <IndividualEntry index={index} id={child.id} title={child.title} description={child.description} refresh={reloadEntries} />
             ))}
             
-            <TextEntry onSubmit={addNewEntry} refresh={reloadEntries}/>
+            
 
         </ScrollView>
+        <TextEntry onSubmit={addNewEntry} refresh={reloadEntries}/>
+        </>
     );
 };
 

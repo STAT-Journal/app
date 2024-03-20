@@ -34,14 +34,20 @@ const CalendarEvents: React.FC = () => {
         const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
 
         // Fetch events for today
-        const fetchedEvents = await Calendar.getEventsAsync(
-          calendarIds,
-          startDate,
-          endDate
-        );
+        try{
+          const fetchedEvents = await Calendar.getEventsAsync(
+            calendarIds,
+            startDate,
+            endDate
+          );
+          setEvents(fetchedEvents as Event[]);
+        }
+        catch(e){
+          console.log(e);
+        }
+        
 
-        // Set fetched events to state
-        setEvents(fetchedEvents as Event[]); // Asserting the type
+        
       }
     })();
   }, []);

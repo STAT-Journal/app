@@ -1,26 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TextInput, Button, StyleSheet,  } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { FAB } from 'react-native-paper';
 
 interface Props {
     onSubmit: (title:string, description:string) => void;
     refresh: () => void;
+    visible: boolean;
 }
 
-const TextEntry :React.FC<Props> = ({ onSubmit, refresh }) => {
+const TextEntry :React.FC<Props> = ({ onSubmit, refresh, visible }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [open, setOpen] = useState(visible);
 
+    useEffect(() => {
+        setOpen(visible);
+    }, []);
     const handleSubmit = () => {
-        
+        setOpen(false);
         onSubmit(title, description);
         refresh();
     };
 
     return (
         <>
-        <View style={styles.container}>
+    {open && <View style={styles.container} >
         <TextInput
                 placeholder="Title"
                 value={title}
@@ -36,7 +41,7 @@ const TextEntry :React.FC<Props> = ({ onSubmit, refresh }) => {
             />
             
             <Button title="Submit" onPress={handleSubmit}  />
-        </View>
+        </View>}
              
             
             

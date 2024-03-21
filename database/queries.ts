@@ -54,8 +54,6 @@ export const addEntryToDB = (title: string, description: string) => new Promise<
             resolve();
             //Print newly added entry's id
             tx.executeSql('select last_insert_rowid()', [], (_, { rows }) => {
-                console.log("acutal ID:");
-                console.log(rows._array[0]['last_insert_rowid()']);
             }, (_, error) => {
                 console.error(error);
                 return true;

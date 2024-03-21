@@ -4,7 +4,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import {Entry} from '@/database/models';
 import { addEntryToDB, getEntries } from '@/database/queries';
 
-import TextEntry from '@/components/Entry/TextEntry';
+import TextEntry from '@/components/Entry/TextEntryModal';
 import IndividualEntry from '@/components/Entry/IndividualEntry';
 import SpeedDial from './SpeedDial';
 
@@ -25,10 +25,7 @@ const EntryList: React.FC<Props> = () => {
           .catch(error => console.error(error));
       }, []);
 
-    const showTextEntry = () => {
-        setTextEntryVisible(true);
-        console.log("Text Entry Visible")
-    }
+    
     const addNewEntry = (title:string, description:string) => {
         addEntryToDB(title, description).then(() => {
             setEntries([...entries, {id: entries.length + 1, title:title, description:description}]);
@@ -46,7 +43,9 @@ const EntryList: React.FC<Props> = () => {
           .catch(error => console.error(error));
     }   
  
-
+    const toggleShowTextEntry = () => {
+        setTextEntryVisible(!textEntryVisible);
+    }
 
     return (
         <>
@@ -58,9 +57,9 @@ const EntryList: React.FC<Props> = () => {
             
 
         </ScrollView>
-        <TextEntry visible={textEntryVisible} refresh={reloadEntries} onSubmit={addNewEntry}/>
+        <TextEntry visible={textEntryVisible} refresh={reloadEntries} onSubmit={addNewEntry} toggleVisibility={toggleShowTextEntry}/>
         <View style={styles.fab}>  
-            <SpeedDial textChosen={showTextEntry}/>
+            <SpeedDial openTextEntry={toggleShowTextEntry}/>
         </View>
         
         </>

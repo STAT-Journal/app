@@ -62,20 +62,27 @@ const CalendarEvents: React.FC = () => {
     const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
 
     // Fetch events for today
-    const fetchedEvents = await Calendar.getEventsAsync(
-      calendarIds,
-      startDate,
-      endDate
-    );
+    try{
+      const fetchedEvents = await Calendar.getEventsAsync(
+        calendarIds,
+        startDate,
+        endDate
+      );
+      if (fetchedEvents.length > 0) {
+        console.log('Events for the Day:', fetchedEvents);
+        setEvents(fetchedEvents as Event[]); // Asserting the type
+      } else {
+        console.log('No events for the Day');
+        setEvents([]);
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+    
 
     // Update state with fetched events or set to empty array if no events
-    if (fetchedEvents.length > 0) {
-      console.log('Events for the Day:', fetchedEvents);
-      setEvents(fetchedEvents as Event[]); // Asserting the type
-    } else {
-      console.log('No events for the Day');
-      setEvents([]);
-    }
+    
   }
 
   // Function to fetch events for the current week

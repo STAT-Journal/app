@@ -4,12 +4,12 @@ import { StyleSheet } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 interface Props {
-    textChosen: () => void;
+    openTextEntry: () => void;
 }
     
 
 
-const SpeedDial: React.FC<Props>= (textChosen) =>{
+const SpeedDial: React.FC<Props>= ({openTextEntry}) =>{
     const [state, setState] = React.useState({ open: false });
 
     const onStateChange = ({ open }: { open: boolean }) => setState({ open });
@@ -40,7 +40,9 @@ const SpeedDial: React.FC<Props>= (textChosen) =>{
             {
                 icon: 'text',
                 label: 'Text',
-                onPress: () => {textChosen}
+                onPress: () => {
+                    openTextEntry();
+                }
             },
           ]}
           onStateChange={onStateChange}
@@ -63,12 +65,12 @@ const styles = StyleSheet.create({
         position: 'absolute',
         margin: 0,
         right: 0,
-        bottom: heightPercentageToDP(-17),
+        bottom: heightPercentageToDP(-10),
         backgroundColor: 'silver',
         
     },
     group: {
-        paddingBottom: heightPercentageToDP(25),
+        paddingBottom: heightPercentageToDP(17),
         paddingRight:widthPercentageToDP(7),
     },
 })

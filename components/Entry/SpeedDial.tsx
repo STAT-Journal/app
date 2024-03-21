@@ -65,9 +65,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         margin: 0,
         right: 0,
-        bottom: heightPercentageToDP(-10),
+        bottom: heightPercentageToDP(-9),
         backgroundColor: 'silver',
-        
+
+        alignContent: 'center',
+        justifyContent: 'center',
     },
     group: {
         paddingBottom: heightPercentageToDP(17),

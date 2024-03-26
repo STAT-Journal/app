@@ -63,6 +63,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="plus-square-o" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="galleryinput"
+        options={{
+          title: 'Gallery',
+          tabBarIcon: ({ color }) => <TabBarIcon name="photo" color={color} />,
+        }}
+        />
     </Tabs>
   );
 }

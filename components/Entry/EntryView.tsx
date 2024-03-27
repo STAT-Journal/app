@@ -4,15 +4,17 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import {Entry} from '@/database/models';
 import { addEntryToDB, getEntries } from '@/database/queries';
 
-import TextEntry from '@/components/Entry/TextEntry';
+import TextEntry from '@/components/Entry/TextEntryModal';
 import IndividualEntry from '@/components/Entry/IndividualEntry';
+import SpeedDial from './SpeedDial';
 
 
 interface Props {}
 
+
 const EntryList: React.FC<Props> = () => {
     const [entries, setEntries] = useState<Entry[]>([]);
-    
+    const [textEntryVisible, setTextEntryVisible] = useState(false);
     //On component mount, get all entries from the database
     useEffect(() => {
         getEntries()
@@ -23,7 +25,7 @@ const EntryList: React.FC<Props> = () => {
           .catch(error => console.error(error));
       }, []);
 
-
+    
     const addNewEntry = (title:string, description:string) => {
         addEntryToDB(title, description).then(() => {
             setEntries([...entries, {id: entries.length + 1, title:title, description:description}]);
@@ -41,19 +43,25 @@ const EntryList: React.FC<Props> = () => {
           .catch(error => console.error(error));
     }   
  
-
+    const toggleShowTextEntry = () => {
+        setTextEntryVisible(!textEntryVisible);
+    }
 
     return (
         <>
         <ScrollView style={styles.container}>
-            {entries.map((child, index) => (
-                <IndividualEntry index={index} id={child.id} title={child.title} description={child.description} refresh={reloadEntries} />
+            {entries.map((child, _) => (
+                <IndividualEntry key={child.id} id={child.id} title={child.title} description={child.description} refresh={reloadEntries} />
             ))}
             
             
 
         </ScrollView>
-        <TextEntry onSubmit={addNewEntry} refresh={reloadEntries}/>
+        <TextEntry visible={textEntryVisible} refresh={reloadEntries} onSubmit={addNewEntry} toggleVisibility={toggleShowTextEntry}/>
+        <View style={styles.fab}>  
+            <SpeedDial openTextEntry={toggleShowTextEntry}/>
+        </View>
+        
         </>
     );
 };
@@ -61,11 +69,15 @@ const EntryList: React.FC<Props> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
+        padding: 10,
         borderWidth: 1,
-        width: wp('80%'),
+        width: wp('90%'),
     },
-
+    fab:{
+        position: 'absolute',
+        bottom: 100,
+        right: 100,
+    },
     title: {
         fontSize: 18,
         fontWeight: 'bold',

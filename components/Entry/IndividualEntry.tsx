@@ -6,14 +6,14 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 interface Props {
     title: string;
     description: string;
-    index: number;
+    
     id: number;
     refresh: () => void;
 }
 
-const IndividualEntry: React.FC<Props> = ({ title, description, index, id , refresh}) => {
+const IndividualEntry: React.FC<Props> = ({ title, description,  id , refresh}) => {
     return (
-        <View key={index} style={styles.IndividualEntry}>
+        <View key={id.toString()} style={styles.IndividualEntry}>
             <Text style={styles.title}>{title}</Text>
                 <View style={styles.deleteButton}>
                     <Pressable onPress={() => 

@@ -4,7 +4,7 @@ import { Text, View } from '@/components/Themed';
 import CalendarEvents from '@/components/CalendarEvents';
 import React from 'react';
 
-export default function TabOneScreen() {
+export default function CalendarScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>

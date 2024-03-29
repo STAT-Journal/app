@@ -36,7 +36,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="entry"
+        name="index"
         options={{
           title: 'Text Entry',
           tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="plus-square-o" color={color} />,

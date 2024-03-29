@@ -5,7 +5,7 @@ import EntryList from '@/components/Entry/EntryView';
 
 
 
-export default function TabThreeScreen() {
+export default function EntryScreen() {
      
     
     return (

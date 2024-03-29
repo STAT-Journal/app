@@ -1,4 +1,4 @@
-import React = require('react');
+import * as React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link, Tabs } from 'expo-router';
 import { Pressable } from 'react-native';
@@ -29,23 +29,23 @@ export default function TabLayout() {
         headerShown: useClientOnlyValue(false, true),
       }}>
       <Tabs.Screen
-        name="index"
+        name="calendar"
         options={{
           title: 'Justin Calendar',
           tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="calendar" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="three"
+        name="entry"
         options={{
-          title: 'Text Entry  ',
+          title: 'Text Entry',
           tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="plus-square-o" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="debug"
         options={{
-          title: 'Dev Screen',
+          title: 'Debug',
           tabBarIcon: ({ color }: { color: string }) => <TabBarIcon name="bug" color={color} />,
         }}
       />

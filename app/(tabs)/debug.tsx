@@ -1,13 +1,12 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import EntryList from "@/components/Entry/EntryView";
-import { View } from "@/components/Themed";
+import { Text, View } from "@/components/Themed";
 
-export default function EntryScreen() {
+export default function DebugScreen() {
   return (
     <View style={styles.container}>
-      <EntryList />
+      <Text style={styles.title}>Debug</Text>
     </View>
   );
 }
@@ -17,8 +16,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "white",
-    padding: 0,
   },
   title: {
     fontSize: 20,

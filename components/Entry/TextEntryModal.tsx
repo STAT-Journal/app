@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Modal, Portal, Text, Button, TextInput } from "react-native-paper";
+import { Modal, Portal, Button, TextInput } from "react-native-paper";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -42,7 +42,7 @@ const TextEntry: React.FC<Props> = ({
       {visible && (
         <>
           <Portal>
-            <Modal visible={visible} onDismiss={hideModal}>
+            <Modal visible={open} onDismiss={hideModal}>
               <View style={styles.container}>
                 <TextInput
                   placeholder="Title"

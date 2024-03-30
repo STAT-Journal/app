@@ -6,8 +6,8 @@ import {
   widthPercentageToDP,
 } from "react-native-responsive-screen";
 
-import { View } from "@/components/Themed";
 import CalendarEvents from "@/components/CalendarEvents";
+import { View } from "@/components/Themed";
 
 export default function DebugScreen() {
   const [visible, setVisible] = React.useState(true);

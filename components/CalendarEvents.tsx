@@ -36,12 +36,6 @@ const CalendarEvents: React.FC = () => {
           today.getFullYear(),
           today.getMonth(),
           today.getDate(),
-
-
-
-
-
-          
         );
         const endDate = new Date(
           today.getFullYear(),

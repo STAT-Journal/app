@@ -29,11 +29,11 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="calendar"
+        name="feed"
         options={{
-          title: "Justin Calendar",
+          title: "Feed",
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabBarIcon name="calendar" color={color} />
+            <TabBarIcon name="feed" color={color} />
           ),
         }}
       />

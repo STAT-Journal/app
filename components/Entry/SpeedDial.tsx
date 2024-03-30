@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { FAB, Portal } from "react-native-paper";
@@ -16,12 +17,12 @@ const SpeedDial: React.FC<Props> = ({ openTextEntry }) => {
   const onStateChange = ({ open }: { open: boolean }) => setState({ open });
 
   const { open } = state;
-
+  const isFocused = useIsFocused();
   return (
     <Portal>
       <FAB.Group
         open={open}
-        visible
+        visible={isFocused}
         fabStyle={styles.fab}
         style={styles.group}
         icon={open ? "notebook-outline" : "plus"}
@@ -60,12 +61,11 @@ export default SpeedDial;
 
 const styles = StyleSheet.create({
   fab: {
-    position: "absolute",
+    position: "relative",
     margin: 0,
     right: 0,
     bottom: heightPercentageToDP(-9),
     backgroundColor: "silver",
-
     alignContent: "center",
     justifyContent: "center",
   },

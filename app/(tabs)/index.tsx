@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
-import EntryList from "@/components/Entry/EntryView";
+import EntryView from "@/components/Entry/EntryView";
 import { View } from "@/components/Themed";
 
 export default function EntryScreen() {
   return (
     <View style={styles.container}>
-      <EntryList />
+      <EntryView />
     </View>
   );
 }

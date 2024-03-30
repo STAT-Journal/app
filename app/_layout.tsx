@@ -65,8 +65,6 @@ function RootLayoutNav() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: "tomato",
-      secondary: "yellow",
     },
   };
   return (

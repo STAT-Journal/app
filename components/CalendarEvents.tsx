@@ -60,9 +60,13 @@ const CalendarEvents: React.FC = () => {
 
   // Function to fetch events for the current day for the getEventsAsync
   async function handleGetEventsForDay() {
-    const calendars = await Calendar.getCalendarsAsync(
-      Calendar.EntityTypes.EVENT,
-    );
+    let calendars;
+    try {
+      calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    } catch (e) {
+      console.log(e);
+      return;
+    }
     const calendarIds = calendars.map((calendar) => calendar.id);
 
     const today = new Date();
@@ -79,17 +83,19 @@ const CalendarEvents: React.FC = () => {
 
     // Fetch events for today
     try {
-      const fetchedEvents = await Calendar.getEventsAsync(
-        calendarIds,
-        startDate,
-        endDate,
-      );
-      if (fetchedEvents.length > 0) {
-        console.log("Events for the Day:", fetchedEvents);
-        setEvents(fetchedEvents as Event[]); // Asserting the type
-      } else {
-        console.log("No events for the Day");
-        setEvents([]);
+      if (calendarIds.length > 0) {
+        const fetchedEvents = await Calendar.getEventsAsync(
+          calendarIds,
+          startDate,
+          endDate,
+        );
+        if (fetchedEvents.length > 0) {
+          console.log("Events for the Day:", fetchedEvents);
+          setEvents(fetchedEvents as Event[]); //Asserting the type
+        } else {
+          console.log("No events for the Day");
+          setEvents([]);
+        }
       }
     } catch (e) {
       console.log(e);
@@ -104,33 +110,36 @@ const CalendarEvents: React.FC = () => {
       Calendar.EntityTypes.EVENT,
     );
     const calendarIds = calendars.map((calendar) => calendar.id);
-
-    const today = new Date();
-    const startDate = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate(),
-    );
-    const endDate = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate() + 7,
-    );
-
-    // Fetch events for the week
-    const fetchedEvents = await Calendar.getEventsAsync(
-      calendarIds,
-      startDate,
-      endDate,
-    );
-
-    // Update state with fetched events or set to empty array if no events
-    if (fetchedEvents.length > 0) {
-      console.log("Events for Week:", fetchedEvents);
-      setEvents(fetchedEvents as Event[]); // Asserting the type
+    if (calendarIds.length === 0) {
+      console.log("No calendars found");
     } else {
-      console.log("No events for the Week");
-      setEvents([]);
+      const today = new Date();
+      const startDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+      );
+      const endDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() + 7,
+      );
+
+      // Fetch events for the week
+      const fetchedEvents = await Calendar.getEventsAsync(
+        calendarIds,
+        startDate,
+        endDate,
+      );
+
+      // Update state with fetched events or set to empty array if no events
+      if (fetchedEvents.length > 0) {
+        console.log("Events for Week:", fetchedEvents);
+        setEvents(fetchedEvents as Event[]); // Asserting the type
+      } else {
+        console.log("No events for the Week");
+        setEvents([]);
+      }
     }
   }
 
@@ -143,8 +152,8 @@ const CalendarEvents: React.FC = () => {
         <Button title="Get Events for Week" onPress={handleGetEventsForWeek} />
       </View>
       {/* Display fetched events */}
-      <Text style={styles.eventsTitle}>Events:</Text>
       <View style={styles.eventsContainer}>
+        <Text style={styles.eventsTitle}>Events: </Text>
         {events.map((event) => (
           <Text key={event.id} style={styles.eventText}>
             {event.title} - {event.startDate.toString()}
@@ -168,6 +177,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   buttonContainer: {
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
     width: "100%",
@@ -176,11 +186,11 @@ const styles = StyleSheet.create({
   eventsTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    marginTop: 10,
+    marginBottom: 10,
   },
   eventsContainer: {
-    marginTop: 10,
     alignItems: "center",
+    flexDirection: "row",
   },
   eventText: {
     fontSize: 16,
@@ -189,6 +199,8 @@ const styles = StyleSheet.create({
   noEventsText: {
     fontSize: 16,
     fontStyle: "italic",
+    marginBottom: 5,
+
   },
 });
 

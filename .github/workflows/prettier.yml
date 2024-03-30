@@ -39,3 +39,10 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.pull_request.number }}
+
+      - name: Run Prettier but write changes
+        run: npx prettier --write **/*.tsx 
+
+      - uses: parkerbxyz/suggest-changes@v1
+        with:
+          comment: 'Please commit the suggested changes from markdownlint.'

@@ -49,4 +49,4 @@ jobs:
       - uses: parkerbxyz/suggest-changes@v1
         if: always()
         with:
-          comment: 'Please commit the suggested changes from markdownlint.'
+          comment: 'Please commit the suggested changes from prettier :p.'

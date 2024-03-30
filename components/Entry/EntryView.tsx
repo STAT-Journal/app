@@ -14,7 +14,7 @@ import { addEntryToDB, getEntries } from "@/database/queries";
 
 interface Props {}
 
-const EntryList: React.FC<Props> = () => {
+const EntryView: React.FC<Props> = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [textEntryVisible, setTextEntryVisible] = useState(false);
   //On component mount, get all entries from the database
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     width: wp("90%"),
   },
   fab: {
-    position: "absolute",
     bottom: 100,
     right: 100,
   },
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
     zIndex: 10,
     marginBottom: 36,
     alignSelf: "center",
-
     width: "80%",
     borderWidth: 1,
   },
@@ -102,4 +100,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EntryList;
+export default EntryView;

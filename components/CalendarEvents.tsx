@@ -200,7 +200,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontStyle: "italic",
     marginBottom: 5,
-
   },
 });
 

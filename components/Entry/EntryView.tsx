@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import { Text, View, ScrollView, StyleSheet } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -54,6 +54,11 @@ const EntryView: React.FC<Props> = () => {
             refresh={reloadEntries}
           />
         ))}
+        {entries.length === 0 && (
+          <View style={styles.fill}>
+            <Text>No Journal Entries 🧐 </Text>
+          </View>
+        )}
         <View style={{ height: 15 }} />
       </ScrollView>
       <TextEntry

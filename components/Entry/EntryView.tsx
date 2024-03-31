@@ -9,35 +9,33 @@ import SpeedDial from "./SpeedDial";
 
 import IndividualEntry from "@/components/Entry/IndividualEntry";
 import TextEntry from "@/components/Entry/TextEntryModal";
-import { Entry } from "@/database/models";
 import { addEntryToDB, getEntries } from "@/database/queries";
+import { SelectUser } from "@/database/schema";
 
 interface Props {}
 
 const EntryView: React.FC<Props> = () => {
-  const [entries, setEntries] = useState<Entry[]>([]);
-  const [textEntryVisible, setTextEntryVisible] = useState(false);
+  const [entries, setEntries] = useState<SelectUser[]>([]);
+  const [textEntryVisible, setTextEntryVisible] = useState<boolean>(false);
   //On component mount, get all entries from the database
   useEffect(() => {
-    getEntries()
-      .then((data: Entry[]) => {
-        setEntries(data);
-      })
-      .catch((error) => console.error(error));
+    reloadEntries();
   }, []);
 
-  const addNewEntry = (title: string, description: string) => {
-    addEntryToDB(title, description).then(() => {
-      setEntries([...entries, { id: entries.length + 1, title, description }]);
-    });
+  const addNewEntry = async (title: string, description: string) => {
+    try {
+      const result = await addEntryToDB(title, description);
+      // Handle the result here
+      setEntries([...entries, { id: result[0].id, title, description }]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const reloadEntries = () => {
-    getEntries()
-      .then((data: Entry[]) => {
-        setEntries(data);
-      })
-      .catch((error) => console.error(error));
+  const reloadEntries = async () => {
+    const result = await getEntries();
+    console.log(result);
+    setEntries(result);
   };
 
   const toggleShowTextEntry = () => {
@@ -56,6 +54,7 @@ const EntryView: React.FC<Props> = () => {
             refresh={reloadEntries}
           />
         ))}
+        <View style={{ height: 15 }} />
       </ScrollView>
       <TextEntry
         visible={textEntryVisible}

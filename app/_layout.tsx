@@ -9,8 +9,6 @@ import {
   PaperProvider,
 } from "react-native-paper";
 
-import { initDB } from "@/database/queries";
-
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -25,18 +23,6 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  React.useEffect(() => {
-    initDB()
-      .then(() => console.log("Database created successfully"))
-      .catch((error: any) =>
-        console.error("Database initialization error: ", error),
-      );
-
-    //addFakeEntries()
-    //.then(() => console.log('Database initialized with fake entries'))
-    //.catch((error: any) => console.error('Database initialization error: ', error));
-  }, []);
-
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,

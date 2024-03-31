@@ -30,6 +30,8 @@ const TextEntry: React.FC<Props> = ({
   const handleSubmit = () => {
     toggleVisibility();
     onSubmit(title, description);
+    setDescription("");
+    setTitle("");
     refresh();
   };
 

@@ -35,6 +35,7 @@ jobs:
         
       - name: Add comment
         run: gh issue comment "$NUMBER" --body "$PRETTIER"
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
@@ -43,6 +44,10 @@ jobs:
       - name: Run Prettier but write changes
         run: npx prettier --write **/*.tsx 
 
+        if: always()
+        
+
       - uses: parkerbxyz/suggest-changes@v1
+        if: always()
         with:
-          comment: 'Please commit the suggested changes from markdownlint.'
+          comment: 'Please commit the suggested changes from prettier :p.'

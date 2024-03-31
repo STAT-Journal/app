@@ -17,6 +17,7 @@ interface Props {}
 const EntryView: React.FC<Props> = () => {
   const [entries, setEntries] = useState<SelectUser[]>([]);
   const [textEntryVisible, setTextEntryVisible] = useState<boolean>(false);
+
   //On component mount, get all entries from the database
   useEffect(() => {
     reloadEntries();

@@ -43,6 +43,7 @@ jobs:
 
       - name: Run Prettier but write changes
         run: npx prettier --write **/*.tsx 
+
         if: always()
         
 

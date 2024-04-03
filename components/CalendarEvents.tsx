@@ -1,12 +1,12 @@
 //FILE : CalendarEvents.tsx
 //PROJECT : Capstone
-//PROGRAMMER : Justin Langevin 
+//PROGRAMMER : Justin Langevin
 //FIRST VERSION : 03/17/2024
 //DESCRIPTION : This File is used to get callendar events for the current day or the week
 //
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import * as Calendar from 'expo-calendar';
+import * as Calendar from "expo-calendar";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, Button } from "react-native";
 
 interface Event {
   id: string;
@@ -23,78 +23,123 @@ const CalendarEvents: React.FC = () => {
     (async () => {
       // Request calendar permissions
       const { status } = await Calendar.requestCalendarPermissionsAsync();
-      if (status === 'granted') {
+      if (status === "granted") {
         // Get all calendars
-        const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-        const calendarIds = calendars.map(calendar => calendar.id);
+        const calendars = await Calendar.getCalendarsAsync(
+          Calendar.EntityTypes.EVENT,
+        );
+        const calendarIds = calendars.map((calendar) => calendar.id);
 
-        // Create start and end date for today for the getEventsAsync 
+        // Create start and end date for today for the getEventsAsync
         const today = new Date();
-        const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-
-        // Fetch events for today
-        const fetchedEvents = await Calendar.getEventsAsync(
-          calendarIds,
-          startDate,
-          endDate
+        const startDate = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate(),
+        );
+        const endDate = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() + 1,
         );
 
-        // Set fetched events to state
-        setEvents(fetchedEvents as Event[]); // Asserting the type
+        // Fetch events for today
+        try {
+          const fetchedEvents = await Calendar.getEventsAsync(
+            calendarIds,
+            startDate,
+            endDate,
+          );
+          setEvents(fetchedEvents as Event[]);
+        } catch (e) {
+          console.log(e);
+        }
       }
     })();
   }, []);
 
-  // Function to fetch events for the current day for the getEventsAsync 
+  // Function to fetch events for the current day for the getEventsAsync
   async function handleGetEventsForDay() {
-    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-    const calendarIds = calendars.map(calendar => calendar.id);
+    let calendars;
+    try {
+      calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
+    } catch (e) {
+      console.log(e);
+      return;
+    }
+    const calendarIds = calendars.map((calendar) => calendar.id);
 
     const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-
-    // Fetch events for today
-    const fetchedEvents = await Calendar.getEventsAsync(
-      calendarIds,
-      startDate,
-      endDate
+    const startDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate(),
+    );
+    const endDate = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() + 1,
     );
 
-    // Update state with fetched events or set to empty array if no events
-    if (fetchedEvents.length > 0) {
-      console.log('Events for the Day:', fetchedEvents);
-      setEvents(fetchedEvents as Event[]); // Asserting the type
-    } else {
-      console.log('No events for the Day');
-      setEvents([]);
+    // Fetch events for today
+    try {
+      if (calendarIds.length > 0) {
+        const fetchedEvents = await Calendar.getEventsAsync(
+          calendarIds,
+          startDate,
+          endDate,
+        );
+        if (fetchedEvents.length > 0) {
+          console.log("Events for the Day:", fetchedEvents);
+          setEvents(fetchedEvents as Event[]); //Asserting the type
+        } else {
+          console.log("No events for the Day");
+          setEvents([]);
+        }
+      }
+    } catch (e) {
+      console.log(e);
     }
+
+    // Update state with fetched events or set to empty array if no events
   }
 
   // Function to fetch events for the current week
   async function handleGetEventsForWeek() {
-    const calendars = await Calendar.getCalendarsAsync(Calendar.EntityTypes.EVENT);
-    const calendarIds = calendars.map(calendar => calendar.id);
-
-    const today = new Date();
-    const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    const endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 7);
-
-    // Fetch events for the week
-    const fetchedEvents = await Calendar.getEventsAsync(
-      calendarIds,
-      startDate,
-      endDate
+    const calendars = await Calendar.getCalendarsAsync(
+      Calendar.EntityTypes.EVENT,
     );
-
-    // Update state with fetched events or set to empty array if no events
-    if (fetchedEvents.length > 0) {
-      console.log('Events for Week:', fetchedEvents);
-      setEvents(fetchedEvents as Event[]); // Asserting the type
+    const calendarIds = calendars.map((calendar) => calendar.id);
+    if (calendarIds.length === 0) {
+      console.log("No calendars found");
     } else {
-      console.log('No events for the Week');
-      setEvents([]);
+      const today = new Date();
+      const startDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+      );
+      const endDate = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate() + 7,
+      );
+
+      // Fetch events for the week
+      const fetchedEvents = await Calendar.getEventsAsync(
+        calendarIds,
+        startDate,
+        endDate,
+      );
+
+      // Update state with fetched events or set to empty array if no events
+      if (fetchedEvents.length > 0) {
+        console.log("Events for Week:", fetchedEvents);
+        setEvents(fetchedEvents as Event[]); // Asserting the type
+      } else {
+        console.log("No events for the Week");
+        setEvents([]);
+      }
     }
   }
 
@@ -107,9 +152,9 @@ const CalendarEvents: React.FC = () => {
         <Button title="Get Events for Week" onPress={handleGetEventsForWeek} />
       </View>
       {/* Display fetched events */}
-      <Text style={styles.eventsTitle}>Events:</Text>
       <View style={styles.eventsContainer}>
-        {events.map(event => (
+        <Text style={styles.eventsTitle}>Events: </Text>
+        {events.map((event) => (
           <Text key={event.id} style={styles.eventText}>
             {event.title} - {event.startDate.toString()}
           </Text>
@@ -127,24 +172,25 @@ const CalendarEvents: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-around',
+    padding: 10,
+    alignItems: "center",
+    justifyContent: "space-around",
   },
   buttonContainer: {
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '100%',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    width: "100%",
     marginBottom: 20,
   },
   eventsTitle: {
     fontSize: 20,
-    fontWeight: 'bold',
-    marginTop: 10,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   eventsContainer: {
-    marginTop: 10,
-    alignItems: 'center',
+    alignItems: "center",
+    flexDirection: "row",
   },
   eventText: {
     fontSize: 16,
@@ -152,7 +198,8 @@ const styles = StyleSheet.create({
   },
   noEventsText: {
     fontSize: 16,
-    fontStyle: 'italic',
+    fontStyle: "italic",
+    marginBottom: 5,
   },
 });
 

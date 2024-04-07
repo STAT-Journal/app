@@ -8,6 +8,7 @@ import {
 
 import CalendarEvents from "@/components/CalendarEvents";
 import { View } from "@/components/Themed";
+import ImageCapture from "@/components/Entry/ImageCapture";
 
 export default function DebugScreen() {
   const [visible, setVisible] = React.useState(true);
@@ -44,9 +45,9 @@ export default function DebugScreen() {
         }
       >
         <Menu.Item onPress={() => {}} title="Item 1" />
-        <Menu.Item onPress={() => {}} title="Item 2" />
+        <ImageCapture />
         <Divider />
-        <Menu.Item onPress={() => {}} title="Item 3" />
+
         <CalendarEvents />
       </Menu>
     </View>

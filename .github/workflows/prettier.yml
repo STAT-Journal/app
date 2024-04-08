@@ -27,9 +27,9 @@ jobs:
         id: prettier
         run: |
           {
-            echo "PRETTIER<<EOF"
+            echo 'PRETTIER<<EOF'
             npx prettier --check **/*.tsx 
-            echo "EOF"
+            echo EOF
           } >> "$GITHUB_ENV"
         
         

@@ -44,7 +44,5 @@ jobs:
         
 
       - uses: parkerbxyz/suggest-changes@v1
-        # Only run there are changes
-        if: env.prettier_exit == '1'
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

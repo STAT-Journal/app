@@ -27,14 +27,12 @@ jobs:
         id: prettier
         run: |
           {
-            echo "PRETTIER<<STAT_PRETTIER_EOF"
             npx prettier --check **/*.tsx 
-            echo "STAT_PRETTIER_EOF"
-          } >> "$GITHUB_ENV"
+          } > prettier.txt
         
         
       - name: Add comment
-        run: gh issue comment "$NUMBER" --body "$PRETTIER"
+        run: gh issue comment "$NUMBER" --body $(cat prettier.txt)
         if: ${{ steps.prettier.outputs.exit_code != '2' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

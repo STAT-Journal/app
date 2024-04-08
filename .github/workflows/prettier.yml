@@ -43,7 +43,7 @@ jobs:
         id: prettier-write
         if: always()
 
-      - uses: parkerbxyz/suggest-changes@v1
+      - uses: parkerbxyz/suggest-changes@c35d8ba468a10051e523f4382e5706beac22fd33
         if: ${{ steps.prettier-write.outcome == 'success' && failure() }}
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

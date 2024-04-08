@@ -46,6 +46,6 @@ jobs:
 
       - uses: parkerbxyz/suggest-changes@v1
         # Only run there are changes
-        if: ${{ steps.prettier.outputs.exit_code == '1' }}
+        if: steps.prettier.outputs.PRETTIER.exitCode != 2 && steps.prettier.outputs.PRETTIER.exitCode != 0
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

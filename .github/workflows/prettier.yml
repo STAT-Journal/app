@@ -27,16 +27,15 @@ jobs:
         id: prettier
         run: |
           {
-            echo 'PRETTIER<<STAT_PRETTIER_EOF'
+            echo "PRETTIER<<STAT_PRETTIER_EOF"
             npx prettier --check **/*.tsx 
-            printf \n
-            echo STAT_PRETTIER_EOF
+            echo "STAT_PRETTIER_EOF"
           } >> "$GITHUB_ENV"
         
         
       - name: Add comment
         run: gh issue comment "$NUMBER" --body "$PRETTIER"
-        if: always()
+        if: ${{ steps.prettier.outputs.exit_code != '2' }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}

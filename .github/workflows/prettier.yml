@@ -38,12 +38,13 @@ jobs:
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.pull_request.number }}
 
-      - name: Run Prettier but write changes
-        run: npx prettier --write **/*.tsx 
-        id: prettier-write
-        if: always()
+      # DOES NOT WORK 2024-04-08
+      # - name: Run Prettier but write changes
+      #   run: npx prettier --write **/*.tsx 
+      #   id: prettier-write
+      #   if: always()
 
-      - uses: parkerbxyz/suggest-changes@v1.0.3
-        if: ${{ steps.prettier-write.outcome == 'success' && failure() }}
-        with:
-          comment: 'Please commit the suggested changes from prettier :p.'
+      # - uses: parkerbxyz/suggest-changes@v1.0.3
+      #   if: ${{ steps.prettier-write.outcome == 'success' && failure() }}
+      #   with:
+      #     comment: 'Please commit the suggested changes from prettier :p.'

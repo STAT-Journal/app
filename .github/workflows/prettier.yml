@@ -44,6 +44,6 @@ jobs:
         if: always()
 
       - uses: parkerbxyz/suggest-changes@v1
-        if: ${{ steps.prettier-write.outcome == 'success' }}
+        if: ${{ steps.prettier-write.outcome == 'success' && failure() }}
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

@@ -35,7 +35,7 @@ jobs:
         
       - name: Add comment
         run: gh issue comment "$NUMBER" --body "$PRETTIER"
-        if: always()
+        if: steps.prettier.outputs.PRETTIER.exitCode != 2
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
@@ -47,6 +47,6 @@ jobs:
         
 
       - uses: parkerbxyz/suggest-changes@v1
-        if: always()
+        if: steps.prettier.outputs.PRETTIER.exitCode != 2
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

@@ -43,11 +43,11 @@ jobs:
 
       - name: Run Prettier but write changes
         run: npx prettier --write **/*.tsx 
-
         if: always()
         
 
       - uses: parkerbxyz/suggest-changes@v1
-        if: always()
+        # Only run there are changes
+        if: ${{ steps.prettier.outputs.exit_code == '1' }}
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

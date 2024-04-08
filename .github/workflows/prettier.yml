@@ -28,12 +28,13 @@ jobs:
         run: |
           {
             npx prettier --check **/*.tsx 
+            echo "prettier_exit=$?" >> "$GITHUB_OUTPUT"
           } > prettier.txt
         
         
       - name: Add comment
         run: gh issue comment "$NUMBER" --body $(cat prettier.txt)
-        if: ${{ steps.prettier.outputs.exit_code != '2' }}
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
@@ -46,6 +47,6 @@ jobs:
 
       - uses: parkerbxyz/suggest-changes@v1
         # Only run there are changes
-        if: steps.prettier.outputs.PRETTIER.exitCode != 2 && steps.prettier.outputs.PRETTIER.exitCode != 0
+        if: ${{ steps.prettier.outputs.prettier_exit == '1' }}
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

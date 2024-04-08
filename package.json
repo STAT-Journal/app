@@ -19,6 +19,7 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
     "@react-navigation/native": "^6.0.2",
+    "@types/react-native-swiper": "^1.5.12",
     "babel-plugin-inline-import": "^3.0.0",
     "drizzle-orm": "^0.30.6",
     "expo": "^50.0.13",
@@ -38,6 +39,7 @@
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^4.8.2",
     "react-native-screens": "~3.29.0",
+    "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.6"
   },

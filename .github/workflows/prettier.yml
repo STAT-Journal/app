@@ -40,9 +40,10 @@ jobs:
 
       - name: Run Prettier but write changes
         run: npx prettier --write **/*.tsx 
+        id: prettier-write
         if: always()
-        
 
       - uses: parkerbxyz/suggest-changes@v1
+        if: steps.prettier-write.conclusion == 'success'
         with:
           comment: 'Please commit the suggested changes from prettier :p.'

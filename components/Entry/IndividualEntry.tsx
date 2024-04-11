@@ -23,15 +23,10 @@ const IndividualEntry: React.FC<Props> = ({
       <Text style={styles.title}>{title}</Text>
       <View style={styles.deleteButton}>
         <Pressable
-          onPress={() =>
-            removeEntryFromDB("id", id)
-              .then(() => {
-                refresh();
-              })
-              .catch((error) => {
-                console.error(error);
-              })
-          }
+          onPress={() => {
+            removeEntryFromDB(id);
+            refresh();
+          }}
         >
           <FontAwesome
             name="remove"

@@ -10,12 +10,12 @@ import SpeedDial from "./SpeedDial";
 import IndividualEntry from "@/components/Entry/IndividualEntry";
 import TextEntry from "@/components/Entry/TextEntryModal";
 import { addEntryToDB, getEntries } from "@/database/queries";
-import { SelectUser } from "@/database/schema";
+import { SelectEntry, InsertEntry } from "@/database/schema";
 
 interface Props {}
 
 const EntryView: React.FC<Props> = () => {
-  const [entries, setEntries] = useState<SelectUser[]>([]);
+  const [entries, setEntries] = useState<SelectEntry[]>([]);
   const [textEntryVisible, setTextEntryVisible] = useState<boolean>(false);
 
   //On component mount, get all entries from the database
@@ -23,11 +23,12 @@ const EntryView: React.FC<Props> = () => {
     reloadEntries();
   }, []);
 
-  const addNewEntry = async (title: string, description: string) => {
+  const addNewEntry = async (newEntry: InsertEntry) => {
     try {
-      const result = await addEntryToDB(title, description);
+      const confirmedEntry = await addEntryToDB(newEntry);
+
       // Handle the result here
-      setEntries([...entries, { id: result[0].id, title, description }]);
+      setEntries([...entries, confirmedEntry[0]]);
     } catch (error) {
       console.error(error);
     }

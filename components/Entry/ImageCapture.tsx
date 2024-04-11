@@ -1,12 +1,29 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Camera, CameraType } from "expo-camera";
 import React, { useRef, useState } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  ScrollView,
+  TouchableWithoutFeedback,
+  Modal,
+} from "react-native";
+import { Divider } from "react-native-paper";
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from "react-native-responsive-screen";
 
 export default function ImageCapture() {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
-  const [imageLocation, setImageLocation] = useState<string | null>(null);
+  const [isFullPreviewVisible, setIsFullPreviewVisible] = useState(false);
+  const [fullPreviewUri, setFullPreviewUri] = useState("");
+  const [imageUris, setImageUris] = useState<string[]>([]); // Store image URIs
   const cameraRef = useRef(null);
 
   if (!permission) {
@@ -25,7 +42,6 @@ export default function ImageCapture() {
       </View>
     );
   }
-
   function toggleCameraType() {
     setType((current) =>
       current === CameraType.back ? CameraType.front : CameraType.back,
@@ -35,11 +51,17 @@ export default function ImageCapture() {
   async function captureImage() {
     if (cameraRef.current) {
       const options = { quality: 0.5, base64: true, skipProcessing: true };
-      const data = await cameraRef.current.takePictureAsync(options);
-      setImageLocation(data.uri); // For now, we'll just log the image URI. You can handle it as needed.
+      const data = await (cameraRef.current as Camera).takePictureAsync(
+        options,
+      );
+      setImageUris((currentUris) => [...currentUris, data.uri]); // Append the new image URI
+      console.log(data.uri);
     }
   }
-
+  function handlePreviewTap(uri) {
+    setFullPreviewUri(uri);
+    setIsFullPreviewVisible(true);
+  }
   return (
     <>
       <View style={styles.container}>
@@ -61,11 +83,30 @@ export default function ImageCapture() {
           </View>
         </Camera>
       </View>
-      {imageLocation && (
-        <>
-          <Text style={{ color: "black" }}> Image Location: </Text>
-          <Text style={{ color: "black" }}> {imageLocation}</Text>
-        </>
+      <Divider />
+      <ScrollView
+        style={styles.previewContainer}
+        contentContainerStyle={styles.previewContentContainer}
+        horizontal
+      >
+        {imageUris.map((uri, index) => (
+          <TouchableOpacity key={index} onPress={() => handlePreviewTap(uri)}>
+            <Image source={{ uri }} style={styles.previewImage} />
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+      {isFullPreviewVisible && (
+        <Modal
+          visible={isFullPreviewVisible}
+          transparent
+          onRequestClose={() => setIsFullPreviewVisible(false)}
+        >
+          <TouchableWithoutFeedback onPress={() => setIsFullPreviewVisible(false)}>
+            <View style={styles.fullSizePreviewContainer}>
+              <Image source={{ uri: fullPreviewUri }} style={styles.fullSizePreviewImage} />
+            </View>
+          </TouchableWithoutFeedback>
+        </Modal>
       )}
     </>
   );
@@ -77,6 +118,7 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
+    justifyContent: "space-between",
   },
   buttonContainer: {
     flex: 1,
@@ -93,9 +135,28 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: 30,
   },
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
+  previewContainer: {
+    maxHeight: 78, // Adjust as needed
+  },
+  previewContentContainer: {
+    // Now this controls the layout of the ScrollView's children
+    alignItems: "center", // Ensure items are centered vertically in the container
+    padding: 4, // Adjust padding as needed
+  },
+  previewImage: {
+    width: 70,
+    height: 70,
+    margin: 4,
+  },
+  fullSizePreviewContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent background
+  },
+  fullSizePreviewImage: {
+    width: '100%', // Full width
+    height: '100%', // Full height
+    resizeMode: 'contain', // Ensure the image fits well
   },
 });

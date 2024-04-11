@@ -9,12 +9,15 @@ import {
 import { View } from "@/components/Themed";
 import CalendarEvents from "@/components/CalendarEvents";
 import ImageCapture from "@/components/Entry/ImageCapture";
+import ImageGallery from "@/components/Entry/ImageGallery";
 
 export default function DebugScreen() {
 
 
   return (
     <View style={styles.container}>
+      <ImageGallery />
+      <Divider />
       <ImageCapture />
       <Divider />
       <CalendarEvents />

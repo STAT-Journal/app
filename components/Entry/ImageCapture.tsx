@@ -13,10 +13,6 @@ import {
   Modal,
 } from "react-native";
 import { Divider } from "react-native-paper";
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from "react-native-responsive-screen";
 
 export default function ImageCapture() {
   const [type, setType] = useState(CameraType.back);
@@ -101,9 +97,14 @@ export default function ImageCapture() {
           transparent
           onRequestClose={() => setIsFullPreviewVisible(false)}
         >
-          <TouchableWithoutFeedback onPress={() => setIsFullPreviewVisible(false)}>
+          <TouchableWithoutFeedback
+            onPress={() => setIsFullPreviewVisible(false)}
+          >
             <View style={styles.fullSizePreviewContainer}>
-              <Image source={{ uri: fullPreviewUri }} style={styles.fullSizePreviewImage} />
+              <Image
+                source={{ uri: fullPreviewUri }}
+                style={styles.fullSizePreviewImage}
+              />
             </View>
           </TouchableWithoutFeedback>
         </Modal>
@@ -125,7 +126,6 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   swapButton: {
-    flex: 1,
     alignSelf: "flex-start",
     margin: 30,
   },
@@ -150,13 +150,13 @@ const styles = StyleSheet.create({
   },
   fullSizePreviewContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // Semi-transparent background
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(255, 255, 255, 0.7)", // Semi-transparent background
   },
   fullSizePreviewImage: {
-    width: '100%', // Full width
-    height: '100%', // Full height
-    resizeMode: 'contain', // Ensure the image fits well
+    width: "100%", // Full width
+    height: "100%", // Full height
+    resizeMode: "contain", // Ensure the image fits well
   },
 });

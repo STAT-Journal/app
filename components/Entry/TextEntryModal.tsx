@@ -6,8 +6,9 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
+import { InsertEntry } from "@/database/schema";
 interface Props {
-  onSubmit: (title: string, description: string) => void;
+  onSubmit: (newEntry: InsertEntry) => void;
   refresh: () => void;
   visible: boolean;
   toggleVisibility: () => void;
@@ -22,14 +23,15 @@ const TextEntry: React.FC<Props> = ({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [open, setOpen] = useState(visible);
-
   useEffect(() => {
     setOpen(visible);
   }, [visible]);
 
   const handleSubmit = () => {
     toggleVisibility();
-    onSubmit(title, description);
+    const newEntry: InsertEntry = { title, description };
+
+    onSubmit(newEntry);
     setDescription("");
     setTitle("");
     refresh();

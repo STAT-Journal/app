@@ -7,5 +7,5 @@ export const entries = sqliteTable("entries", {
   description: text("description").notNull(),
 });
 
-export type SelectUser = InferSelectModel<typeof entries>;
-export type InsertUser = InferInsertModel<typeof entries>;
+export type SelectEntry = InferSelectModel<typeof entries>;
+export type InsertEntry = InferInsertModel<typeof entries>;

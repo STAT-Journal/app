@@ -3,15 +3,16 @@ import React, { useState } from "react";
 import { Button, Image, ScrollView, StyleSheet, View } from "react-native";
 
 export default function GalleryImagePicker() {
-const [selectedImages, setSelectedImages] = useState<string[]>([]);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
-const pickImage = async () => {
+  const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    const result: ImagePicker.ImagePickerResult = await ImagePicker.launchImageLibraryAsync({
+    const result: ImagePicker.ImagePickerResult =
+      await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsMultipleSelection: true, 
+        allowsMultipleSelection: true,
         quality: 1,
-    });
+      });
 
     if (!result.canceled) {
       setSelectedImages((currentImages) => [
@@ -19,7 +20,7 @@ const pickImage = async () => {
         result.assets[0].uri,
       ]);
     }
-};
+  };
 
   return (
     <View style={styles.container}>
@@ -42,10 +43,11 @@ const styles = StyleSheet.create({
   imagesContainer: {
     flexDirection: "row",
     marginTop: 15,
+    maxHeight: 50,
   },
   image: {
-    width: 100,
-    height: 100,
+    width: 45,
+    height: 45,
     marginRight: 10,
   },
 });

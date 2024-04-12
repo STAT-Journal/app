@@ -55,6 +55,7 @@ export default function ImageCapture() {
       console.log(data.uri);
     }
   }
+
   function handlePreviewTap(uri: React.SetStateAction<string>) {
     setFullPreviewUri(uri);
     setIsFullPreviewVisible(true);
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
     margin: 30,
   },
   previewContainer: {
-    maxHeight: 50, // Adjust as needed
+    maxHeight: 50, 
   },
   previewContentContainer: {
     // Now this controls the layout of the ScrollView's children

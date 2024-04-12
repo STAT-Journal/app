@@ -10,7 +10,9 @@ import { View } from "@/components/Themed";
 import CalendarEvents from "@/components/CalendarEvents";
 import ImageCapture from "@/components/Entry/ImageCapture";
 import ImageGallery from "@/components/Entry/ImageGallery";
+
 import AudioRecorder from "@/components/Entry/AudioCapture";
+
 
 export default function DebugScreen() {
 
@@ -18,6 +20,7 @@ export default function DebugScreen() {
   return (
     <View style={styles.container}>
       <AudioRecorder />
+
       <ImageGallery />
       <Divider />
       <ImageCapture />

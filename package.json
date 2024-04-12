@@ -22,6 +22,7 @@
     "babel-plugin-inline-import": "^3.0.0",
     "drizzle-orm": "^0.30.6",
     "expo": "^50.0.13",
+    "expo-av": "^13.10.5",
     "expo-calendar": "~12.2.1",
     "expo-camera": "^14.1.2",
     "expo-font": "~11.10.3",

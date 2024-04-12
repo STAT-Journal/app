@@ -13,6 +13,7 @@ import {
   Modal,
 } from "react-native";
 import { Divider } from "react-native-paper";
+import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 
 export default function ImageCapture() {
   const [type, setType] = useState(CameraType.back);
@@ -54,7 +55,7 @@ export default function ImageCapture() {
       console.log(data.uri);
     }
   }
-  function handlePreviewTap(uri) {
+  function handlePreviewTap(uri: React.SetStateAction<string>) {
     setFullPreviewUri(uri);
     setIsFullPreviewVisible(true);
   }
@@ -116,6 +117,7 @@ export default function ImageCapture() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    minHeight: heightPercentageToDP("20%"), // Maintain 4:3 aspect ratio
   },
   camera: {
     flex: 1,
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     margin: 30,
   },
   previewContainer: {
-    maxHeight: 78, // Adjust as needed
+    maxHeight: 50, // Adjust as needed
   },
   previewContentContainer: {
     // Now this controls the layout of the ScrollView's children
@@ -144,8 +146,8 @@ const styles = StyleSheet.create({
     padding: 4, // Adjust padding as needed
   },
   previewImage: {
-    width: 70,
-    height: 70,
+    width: 45,
+    height: 45,
     margin: 4,
   },
   fullSizePreviewContainer: {

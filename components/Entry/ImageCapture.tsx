@@ -14,7 +14,7 @@ import {
 import { Divider } from "react-native-paper";
 import { heightPercentageToDP } from "react-native-responsive-screen";
 
-import ImagePreviewScroll from "./ImagePreviewScroll"; // Import the new component
+import ImagePreviewScroll from "./ImagePreviewScroll"; 
 
 export default function ImageCapture() {
   const [type, setType] = useState(CameraType.back);
@@ -55,6 +55,7 @@ export default function ImageCapture() {
       console.log(data.uri);
     }
   }
+
 
   function handlePreviewTap(uri: string) {
     setFullPreviewUri(uri);
@@ -130,6 +131,18 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignSelf: "center",
     margin: 30,
+  },
+  previewContainer: {
+    maxHeight: 50, 
+  },
+  previewContentContainer: {
+    alignItems: "center", 
+    padding: 4, 
+  },
+  previewImage: {
+    width: 45,
+    height: 45,
+    margin: 4,
   },
   fullSizePreviewContainer: {
     flex: 1,

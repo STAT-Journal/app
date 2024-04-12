@@ -1,32 +1,16 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { journalStories } from "@/constants/FakeForYouCardText";
+import { MD3LightTheme } from "react-native-paper";
 
-let lastDisplayedIndex = -1;
+interface ForYouCardProps {
+  story: { title: string; description: string };
+}
 
-const getRandomStory = () => {
-  let randomIndex = Math.floor(Math.random() * journalStories.length);
-
-  // If lastDisplayedIndex exists, ensure the next random story is different
-  if (lastDisplayedIndex !== -1) {
-    randomIndex = (lastDisplayedIndex + 1) % journalStories.length;
-  }
-
-  // Update lastDisplayedIndex for next time
-  lastDisplayedIndex = randomIndex;
-
-  return journalStories[randomIndex];
-};
-
-interface ForYouCardProps {}
-
-const ForYouCard: React.FC<ForYouCardProps> = () => {
-  const { title, description } = getRandomStory();
-
+const ForYouCard: React.FC<ForYouCardProps> = ({ story }) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      <Text style={styles.title}>{story.title}</Text>
+      <Text style={styles.description}>{story.description}</Text>
     </View>
   );
 };
@@ -37,10 +21,10 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
+    backgroundColor: MD3LightTheme.colors.background,
     borderRadius: 10,
     padding: 20,
-    shadowColor: "#000",
+    shadowColor: MD3LightTheme.colors.shadow,
     shadowOffset: {
       width: 0,
       height: 2,

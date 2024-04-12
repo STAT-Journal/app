@@ -8,28 +8,27 @@ import {
   TouchableOpacity,
   View,
   Image,
-  ScrollView,
   TouchableWithoutFeedback,
   Modal,
 } from "react-native";
 import { Divider } from "react-native-paper";
-import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
+import { heightPercentageToDP } from "react-native-responsive-screen";
+
+import ImagePreviewScroll from "./ImagePreviewScroll"; // Import the new component
 
 export default function ImageCapture() {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [isFullPreviewVisible, setIsFullPreviewVisible] = useState(false);
   const [fullPreviewUri, setFullPreviewUri] = useState("");
-  const [imageUris, setImageUris] = useState<string[]>([]); // Store image URIs
+  const [imageUris, setImageUris] = useState<string[]>([]);
   const cameraRef = useRef(null);
 
   if (!permission) {
-    // Camera permissions are still loading
     return <View />;
   }
 
   if (!permission.granted) {
-    // Camera permissions are not granted yet
     return (
       <View style={styles.container}>
         <Text style={{ textAlign: "center" }}>
@@ -39,6 +38,7 @@ export default function ImageCapture() {
       </View>
     );
   }
+
   function toggleCameraType() {
     setType((current) =>
       current === CameraType.back ? CameraType.front : CameraType.back,
@@ -51,15 +51,16 @@ export default function ImageCapture() {
       const data = await (cameraRef.current as Camera).takePictureAsync(
         options,
       );
-      setImageUris((currentUris) => [...currentUris, data.uri]); // Append the new image URI
+      setImageUris((currentUris) => [...currentUris, data.uri]);
       console.log(data.uri);
     }
   }
 
-  function handlePreviewTap(uri: React.SetStateAction<string>) {
+  function handlePreviewTap(uri: string) {
     setFullPreviewUri(uri);
     setIsFullPreviewVisible(true);
   }
+
   return (
     <>
       <View style={styles.container}>
@@ -71,7 +72,6 @@ export default function ImageCapture() {
             >
               <MaterialIcons name="cameraswitch" size={34} color="white" />
             </TouchableOpacity>
-
             <TouchableOpacity
               style={styles.captureButton}
               onPress={captureImage}
@@ -82,17 +82,10 @@ export default function ImageCapture() {
         </Camera>
       </View>
       <Divider />
-      <ScrollView
-        style={styles.previewContainer}
-        contentContainerStyle={styles.previewContentContainer}
-        horizontal
-      >
-        {imageUris.map((uri, index) => (
-          <TouchableOpacity key={index} onPress={() => handlePreviewTap(uri)}>
-            <Image source={{ uri }} style={styles.previewImage} />
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <ImagePreviewScroll
+        imageUris={imageUris}
+        onImagePress={handlePreviewTap}
+      />
       {isFullPreviewVisible && (
         <Modal
           visible={isFullPreviewVisible}
@@ -118,7 +111,7 @@ export default function ImageCapture() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    minHeight: heightPercentageToDP("20%"), // Maintain 4:3 aspect ratio
+    minHeight: heightPercentageToDP("20%"),
   },
   camera: {
     flex: 1,
@@ -138,28 +131,16 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: 30,
   },
-  previewContainer: {
-    maxHeight: 50, 
-  },
-  previewContentContainer: {
-    // Now this controls the layout of the ScrollView's children
-    alignItems: "center", // Ensure items are centered vertically in the container
-    padding: 4, // Adjust padding as needed
-  },
-  previewImage: {
-    width: 45,
-    height: 45,
-    margin: 4,
-  },
   fullSizePreviewContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.7)", // Semi-transparent background
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    minHeight: heightPercentageToDP("100%"),
   },
   fullSizePreviewImage: {
-    width: "100%", // Full width
-    height: "100%", // Full height
-    resizeMode: "contain", // Ensure the image fits well
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
   },
 });

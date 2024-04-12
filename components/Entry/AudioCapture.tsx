@@ -1,5 +1,6 @@
-import { Audio, Recording, PermissionResponse } from "expo-av";
-import React, { useState, useEffect } from "react";
+import { Audio } from "expo-av";
+import { Recording } from "expo-av/build/Audio";
+import React, { useState } from "react";
 import {
   Button,
   ScrollView,

@@ -18,7 +18,6 @@ import { heightPercentageToDP } from "react-native-responsive-screen";
 import ImagePreviewScroll from "./ImagePreviewScroll"; 
 
 export default function ImageCapture() {
-  const [facing, setFacing] = useState('back');
   const [permission, requestPermission] = useCameraPermissions();
   const [mediaStatus, requestMediaPermission] = MediaLibrary.usePermissions();
   const [isFullPreviewVisible, setIsFullPreviewVisible] = useState(false);
@@ -45,10 +44,7 @@ export default function ImageCapture() {
     );
   }
 
-  function toggleCameraFacing() {
-    setFacing(current => (current === 'back' ? 'front' : 'back'));
-  }
-
+ 
   async function captureImage() {
     if (cameraRef.current) {
       const uri = await captureRef(viewShotRef, {
@@ -69,14 +65,9 @@ export default function ImageCapture() {
   return (
     <>
       <View style={styles.container}>
-        <CameraView style={styles.camera} facing={facing}>
+        <CameraView style={styles.camera}>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.swapButton}
-              onPress={toggleCameraFacing}
-            >
-              <Text style={styles.text}>Flip Camera</Text>
-            </TouchableOpacity>
+            
             <TouchableOpacity
               style={styles.captureButton}
               onPress={captureImage}

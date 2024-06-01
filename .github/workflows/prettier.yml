@@ -32,7 +32,6 @@ jobs:
         
       - name: Add comment
         run: gh issue comment "$NUMBER" --body "$(cat prettier.txt)"
-        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}

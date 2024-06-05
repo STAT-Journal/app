@@ -1,30 +1,26 @@
-import { drizzle } from "drizzle-orm/expo-sqlite";
-import { eq } from "drizzle-orm/sql/expressions";
-import { openDatabaseSync } from "expo-sqlite/next";
+import * as SQLite from "expo-sqlite";
 
-import { entries, SelectEntry, InsertEntry } from "./schema";
+import { Entry } from "./models";
+// From database/models.ts
+// export interface Entry {
+//     id: number;
+//     title: string;
+//     description: string;
+//   }
 
-const expo = openDatabaseSync("db.db");
-const db = drizzle(expo);
+// Open the database
 
-export const addEntryToDB = async (
-  newEntry: InsertEntry,
-): Promise<SelectEntry[]> => {
-  return db
-    .insert(entries)
-    .values({ title: newEntry.title, description: newEntry.description })
-    .returning();
+const db = SQLite.openDatabaseSync("db.db");
+
+// Create a table if it doesn't already exist
+export const initDB = () => {
+  db.execSync(
+    `CREATE TABLE IF NOT EXISTS entries (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      description TEXT NOT NULL
+    )`
+);
 };
 
-export const getEntries = async (): Promise<SelectEntry[]> => {
-  return db.select().from(entries);
-};
 
-export const removeEntryFromDB = async (
-  id: number,
-): Promise<{ id: number }[]> => {
-  return db
-    .delete(entries)
-    .where(eq(entries.id, id))
-    .returning({ id: entries.id });
-};

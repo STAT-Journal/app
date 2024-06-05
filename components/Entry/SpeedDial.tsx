@@ -9,9 +9,10 @@ import {
 
 interface Props {
   openTextEntry: () => void;
+  openEmojiEntry: () => void;
 }
 
-const SpeedDial: React.FC<Props> = ({ openTextEntry }) => {
+const SpeedDial: React.FC<Props> = ({ openTextEntry, openEmojiEntry }) => {
   const [state, setState] = React.useState({ open: false });
 
   const onStateChange = ({ open }: { open: boolean }) => setState({ open });
@@ -29,9 +30,12 @@ const SpeedDial: React.FC<Props> = ({ openTextEntry }) => {
         actions={[
           { icon: "plus", onPress: () => console.log("Pressed add") },
           {
-            icon: "microphone-variant",
-            label: "Audio",
-            onPress: () => console.log("Pressed audio"),
+            icon: "sticker-emoji",
+            label: "Emoji",
+            onPress: () => {
+              openEmojiEntry();
+            
+            },
           },
           {
             icon: "image",

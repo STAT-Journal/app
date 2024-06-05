@@ -5,73 +5,21 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
-import SpeedDial from "./SpeedDial";
-
-import IndividualEntry from "@/components/Entry/IndividualEntry";
-import TextEntry from "@/components/Entry/TextEntryModal";
-import { addEntryToDB, getEntries } from "@/database/queries";
-import { SelectEntry, InsertEntry } from "@/database/schema";
+import ScrapbookCanvas from "../Scrapbooking/ScrapbookCanvas";
+import ScrapbookMenu from "../Scrapbooking/ScrapbookMenu";
+import ScrapbookEntry from "../Scrapbooking/ScrapbookEntry";
 
 interface Props {}
 
 const EntryView: React.FC<Props> = () => {
-  const [entries, setEntries] = useState<SelectEntry[]>([]);
-  const [textEntryVisible, setTextEntryVisible] = useState<boolean>(false);
 
-  //On component mount, get all entries from the database
-  useEffect(() => {
-    reloadEntries();
-  }, []);
-
-  const addNewEntry = async (newEntry: InsertEntry) => {
-    try {
-      const confirmedEntry = await addEntryToDB(newEntry);
-
-      // Handle the result here
-      setEntries([...entries, confirmedEntry[0]]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const reloadEntries = async () => {
-    const result = await getEntries();
-    console.log(result);
-    setEntries(result);
-  };
-
-  const toggleShowTextEntry = () => {
-    setTextEntryVisible(!textEntryVisible);
-  };
+  const [entries, setEntries] = useState([]);
 
   return (
     <>
-      <ScrollView style={styles.container}>
-        {entries.map((child, _) => (
-          <IndividualEntry
-            key={child.id}
-            id={child.id}
-            title={child.title}
-            description={child.description}
-            refresh={reloadEntries}
-          />
-        ))}
-        {entries.length === 0 && (
-          <View style={styles.fill}>
-            <Text>No Journal Entries 🧐 </Text>
-          </View>
-        )}
-        <View style={{ height: 15 }} />
-      </ScrollView>
-      <TextEntry
-        visible={textEntryVisible}
-        refresh={reloadEntries}
-        onSubmit={addNewEntry}
-        toggleVisibility={toggleShowTextEntry}
-      />
-      <View style={styles.fab}>
-        <SpeedDial openTextEntry={toggleShowTextEntry} />
-      </View>
+
+      <ScrapbookEntry />
+      
     </>
   );
 };

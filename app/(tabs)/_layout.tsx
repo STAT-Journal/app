@@ -40,7 +40,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Text Entry",
+          title: "Scrapbooking Entry",
           tabBarIcon: ({ color }: { color: string }) => (
             <TabBarIcon name="plus-square-o" color={color} />
           ),

@@ -7,6 +7,7 @@ import EmojiPicker from "rn-emoji-picker";
 import { emojis } from "rn-emoji-picker/dist/data";
 import { StatusBar } from 'expo-status-bar';
 import { Emoji } from "rn-emoji-picker/dist/interfaces";
+import Draggable from "./Draggable";
 
 const ScrapbookEntry = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
@@ -48,23 +49,27 @@ const ScrapbookEntry = () => {
                 <View style={styles.canvas}>
                     <ScrapbookCanvas />
                     {emojisOnCanvas.map((item, index) => (
-                        <Text key={index} style={{ ...styles.emoji, top: item.y, left: item.x }}>
-                            {item.emoji}
-                        </Text>
+                        <Draggable key={index} springBack={false}>
+                            <Text key={index} style={{ ...styles.emoji, top: item.y, left: item.x }}>
+                                {item.emoji}
+                            </Text>
+                        </Draggable>
                     ))}
                 </View>
             </TouchableWithoutFeedback>
             <SpeedDial openTextEntry={addText} openEmojiEntry={addEmoji} />
             {showPicker && (
-                <EmojiPicker
-                    emojis={emojis}
-                    recent={recent}
-                    autoFocus={true}
-                    loading={false}
-                    darkMode={false}
-                    perLine={7}
-                    onSelect={handleEmojiSelect}
-                />
+                <View style={styles.emojiMenu}>
+                    <EmojiPicker
+                        emojis={emojis}
+                        recent={recent}
+                        autoFocus={false}
+                        loading={false}
+                        darkMode={false}
+                        perLine={7}
+                        onSelect={handleEmojiSelect}
+                    />
+                </View>
             )}
             <StatusBar style="light" />
         </View>
@@ -91,6 +96,12 @@ const styles = StyleSheet.create({
         color: '#000',
         textAlign: 'center',
         marginTop: 20,
+    },
+    emojiMenu: {
+        position: 'absolute',
+        marginTop: 60,
+        width: '100%',
+        backgroundColor: '#fff',
     },
 });
 

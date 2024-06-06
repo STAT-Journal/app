@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableWithoutFeedback } from "react-native";
+import { View, StyleSheet, Text, TouchableWithoutFeedback, Modal,  } from "react-native";
 import ScrapbookMenu from "./ScrapbookMenu";
 import ScrapbookCanvas from "./ScrapbookCanvas";
 import SpeedDial from "../Entry/SpeedDial";
@@ -8,7 +8,8 @@ import { emojis } from "rn-emoji-picker/dist/data";
 import { StatusBar } from 'expo-status-bar';
 import { Emoji } from "rn-emoji-picker/dist/interfaces";
 import Draggable from "./Draggable";
-
+import { widthPercentageToDP } from "react-native-responsive-screen";
+import { Button } from "react-native-paper";
 const ScrapbookEntry = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
@@ -58,19 +59,31 @@ const ScrapbookEntry = () => {
                 </View>
             </TouchableWithoutFeedback>
             <SpeedDial openTextEntry={addText} openEmojiEntry={addEmoji} />
-            {showPicker && (
-                <View style={styles.emojiMenu}>
-                    <EmojiPicker
-                        emojis={emojis}
-                        recent={recent}
-                        autoFocus={false}
-                        loading={false}
-                        darkMode={false}
-                        perLine={7}
-                        onSelect={handleEmojiSelect}
-                    />
+            <Modal
+                visible={showPicker}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setShowPicker(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.emojiMenuContainer}> 
+                        <EmojiPicker
+                            emojis={emojis}
+                            recent={recent}
+                            autoFocus={false}
+                            loading={false}
+                            darkMode={false}
+                            perLine={7}
+                            onSelect={handleEmojiSelect}
+                        /> 
+                        </View>
+                        <View style={styles.closeButton}>
+                            <Button onPress={()=>setShowPicker(false)} mode="elevated" buttonColor="grey" textColor="white" >
+                                Close
+                            </Button>
+                        </View>
                 </View>
-            )}
+            </Modal>
             <StatusBar style="light" />
         </View>
     );
@@ -97,11 +110,24 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 20,
     },
-    emojiMenu: {
+    modalContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    closeButton: {
         position: 'absolute',
-        marginTop: 60,
-        width: '100%',
+        bottom: 10,
+
+    },
+    emojiMenuContainer: {
+        width: widthPercentageToDP(95),
+        height: widthPercentageToDP(100),
+        flexGrow:1,
         backgroundColor: '#fff',
+        borderRadius: 10,
+
     },
 });
 

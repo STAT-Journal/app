@@ -7,6 +7,7 @@ module.exports = function (api) {
         plugins: [
           ["react-native-paper/babel"],
           ["inline-import", { extensions: [".sql"] }],
+          'react-native-reanimated/plugin',          
         ],
       },
     },

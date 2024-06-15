@@ -10,6 +10,8 @@ import { Emoji } from "rn-emoji-picker/dist/interfaces";
 import Draggable from "./Draggable";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { Button } from "react-native-paper";
+import { createEntry, readEntries } from "@/database/queries";
+import { ElementsJSON } from "@/database/models";
 const ScrapbookEntry = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
@@ -18,6 +20,15 @@ const ScrapbookEntry = () => {
 
     const addText = () => {
         console.log("Add text");
+    }
+    const saveEntry = () => {
+        console.log("Save entry");
+        const elements: ElementsJSON = {
+            text_elements: emojisOnCanvas.map((item) => ({ x: item.x, y: item.y, text: item.emoji })),
+            image_elements: [],
+        };
+        createEntry(elements);
+        console.log(readEntries());
     }
 
     const addEmoji = () => {
@@ -45,7 +56,7 @@ const ScrapbookEntry = () => {
 
     return (
         <View style={styles.container}>
-            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji}/>
+            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
                 <View style={styles.canvas}>
                     <ScrapbookCanvas />

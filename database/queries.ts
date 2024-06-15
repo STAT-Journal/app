@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import { ElementsJSON, InventoryItem } from './models';
+import { ElementsJSON, Entry, InventoryItem } from './models';
 
 const dbPromise = SQLite.openDatabaseAsync('app.db');
 

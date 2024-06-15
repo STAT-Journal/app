@@ -1,12 +1,29 @@
-import React from 'react';
+import { Entry } from '@/database/models';
+import { readEntries } from '@/database/queries';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button, } from 'react-native-paper';
+import { Button, List, Modal, } from 'react-native-paper';
 interface ScrapbookMenuProps {
     onClear: () => void;
+    onSave: () => void;
     currentEmoji: string;
 }
 
-const ScrapbookMenu: React.FC<{ onClear: () => void; currentEmoji: string }> = ({ onClear, currentEmoji }) => {
+const listExistingEntries = async () => {
+    const entries = await readEntries();
+    for(let i = 0; i < entries.length; i++){
+        console.log(entries[i])
+    }
+}
+const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentEmoji }) => {
+    const [showPicker, setShowPicker] = useState(false);
+    
+
+
+    const onLoad = () => {
+        setShowPicker(true);
+    }
+
     return (
         <View>
             <Text>Scrapbook Menu</Text>
@@ -17,6 +34,15 @@ const ScrapbookMenu: React.FC<{ onClear: () => void; currentEmoji: string }> = (
                 <Text style={styles.emojiLabel}>
                     Current Emoji: {currentEmoji}
                 </Text>
+                <Button onPress={onSave} style={styles.clearButton} labelStyle={styles.clearLabel}>
+                    Save
+                </Button>
+                <Button onPress={listExistingEntries} style={styles.clearButton} labelStyle={styles.clearLabel}>
+                    List 
+                </Button>
+                <Modal visible={showPicker} onDismiss={() => {setShowPicker(false)}}>
+                    <></>
+                </Modal>
             </View>
         </View>
     );

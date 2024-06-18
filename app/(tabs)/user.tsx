@@ -18,7 +18,7 @@ interface LoginFormProps {
     logOut: () => void;
 }
 
-function UserStatusDisplay({ email }: { email: string | null }) {
+function UserStatusDisplay({ email }: { email: string | undefined }) {
     return (
         <Text>{email ? `You are logged in as ${email}` : "You are not logged in"}</Text>
     );
@@ -46,12 +46,12 @@ function LoginForm(loginFormProps: LoginFormProps) {
 }
 
 export default function User() {
-  const { apiToken, logIn, logOut } = useAuth();
+  const { user, logIn, logOut } = useAuth();
   const [formData, setFormData] = React.useState<LoginFormData>({ email: "", password: "" });
 
   return (
     <View style={styles.container}>
-        <UserStatusDisplay email={apiToken?  : apiToken} />
+        <UserStatusDisplay email={user?.email} />
         <LoginForm
             formData={formData}
             setFormData={setFormData}

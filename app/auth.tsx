@@ -5,7 +5,7 @@ import * as SecureStorage from 'expo-secure-store';
 const api_endpoint = "http://10.0.0.222:4000"
 
 interface AuthContextType {
-    user: UserType | null;
+    user: UserType | undefined;
     logIn: (email: string, password: string) => void;
     logOut: () => void;
 }
@@ -59,21 +59,21 @@ function fetchAuthFromSecureStorage() {
 }
 
 const AuthContext = createContext<AuthContextType>({
-    user: null,
+    user: undefined,
     logIn: (_email: string, _password: string) => console.warn("no AuthProvider"),
     logOut: () => console.warn("no AuthProvider"),
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [authState, setAuthState] = React.useState<AuthProviderState | null>(null);
+    const [authState, setAuthState] = React.useState<AuthProviderState | undefined>(undefined);
+
 
     React.useEffect(() => {
         fetchAuthFromSecureStorage().then((auth) => {
             if (auth) {
                 setAuthState(auth);
             }
-        });
-    }
+        })}, []);
 
     function logIn(email: string, password: string) {
         return fetchApiTokenFromApi(email, password).then((response: LoginResponseSuccessType | LoginResponseErrorType) => {
@@ -81,17 +81,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 throw new Error(response.error);
             }
             else {
-                
+                const auth = { user: response.user, apiToken: response.token };
+                SecureStorage.setItemAsync("auth", JSON.stringify(auth)).then(() => {
+                    setAuthState(auth);
+                });                
             }
         }).catch((error) => {console.log(error)});
     }
 
     function logOut() {
-        setApiToken(null);
+        setAuthState(undefined);
     }
 
     return (
-        <AuthContext.Provider value={{ user, logIn, logOut }}>
+        <AuthContext.Provider value={{ user: authState?.user, logIn, logOut }}>
             {children}
         </AuthContext.Provider>
     );

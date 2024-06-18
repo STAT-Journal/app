@@ -40,7 +40,6 @@ const ScrapbookEntry = () => {
         console.log(await readEntries());
     }
     
-
     const addEmoji = () => {
         setShowPicker(true);
     }

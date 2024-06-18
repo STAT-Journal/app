@@ -1,7 +1,7 @@
 // components/Entry/StreakTracker.tsx
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Card, Title } from 'react-native-paper';
+import React from "react";
+import { View, StyleSheet } from "react-native";
+import { Card, Title } from "react-native-paper";
 
 interface StreakTrackerProps {
   streak: number;
@@ -22,13 +22,13 @@ const StreakTracker: React.FC<StreakTrackerProps> = ({ streak }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     padding: 16,
   },
   cardContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 

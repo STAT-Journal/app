@@ -1,10 +1,21 @@
 import * as SQLite from 'expo-sqlite';
-import { ElementsJSON, Entry, InventoryItem } from './models';
+import { AppUser, ElementsJSON, Entry, InventoryItem } from './models';
+import { time } from 'drizzle-orm/mysql-core';
 
 const dbPromise = SQLite.openDatabaseAsync('app.db');
 
 export const setupDatabase = async () => {
   const db = await dbPromise;
+
+    //if you have issues with the database, uncomment the following line to drop the tables and then comment it back after running the app once
+    //Drop tables if they exist
+   /* await db.execAsync(`
+      DROP TABLE IF EXISTS Entries;
+      DROP TABLE IF EXISTS App;
+      DROP TABLE IF EXISTS Item_json;
+    `);*/
+
+  //Create tables
   await db.execAsync(`
     PRAGMA journal_mode = WAL;
     CREATE TABLE IF NOT EXISTS Entries (
@@ -15,27 +26,98 @@ export const setupDatabase = async () => {
       Username TEXT PRIMARY KEY,
       Streak INTEGER,
       CurrencyAmount INTEGER,
+      LastEntry INTERGER,
       InventoryOfItems TEXT
     );
     CREATE TABLE IF NOT EXISTS Item_json (
       items TEXT
     );
   `);
+
+  //uncomment the following line to test the user creation and streak incrementation then comment it back after running the app once
+ //testUser();
 };
 
+const testUser = async () => {
+  const username = 'testUser';
+  const streak = 0;
+  const currencyAmount = 100;
+  const lastEntry = new Date().getTime() / 1000;
+  const inventoryOfItems: InventoryItem[] = [];
 
+  await createUser(username, streak, currencyAmount, lastEntry, inventoryOfItems);
+  console.log('Test user created successfully');
+};
 
-export const createEntry = async (elementsJSON: ElementsJSON) => {
+export const createEntry = async (elementsJSON: ElementsJSON, username: string) => {
   const db = await dbPromise;
   const result = await db.runAsync('INSERT INTO Entries (Elements_JSON) VALUES (?)', JSON.stringify(elementsJSON));
-  console.log(`Inserted row with ID: ${result.lastInsertRowId}`);
+  const lastInsertId = result.lastInsertRowId;
+  console.log(`Inserted row with ID: ${lastInsertId}`);
+
+  //Get current date/time
+  const currentDateTime = new Date().getTime() / 1000;
+
+  //Update the LastEntry for the user
+  const updateResult = await db.runAsync('UPDATE App SET LastEntry = ? WHERE Username = ?', [currentDateTime, username]);
+  console.log(`Updated LastEntry for username: ${username}, affected rows: ${updateResult.changes}`);
 };
 
-export const createUser = async (username: string, streak: number, currencyAmount: number, inventoryOfItems: InventoryItem[]) => {
+
+export const updateStreak = async (username: string) => {
+  const db = await dbPromise;
+  const user = await db.getFirstAsync<AppUser>('SELECT * FROM App WHERE Username = ?', [username]);
+
+  if (user) {
+    const lastEntryTime = new Date(user.LastEntry * 1000); // Convert back to milliseconds
+    const currentTime = new Date();
+    const timeDifference = (currentTime.getTime() - lastEntryTime.getTime()) / 1000; // in seconds
+
+    //console.log('lastEntryTime: ', lastEntryTime.getTime() / 1000); // Log in seconds
+    //console.log('timeDifference: ', timeDifference);
+
+
+    //reset the streak if the user streak is 0 and the user has not entered in the last 7 days
+    if (user.Streak > 0 && timeDifference > 604800){
+      //Reset streak
+      await db.runAsync('UPDATE App SET Streak = 0 WHERE Username = ?', [username]);
+      console.log(`Streak reset for username: ${username}`);
+    }
+  }
+};
+
+export const incrementStreak = async (username: string) => {
+
+  const db = await dbPromise;
+  const user = await db.getFirstAsync<AppUser>('SELECT * FROM App WHERE Username = ?', [username]);
+  
+  if(user) {
+    const lastEntryTime = new Date(user.LastEntry * 1000); //Convert back to milliseconds
+    const currentTime = new Date();
+    const timeDifference = (currentTime.getTime() - lastEntryTime.getTime()) / 1000; //in seconds
+
+    //Increment the streak if the user has not entered in the last 24 hours or if the streak is 0
+    if (timeDifference >= 86400 || user.Streak === 0){
+      //Increment streak
+      const newStreak = user.Streak + 1;
+      await db.runAsync('UPDATE App SET Streak = ? WHERE Username = ?', [newStreak, username]);
+      console.log(`Streak incremented for username: ${username}, new streak: ${newStreak}`);
+    }
+  }
+};
+
+export const getUserStreak = async (username: string): Promise<number> => {
+  const db = await dbPromise;
+  const user = await db.getFirstAsync<AppUser>('SELECT Streak FROM App WHERE Username = ?', [username]);
+  return user ? user.Streak : 0;
+};
+
+
+export const createUser = async (username: string, streak: number, currencyAmount: number, lastEntry: number, inventoryOfItems: InventoryItem[]) => {
   const db = await dbPromise;
   const result = await db.runAsync(
-    'INSERT INTO App (Username, Streak, CurrencyAmount, InventoryOfItems) VALUES (?, ?, ?, ?)',
-    username, streak, currencyAmount, JSON.stringify(inventoryOfItems)
+    'INSERT INTO App (Username, Streak, CurrencyAmount, LastEntry, InventoryOfItems) VALUES (?, ?, ?, ?, ?)',
+    username, streak, currencyAmount, lastEntry, JSON.stringify(inventoryOfItems)
   );
   console.log(`Inserted row with Username: ${username}`);
 };
@@ -93,11 +175,11 @@ export const updateEntry = async (id: number, elementsJSON: ElementsJSON) => {
   console.log(`Updated ${result.changes} row(s)`);
 };
 
-export const updateUser = async (username: string, streak: number, currencyAmount: number, inventoryOfItems: InventoryItem[]) => {
+export const updateUser = async (username: string, streak: number, currencyAmount: number, lastEntry: number, inventoryOfItems: InventoryItem[]) => {
   const db = await dbPromise;
   const result = await db.runAsync(
-    'UPDATE App SET Streak = ?, CurrencyAmount = ?, InventoryOfItems = ? WHERE Username = ?',
-    streak, currencyAmount, JSON.stringify(inventoryOfItems), username
+    'UPDATE App SET Streak = ?, CurrencyAmount = ?, LastEntry = ?, InventoryOfItems = ? WHERE Username = ?',
+    streak, currencyAmount, lastEntry, JSON.stringify(inventoryOfItems), username
   );
   console.log(`Updated ${result.changes} row(s)`);
 };

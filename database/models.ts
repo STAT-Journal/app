@@ -24,6 +24,7 @@ export interface AppUser {
   Username: string;
   Streak: number;
   CurrencyAmount: number;
+  LastEntry: number;
   InventoryOfItems: InventoryItem[];
 }
 

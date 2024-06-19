@@ -17,21 +17,22 @@ export const setupDatabase = async () => {
       CurrencyAmount INTEGER,
       InventoryOfItems TEXT
     );
+    DROP Table IF EXISTS Item_json;
     CREATE TABLE IF NOT EXISTS Item_json (
       items TEXT
     );
     INSERT INTO Item_json (items) 
-    VALUES ('[{"id": 1, "name": "apple", "cost": 10, icon: "🍎" }, 
-              {"id": 2, "name": "banana", "cost": 20, icon: "🍌" },
-              {"id": 3, "name": "cherry", "cost": 30, icon: "🍒" },
-              {"id": 4, "name": "grapes", "cost": 40, icon: "🍇" },
-              {"id": 5, "name": "lemon", "cost": 50, icon: "🍋" },
-              {"id": 6, "name": "orange", "cost": 60, icon: "🍊" },
-              {"id": 7, "name": "pear", "cost": 70, icon: "🍐" },
-              {"id": 8, "name": "pineapple", "cost": 80, icon: "🍍" },
-              {"id": 9, "name": "strawberry", "cost": 90, icon: "🍓" },
-              {"id": 10, "name": "watermelon", "cost": 100, icon: "🍉" }
-              ]'),
+    VALUES ('[{"id": 1, "name": "apple", "cost": 10, "icon": "🍎" }, 
+              {"id": 2, "name": "banana", "cost": 20, "icon": "🍌" },
+              {"id": 3, "name": "cherry", "cost": 30, "icon": "🍒" },
+              {"id": 4, "name": "grapes", "cost": 40, "icon": "🍇" },
+              {"id": 5, "name": "lemon", "cost": 50, "icon": "🍋" },
+              {"id": 6, "name": "orange", "cost": 60, "icon": "🍊" },
+              {"id": 7, "name": "pear", "cost": 70, "icon": "🍐" },
+              {"id": 8, "name": "pineapple", "cost": 80, "icon": "🍍" },
+              {"id": 9, "name": "strawberry", "cost": 90, "icon": "🍓" },
+              {"id": 10, "name": "watermelon", "cost": 100, "icon": "🍉" }
+              ]');
   `);
 };
 

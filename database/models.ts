@@ -28,9 +28,10 @@ export interface AppUser {
 }
 
 export interface InventoryItem {
+  id: number;
   name: string;
   cost: number;
-  image: string;
+  icon: string;
 }
 
 export interface ItemJSON {

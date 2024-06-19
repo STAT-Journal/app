@@ -10,8 +10,9 @@ import { Emoji } from "rn-emoji-picker/dist/interfaces";
 import Draggable from "./Draggable";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { Button } from "react-native-paper";
-import { createEntry, readEntries } from "@/database/queries";
+import { createEntry, getUserStreak, readEntries, updateStreak, incrementStreak } from "@/database/queries";
 import { ElementsJSON } from "@/database/models";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 const ScrapbookEntry = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
@@ -21,16 +22,24 @@ const ScrapbookEntry = () => {
     const addText = () => {
         console.log("Add text");
     }
-    const saveEntry = () => {
+    const saveEntry = async (username: string) => {
         console.log("Save entry");
         const elements: ElementsJSON = {
             text_elements: emojisOnCanvas.map((item) => ({ x: item.x, y: item.y, text: item.emoji })),
             image_elements: [],
         };
-        createEntry(elements);
-        console.log(readEntries());
-    }
 
+        //Update streak
+        await incrementStreak(username);
+
+        const streak = await getUserStreak(username)
+        console.log(await "Streak updated" + " " + username + "Streak amount " + streak)
+
+        //Create a new entry
+        await createEntry(elements, username);
+        console.log(await readEntries());
+    }
+    
     const addEmoji = () => {
         setShowPicker(true);
     }
@@ -56,7 +65,7 @@ const ScrapbookEntry = () => {
 
     return (
         <View style={styles.container}>
-            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry}/>
+            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={() => saveEntry("testUser")}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
                 <View style={styles.canvas}>
                     <ScrapbookCanvas />

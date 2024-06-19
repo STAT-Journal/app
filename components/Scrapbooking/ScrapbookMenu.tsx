@@ -43,6 +43,7 @@ const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentE
                 <Modal visible={showPicker} onDismiss={() => {setShowPicker(false)}}>
                     <></>
                 </Modal>
+
             </View>
         </View>
     );

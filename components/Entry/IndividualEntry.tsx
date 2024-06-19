@@ -2,7 +2,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 
-import { removeEntryFromDB } from "@/database/queries";
+import { deleteEntry } from "@/database/queries";
 
 interface Props {
   title: string;
@@ -24,7 +24,7 @@ const IndividualEntry: React.FC<Props> = ({
       <View style={styles.deleteButton}>
         <Pressable
           onPress={() => {
-            removeEntryFromDB(id);
+            deleteEntry(id);
             refresh();
           }}
         >

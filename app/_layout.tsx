@@ -56,11 +56,11 @@ function RootLayoutNav() {
   };
   return (
     <PaperProvider theme={theme}>
-        <AuthProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-        </AuthProvider>
+      <AuthProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </AuthProvider>
     </PaperProvider>
   );
 }

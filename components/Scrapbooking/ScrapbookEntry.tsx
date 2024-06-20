@@ -12,6 +12,7 @@ import { widthPercentageToDP } from "react-native-responsive-screen";
 import { Button } from "react-native-paper";
 import { createEntry, readEntries } from "@/database/queries";
 import { ElementsJSON } from "@/database/models";
+import { LinearGradient } from "expo-linear-gradient";
 const ScrapbookEntry = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
@@ -56,13 +57,14 @@ const ScrapbookEntry = () => {
 
     return (
         <View style={styles.container}>
+            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{width:widthPercentageToDP(100), height:1000, position:'absolute', top:0, left:0, right:0, bottom:0}}/>
             <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
                 <View style={styles.canvas}>
                     <ScrapbookCanvas />
                     {emojisOnCanvas.map((item, index) => (
                         <Draggable key={index} springBack={false}>
-                            <Text key={index} style={{ ...styles.emoji, top: item.y, left: item.x }}>
+                            <Text key={index} style={{ ...styles.emoji, top: item.y -50, left: item.x -50}}>
                                 {item.emoji}
                             </Text>
                         </Draggable>
@@ -104,16 +106,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        backgroundColor: 'yellow',
+       
     },
     canvas: {
         flex: 1,
         position: 'relative',
-        backgroundColor: 'orange',
+        
     },
     emoji: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 100,
     },
     selectedEmoji: {
         fontSize: 30,

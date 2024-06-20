@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableWithoutFeedback, Modal,  } from "react-native";
+import { View, StyleSheet, Text, TouchableWithoutFeedback, Modal } from "react-native";
 import ScrapbookMenu from "./ScrapbookMenu";
 import ScrapbookCanvas from "./ScrapbookCanvas";
 import SpeedDial from "../Entry/SpeedDial";
@@ -13,6 +13,7 @@ import { Button } from "react-native-paper";
 import { createEntry, readEntries } from "@/database/queries";
 import { ElementsJSON } from "@/database/models";
 import { LinearGradient } from "expo-linear-gradient";
+
 const ScrapbookEntry = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
@@ -64,7 +65,7 @@ const ScrapbookEntry = () => {
                     <ScrapbookCanvas />
                     {emojisOnCanvas.map((item, index) => (
                         <Draggable key={index} springBack={false}>
-                            <Text key={index} style={{ ...styles.emoji, top: item.y -50, left: item.x -50}}>
+                            <Text key={index} style={{ ...styles.emoji}}>
                                 {item.emoji}
                             </Text>
                         </Draggable>
@@ -106,12 +107,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-       
     },
     canvas: {
         flex: 1,
         position: 'relative',
-        
     },
     emoji: {
         position: 'absolute',
@@ -132,7 +131,6 @@ const styles = StyleSheet.create({
     closeButton: {
         position: 'absolute',
         bottom: 10,
-
     },
     emojiMenuContainer: {
         width: widthPercentageToDP(95),
@@ -140,7 +138,6 @@ const styles = StyleSheet.create({
         flexGrow:1,
         backgroundColor: '#fff',
         borderRadius: 10,
-
     },
 });
 

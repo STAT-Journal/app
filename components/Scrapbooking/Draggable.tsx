@@ -21,9 +21,10 @@ const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, springBac
     const offsetY = useSharedValue(0);
     const scale = useSharedValue(1);
     const baseScale = useSharedValue(1);
-    const focalX = useSharedValue(0);
+    const rotation = useSharedValue(0);
+    const baseRotation = useSharedValue(0);
     const focalY = useSharedValue(0);
-
+    
     const panGesture = Gesture.Pan()
         .onBegin(() => {
             if (onDragStart) {
@@ -51,29 +52,35 @@ const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, springBac
     const pinchGesture = Gesture.Pinch()
         .onUpdate((event) => {
             scale.value = baseScale.value * event.scale;
-            focalX.value = event.focalX;
-            focalY.value = event.focalY;
         })
         .onEnd(() => {
             baseScale.value = scale.value;
         });
 
-    const animatedStyle = useAnimatedStyle(() => {
-        
-        const adjustedTranslateY = translateY.value - (focalY.value * (scale.value - 1));
+    const rotateGesture = Gesture.Rotation()
+        .onUpdate((event) => {
+            rotation.value = baseRotation.value + (event.rotation  * 1);
+             
+        })
+        .onEnd(() => {
+            baseRotation.value = rotation.value;
+        });
 
+    const animatedStyle = useAnimatedStyle(() => {
+        const adjustedTranslateY = translateY.value - (focalY.value * (scale.value - 1));
         return {
             transform: [
                 { translateX: translateX.value },
                 { translateY: adjustedTranslateY },
                 { scale: scale.value },
+                { rotate: `${rotation.value}rad` },
             ],
         };
     });
 
     return (
-        <GestureDetector gesture={Gesture.Simultaneous(panGesture,  pinchGesture,)}>
-            <Animated.View style={animatedStyle}>
+        <GestureDetector gesture={Gesture.Simultaneous(panGesture, pinchGesture,rotateGesture )}>
+            <Animated.View style={[{ flex: 1, alignItems: 'center', justifyContent: 'center' }, animatedStyle]}>
                 {children}
             </Animated.View>
         </GestureDetector>

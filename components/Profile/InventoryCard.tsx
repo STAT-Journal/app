@@ -20,27 +20,24 @@ const InventoryCard: React.FC = () => {
 
     
     return (
-        <View style={{ flex: 1, width: widthPercentageToDP(90),  alignItems: 'center', justifyContent: 'center' }}>
-            <Card >
-                <Card.Content >
-                    <Title>Inventory</Title>
-                    <View >
-                        {items.map((item) => {
-                            return (
-                                <Card style={{margin:10}}>
-                                    <Card.Content>
-                                        <Title>{item.name}</Title>
-                                        <Paragraph>{item.icon}</Paragraph>
-                                        <Paragraph>Cost: {item.cost}</Paragraph>
-                                    </Card.Content>
-                                </Card>
-                            );
-                        }
-                        )}
-                    </View>
-                </Card.Content>
-            </Card>
-        </View>
+        <Card style={{maxWidth:widthPercentageToDP(95), margin:10}}>
+            <Card.Content >
+                <Title>Inventory</Title>
+                <View style={{flexDirection:'row', flexWrap:'wrap', alignContent:'center', justifyContent:'center', }} >
+                    {items.map((item) => {
+                        return (
+                            <Card key={item.id} style={{margin:10, alignContent:'center', justifyContent:'center', }}>
+                                <Card.Content style={{alignContent:'center', justifyContent:'center', }}>
+                                    <Title style={{fontSize:27}}> {item.icon}</Title>
+                                    <Paragraph style={{fontSize:18}}>💰 {item.cost}</Paragraph>
+                                </Card.Content>
+                            </Card>
+                        );
+                    }
+                    )}
+                </View>
+            </Card.Content>
+        </Card>
     );
 };
 

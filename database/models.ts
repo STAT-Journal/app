@@ -24,16 +24,19 @@ export interface AppUser {
   Username: string;
   Streak: number;
   CurrencyAmount: number;
+  LastEntry: number;
   InventoryOfItems: InventoryItem[];
 }
 
 export interface InventoryItem {
+
   id: number;
   name: string;
   cost: number;
   icon: string;
-}
+
 
 export interface ItemJSON {
   items: InventoryItem[];
 }
+

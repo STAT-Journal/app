@@ -10,9 +10,14 @@ import { Emoji } from "rn-emoji-picker/dist/interfaces";
 import Draggable from "./Draggable";
 import { widthPercentageToDP } from "react-native-responsive-screen";
 import { Button } from "react-native-paper";
+
 import { createEntry, readEntries } from "@/database/queries";
 import { ElementsJSON } from "@/database/models";
 import { LinearGradient } from "expo-linear-gradient";
+
+import { createEntry, getUserStreak, readEntries, updateStreak, incrementStreak } from "@/database/queries";
+import { ElementsJSON } from "@/database/models";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
 const ScrapbookEntry = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
@@ -23,6 +28,7 @@ const ScrapbookEntry = () => {
     const addText = () => {
         console.log("Add text");
     }
+
     const saveEntry = () => {
         console.log("Save entry");
         const elements: ElementsJSON = {
@@ -138,6 +144,7 @@ const styles = StyleSheet.create({
         flexGrow:1,
         backgroundColor: '#fff',
         borderRadius: 10,
+
     },
 });
 

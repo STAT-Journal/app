@@ -1,10 +1,13 @@
 import * as SQLite from 'expo-sqlite';
+
 import { ElementsJSON, Entry, InventoryItem } from './models';
+
 
 const dbPromise = SQLite.openDatabaseAsync('app.db');
 
 export const setupDatabase = async () => {
   const db = await dbPromise;
+
   await db.execAsync(`
     PRAGMA journal_mode = WAL;
     CREATE TABLE IF NOT EXISTS Entries (
@@ -140,6 +143,18 @@ export const deleteEntry = async (id: number) => {
 export const deleteUser = async (username: string) => {
   const db = await dbPromise;
   const result = await db.runAsync('DELETE FROM App WHERE Username = ?', username);
+  console.log(`Deleted ${result.changes} row(s)`);
+};
+
+export const deleteItem = async () => {
+  const db = await dbPromise;
+  const result = await db.runAsync('DELETE FROM Item_json');
+  console.log(`Deleted ${result.changes} row(s)`);
+};
+
+export const deleteElementsJSON = async (id: number) => {
+  const db = await dbPromise;
+  const result = await db.runAsync('DELETE FROM Entries WHERE ID = ?', id);
   console.log(`Deleted ${result.changes} row(s)`);
 };
 

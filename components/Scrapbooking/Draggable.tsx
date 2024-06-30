@@ -74,6 +74,7 @@ const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, springBac
                 { translateY: adjustedTranslateY },
                 { scale: scale.value },
                 { rotate: `${rotation.value}rad` },
+
             ],
         };
     });

@@ -7,7 +7,7 @@ export interface Element {
 }
 
 export interface Entry {
-  ID?: number;
+  ID: number;
   Snapshot_URI: string;
   Elements_JSON: Element[];
 }

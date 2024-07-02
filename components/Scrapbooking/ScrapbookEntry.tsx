@@ -8,16 +8,25 @@ import { StatusBar } from 'expo-status-bar';
 import { Emoji } from "rn-emoji-picker/dist/interfaces";
 import Draggable from "./Draggable";
 import { widthPercentageToDP } from "react-native-responsive-screen";
-import { Button } from "react-native-paper";
+import { Button, Portal } from "react-native-paper";
 import { createEntry, readEntries } from "@/database/queries";
 import { Element, Entry } from "@/database/models";
 import { LinearGradient } from "expo-linear-gradient";
 
-const ScrapbookEntry = () => {
+interface ScrapbookEntryProps {
+    entry? : Entry
+}
+
+const ScrapbookEntry: React.FC<ScrapbookEntryProps> = ({entry}) => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
     const [showPicker, setShowPicker] = useState(false);
     const [elements, setElements] = useState<Element[]>([]);
+
+    if (entry) {
+        const elements = JSON.parse(entry.Elements_JSON.toString());
+        setElements(elements);
+    }
 
     const addText = () => {
         console.log("Add text");
@@ -31,6 +40,12 @@ const ScrapbookEntry = () => {
         };
         
         console.log(readEntries()); */
+    }
+
+    const reloadEntry = (entry: Entry)=> {
+        const elements = JSON.parse(entry.Elements_JSON.toString());
+        console.log(elements);
+        setElements(elements);
     }
 
     const addEmoji = () => {
@@ -59,15 +74,16 @@ const ScrapbookEntry = () => {
     return (
         <View style={styles.container}>
             <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{width:widthPercentageToDP(100), height:1000, position:'absolute', top:0, left:0, right:0, bottom:0}}/>
-            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry}/>
+            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry} reloadEntry={reloadEntry}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
                 <View style={styles.canvas}>
                     {elements.map((item, index) => (
-                        <Draggable key={index} springBack={false} element={item}/>
+                        <Draggable key={index} element={item}/>
                     ))}
                 </View>
             </TouchableWithoutFeedback>
             <SpeedDial openTextEntry={addText} openEmojiEntry={addEmoji} />
+            <Portal>
             <Modal
                 visible={showPicker}
                 transparent={true}
@@ -93,6 +109,7 @@ const ScrapbookEntry = () => {
                         </View>
                 </View>
             </Modal>
+            </Portal>
             <StatusBar style="light" />
         </View>
     );

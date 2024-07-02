@@ -63,7 +63,7 @@ export const createItem = async (items: InventoryItem[]) => {
 export const readEntries = async () => {
   const db = await dbPromise;
   const rows = await db.getAllAsync('SELECT * FROM Entries');
-  console.log(rows);
+  //console.log(rows);
   return rows;
 };
 

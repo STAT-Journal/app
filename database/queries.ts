@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import { ElementsJSON, Entry, InventoryItem } from './models';
+import {  Element, Entry, InventoryItem } from './models';
 
 const dbPromise = SQLite.openDatabaseAsync('app.db');
 
@@ -7,6 +7,7 @@ export const setupDatabase = async () => {
   const db = await dbPromise;
   await db.execAsync(`
     PRAGMA journal_mode = WAL;
+    DROP Table IF EXISTS Entries;
     CREATE TABLE IF NOT EXISTS Entries (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       Elements_JSON TEXT
@@ -38,7 +39,7 @@ export const setupDatabase = async () => {
 
 
 
-export const createEntry = async (elementsJSON: ElementsJSON) => {
+export const createEntry = async (elementsJSON: Element[]) => {
   const db = await dbPromise;
   const result = await db.runAsync('INSERT INTO Entries (Elements_JSON) VALUES (?)', JSON.stringify(elementsJSON));
   console.log(`Inserted row with ID: ${result.lastInsertRowId}`);
@@ -87,7 +88,7 @@ export const readItems = async (): Promise<InventoryItem[]> => {
 };
 
 
-export const readElementsJSON = async (id: number): Promise<ElementsJSON | null> => {
+export const readElementsJSON = async (id: number): Promise<Element[] | null> => {
   const db = await dbPromise;
   const row: { Elements_JSON: string } | null = await db.getFirstAsync<{ Elements_JSON: string }>(
     'SELECT Elements_JSON FROM Entries WHERE ID = ?',
@@ -95,12 +96,12 @@ export const readElementsJSON = async (id: number): Promise<ElementsJSON | null>
   );
   
   if (row) {
-    return JSON.parse(row.Elements_JSON) as ElementsJSON;
+    return JSON.parse(row.Elements_JSON) as Element[];
   }
   return null;
 };
 
-export const updateEntry = async (id: number, elementsJSON: ElementsJSON) => {
+export const updateEntry = async (id: number, elementsJSON:Element[]) => {
   const db = await dbPromise;
   const result = await db.runAsync('UPDATE Entries SET Elements_JSON = ? WHERE ID = ?', JSON.stringify(elementsJSON), id);
   console.log(`Updated ${result.changes} row(s)`);
@@ -121,7 +122,7 @@ export const updateItem = async (items: InventoryItem[]) => {
   console.log(`Updated ${result.changes} row(s)`);
 };
 
-export const updateElementsJSON = async (id: number, elementsJSON: ElementsJSON) => {
+export const updateElementsJSON = async (id: number, elementsJSON: Element[]) => {
   const db = await dbPromise;
   const result = await db.runAsync(
     'UPDATE Entries SET Elements_JSON = ? WHERE ID = ?',

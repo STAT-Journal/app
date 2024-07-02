@@ -2,7 +2,7 @@ import { Entry } from '@/database/models';
 import { readEntries } from '@/database/queries';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button, List, Modal, } from 'react-native-paper';
+import { Avatar, Button, Card, List, Modal, Paragraph, Title, } from 'react-native-paper';
 interface ScrapbookMenuProps {
     onClear: () => void;
     onSave: () => void;
@@ -25,6 +25,14 @@ const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentE
     }
 
     return (
+        <>
+        <Modal visible={showPicker} style={{justifyContent:'center', alignContent:'center', position:'absolute'}} onDismiss={() => {setShowPicker(false)}}>
+            {}
+            <Card>
+                <Card.Title title="Card Title" subtitle="Card Subtitle" left={(props) => <Avatar.Icon {...props} icon="folder" />} />
+                                        
+            </Card>
+        </Modal>
         <View>
             <Text>Scrapbook Menu</Text>
             <View style={styles.row}>
@@ -32,19 +40,22 @@ const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentE
                     Clear
                 </Button>
                 <Text style={styles.emojiLabel}>
-                    Current Emoji: {currentEmoji}
+                    Emoji: {currentEmoji}
                 </Text>
                 <Button onPress={onSave} style={styles.clearButton} labelStyle={styles.clearLabel}>
                     Save
                 </Button>
                 <Button onPress={listExistingEntries} style={styles.clearButton} labelStyle={styles.clearLabel}>
-                    List 
+                    Log 
                 </Button>
-                <Modal visible={showPicker} onDismiss={() => {setShowPicker(false)}}>
-                    <></>
-                </Modal>
+                <Button onPress={onLoad} style={styles.clearButton} labelStyle={styles.clearLabel}>
+                    Load
+                    </Button>
+                
             </View>
+            
         </View>
+        </>
     );
 };
 

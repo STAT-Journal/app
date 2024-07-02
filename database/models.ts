@@ -1,23 +1,15 @@
-export interface TextElement {
+export interface Element {
   x: number;
   y: number;
+  scale: number;
+  rotation: number;
   text: string;
-}
-
-export interface ImageElement {
-  x: number;
-  y: number;
-  file_location: string;
-}
-
-export interface ElementsJSON {
-  text_elements: TextElement[];
-  image_elements: ImageElement[];
 }
 
 export interface Entry {
   ID?: number;
-  Elements_JSON: ElementsJSON;
+  Snapshot_URI: string;
+  Elements_JSON: Element[];
 }
 
 export interface AppUser {

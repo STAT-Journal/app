@@ -12,6 +12,10 @@ import ImageCapture from "@/components/Entry/ImageCapture";
 import ImageGallery from "@/components/Entry/ImageGallery";
 import AudioRecorder from "@/components/Entry/AudioCapture";
 import StreakTracking from "@/components/StreakTracking";
+import ExportJSONButton from "@/components/Export/ExportJSON";
+import ExportCSVButton from "@/components/Export/ExportCSV";
+import ExportPDFButton from "@/components/Export/ExportPDF";
+import { SafeAreaView } from 'react-native';
 import { updateStreak, getUserStreak, createUser } from "@/database/queries"; //Import your database functions
 
 export default function DebugScreen() {
@@ -40,6 +44,9 @@ export default function DebugScreen() {
 
   return (
     <View style={styles.container}>
+      <ExportJSONButton />
+      <ExportCSVButton />
+      <ExportPDFButton />
       <StreakTracking streak={streak} />
       <AudioRecorder />
       <ImageGallery />

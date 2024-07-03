@@ -34,16 +34,43 @@ export const setupDatabase = async () => {
               {"id": 9, "name": "strawberry", "cost": 90, "icon": "🍓" },
               {"id": 10, "name": "watermelon", "cost": 100, "icon": "🍉" }
               ]');
+    CREATE TABLE IF NOT EXISTS Text_Entries (
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
+      Entry TEXT
+    );
   `);
 };
 
+export const createTextEntry = async (entry: string) => {
+  const db = await dbPromise;
+  const result = await db.runAsync('INSERT INTO Text_Entries (Entry) VALUES (?)', entry);
+}
 
+export const readTextEntries = async () => {
+  const db = await dbPromise;
+  const rows = await db.getAllAsync('SELECT * FROM Text_Entries');
+  return rows;
+}
+
+export const removeTextEntry = async (id: number) => {
+  const db = await dbPromise;
+  const result = await db.runAsync('DELETE FROM Text_Entries WHERE ID = ?', id);
+}
+
+export const updateTextEntry = async (id: number, entry: string) => {
+  const db = await dbPromise;
+  const result = await db.runAsync('UPDATE Text_Entries SET Entry = ? WHERE ID = ?', entry, id);
+  console.log(`Updated ${result.changes} row(s)`);
+}
 
 export const createEntry = async (elementsJSON: Element[]) => {
   const db = await dbPromise;
+  console.log(JSON.stringify(elementsJSON));
   const result = await db.runAsync('INSERT INTO Entries (Elements_JSON) VALUES (?)', JSON.stringify(elementsJSON));
   console.log(`Inserted row with ID: ${result.lastInsertRowId}`);
 };
+
+
 
 export const createUser = async (username: string, streak: number, currencyAmount: number, inventoryOfItems: InventoryItem[]) => {
   const db = await dbPromise;
@@ -122,15 +149,6 @@ export const updateItem = async (items: InventoryItem[]) => {
   console.log(`Updated ${result.changes} row(s)`);
 };
 
-export const updateElementsJSON = async (id: number, elementsJSON: Element[]) => {
-  const db = await dbPromise;
-  const result = await db.runAsync(
-    'UPDATE Entries SET Elements_JSON = ? WHERE ID = ?',
-    JSON.stringify(elementsJSON),
-    id
-  );
-  console.log(`Updated ${result.changes} row(s)`);
-};
 
 export const deleteEntry = async (id: number) => {
   const db = await dbPromise;

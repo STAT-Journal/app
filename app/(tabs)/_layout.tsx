@@ -19,9 +19,11 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
+  
   // Setup the database on app start
-  setupDatabase();
+  React.useEffect(() => {
+    setupDatabase();
+  }, []);
 
   return (
     <Tabs
@@ -33,7 +35,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="feed"
+        name="index"
         options={{
           title: "Feed",
           tabBarIcon: ({ color }: { color: string }) => (
@@ -41,15 +43,7 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: "Scrapbooking Entry",
-          tabBarIcon: ({ color }: { color: string }) => (
-            <TabBarIcon name="plus-square-o" color={color} />
-          ),
-        }}
-      />
+      
       <Tabs.Screen
         name="debug"
         options={{

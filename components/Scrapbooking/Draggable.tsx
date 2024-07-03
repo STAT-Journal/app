@@ -1,5 +1,4 @@
 import React from 'react';
-import { View } from 'react-native';
 import { Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Element } from '@/database/models';
@@ -7,17 +6,16 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
-    withSpring
 } from 'react-native-reanimated';
+
 
 interface DraggableProps {
     onDragStart?: () => void;
     onDragEnd?: () => void;
-    springBack?: boolean;
     element: Element;
 }
 
-const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, springBack, element }) => {
+const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, element }) => {
     const translateX = useSharedValue(element.x);
     const translateY = useSharedValue(element.y);
     const offsetX = useSharedValue(element.x);

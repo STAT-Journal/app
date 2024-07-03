@@ -12,6 +12,10 @@ export interface Entry {
   Elements_JSON: Element[];
 }
 
+export interface TextEntry {
+  ID: number;
+  Entry: string;
+}
 export interface AppUser {
   Username: string;
   Streak: number;

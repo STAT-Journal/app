@@ -17,20 +17,18 @@ interface ScrapbookEntryProps {
     entry? : Entry
 }
 
-const ScrapbookEntry: React.FC<ScrapbookEntryProps> = ({entry}) => {
+const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
     const [showPicker, setShowPicker] = useState(false);
     const [elements, setElements] = useState<Element[]>([]);
 
-    if (entry) {
-        const elements = JSON.parse(entry.Elements_JSON.toString());
-        setElements(elements);
-    }
+    
 
     const addText = () => {
         console.log("Add text");
     }
+    
     const saveEntry = () => {
         createEntry(elements);
         console.log("Save entry");

@@ -1,9 +1,10 @@
+import React from 'react';
 import { Entry, Element } from '@/database/models';
 import { readEntries } from '@/database/queries';
-import React, { useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Avatar, Button, Card, List, Modal, Paragraph, Portal, Title, } from 'react-native-paper';
-import ScrapbookEntry from './ScrapbookEntry';
+
 interface ScrapbookMenuProps {
     onClear: () => void;
     onSave: () => void;
@@ -14,10 +15,10 @@ interface ScrapbookMenuProps {
 const listExistingEntries = async () => {
     const entries = await readEntries();
     for(let i = 0; i < entries.length; i++){
-        //console.log(entries[i])
+        console.log(entries[i]);
     }
 }
-const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentEmoji, reloadEntry }) => {
+const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentEmoji, reloadEntry }: ScrapbookMenuProps) => {
     const [showPicker, setShowPicker] = useState(false);
     const [entries, setEntries] = useState<Entry[]>([]);
 

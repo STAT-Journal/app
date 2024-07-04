@@ -12,13 +12,18 @@ import ImageCapture from "@/components/Entry/ImageCapture";
 import ImageGallery from "@/components/Entry/ImageGallery";
 
 import AudioRecorder from "@/components/Entry/AudioCapture";
+import { ScrollView } from "react-native-gesture-handler";
+import { router } from "expo-router";
 
 
 export default function DebugScreen() {
 
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Button mode='outlined' onPress={() => {
+        router.navigate('/dragdrop')
+      }}>Launch Emoji/Draggables thing</Button>
       <AudioRecorder />
 
       <ImageGallery />
@@ -26,7 +31,7 @@ export default function DebugScreen() {
       <ImageCapture />
       <Divider />
       <CalendarEvents />
-    </View>
+    </ScrollView>
   );
 }
 

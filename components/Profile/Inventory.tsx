@@ -16,7 +16,6 @@ const InventoryCard: React.FC = () => {
         fetchData();
     },[]);
 
-    console.log(items)
 
     
     return (

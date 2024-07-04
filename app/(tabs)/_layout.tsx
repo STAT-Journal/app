@@ -45,11 +45,11 @@ export default function TabLayout() {
       />
       
       <Tabs.Screen
-        name="debug"
+        name="store"
         options={{
-          title: "Debug",
+          title: "Store",
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabBarIcon name="bug" color={color} />
+            <TabBarIcon name="shopping-basket" color={color} />
           ),
         }}
       />
@@ -62,6 +62,15 @@ export default function TabLayout() {
         ),
       }}
     />
+     <Tabs.Screen
+        name="debug"
+        options={{
+          title: "Debug",
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="bug" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }

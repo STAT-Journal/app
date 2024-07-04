@@ -1,9 +1,11 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 const Profile = () => {
+    
     return (
         
         <Card style={{ margin:20, width:widthPercentageToDP(95),}}>
@@ -17,7 +19,9 @@ const Profile = () => {
                 <Paragraph>Currency: 💰12 </Paragraph>
             </Card.Content>
             <Card.Actions >
-                <Button >Store</Button>
+                <Button onPress={()=>{
+                    router.navigate('/store');
+                }}>Store</Button>
                 <Button>Inventory</Button>
             </Card.Actions>
         </Card>

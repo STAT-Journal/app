@@ -25,6 +25,9 @@ export default function TabLayout() {
     setupDatabase();
   }, []);
 
+  // Setup the database on app start
+  setupDatabase();
+
   return (
     <Tabs
       screenOptions={{
@@ -71,6 +74,34 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="user"
+        options={{
+          title: "User",
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="user" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+      name="export"
+      options={{
+        title: "Export",
+        tabBarIcon: ({ color }: { color: string }) => (
+          <TabBarIcon name="download" color={color} />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="dragdrop"
+      options={{
+        title: "Emojis",
+        tabBarIcon: ({ color }: { color: string }) => (
+          <TabBarIcon name="smile-o" color={color} />
+        ),
+      }}
+    />
     </Tabs>
+    
   );
 }

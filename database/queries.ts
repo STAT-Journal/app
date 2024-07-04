@@ -1,5 +1,6 @@
 import * as SQLite from 'expo-sqlite';
-import {  Element, Entry, InventoryItem } from './models';
+import {  Element, TextEntry, InventoryItem } from './models';
+
 
 const dbPromise = SQLite.openDatabaseAsync('app.db');
 
@@ -11,13 +12,17 @@ export const setupDatabase = async () => {
     CREATE TABLE IF NOT EXISTS Entries (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       Elements_JSON TEXT
+      CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+    DROP Table IF EXISTS App;
     CREATE TABLE IF NOT EXISTS App (
-      Username TEXT PRIMARY KEY,
+      StreakLastChecked INTEGER,
       Streak INTEGER,
       CurrencyAmount INTEGER,
       InventoryOfItems TEXT
     );
+    INSERT INTO App (StreakLastChecked, Streak, CurrencyAmount, InventoryOfItems)
+    VALUES (-1, 0, 100, '[]');
     DROP Table IF EXISTS Item_json;
     CREATE TABLE IF NOT EXISTS Item_json (
       items TEXT
@@ -34,11 +39,20 @@ export const setupDatabase = async () => {
               {"id": 9, "name": "strawberry", "cost": 90, "icon": "🍓" },
               {"id": 10, "name": "watermelon", "cost": 100, "icon": "🍉" }
               ]');
+    DROP Table IF EXISTS Text_Entries;
     CREATE TABLE IF NOT EXISTS Text_Entries (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       Entry TEXT
+      CreatedAt TEXT DEFAULT CURRENT_TIMESTAMP
     );
   `);
+};
+export const checkLastEntryTime = async () => {
+  
+  
+}
+export const checkStreak = async () => {
+  
 };
 
 export const createTextEntry = async (entry: string) => {
@@ -60,25 +74,12 @@ export const removeTextEntry = async (id: number) => {
 export const updateTextEntry = async (id: number, entry: string) => {
   const db = await dbPromise;
   const result = await db.runAsync('UPDATE Text_Entries SET Entry = ? WHERE ID = ?', entry, id);
-  console.log(`Updated ${result.changes} row(s)`);
 }
 
 export const createEntry = async (elementsJSON: Element[]) => {
   const db = await dbPromise;
   console.log(JSON.stringify(elementsJSON));
   const result = await db.runAsync('INSERT INTO Entries (Elements_JSON) VALUES (?)', JSON.stringify(elementsJSON));
-  console.log(`Inserted row with ID: ${result.lastInsertRowId}`);
-};
-
-
-
-export const createUser = async (username: string, streak: number, currencyAmount: number, inventoryOfItems: InventoryItem[]) => {
-  const db = await dbPromise;
-  const result = await db.runAsync(
-    'INSERT INTO App (Username, Streak, CurrencyAmount, InventoryOfItems) VALUES (?, ?, ?, ?)',
-    username, streak, currencyAmount, JSON.stringify(inventoryOfItems)
-  );
-  console.log(`Inserted row with Username: ${username}`);
 };
 
 export const createItem = async (items: InventoryItem[]) => {
@@ -172,4 +173,4 @@ export const deleteElementsJSON = async (id: number) => {
   const db = await dbPromise;
   const result = await db.runAsync('DELETE FROM Entries WHERE ID = ?', id);
   console.log(`Deleted ${result.changes} row(s)`);
-};
+}

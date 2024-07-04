@@ -10,16 +10,20 @@ export interface Entry {
   ID: number;
   Snapshot_URI: string;
   Elements_JSON: Element[];
+  CreatedAt: number;
 }
 
 export interface TextEntry {
   ID: number;
   Entry: string;
+  CreatedAt: string;
 }
+
 export interface AppUser {
   Username: string;
   Streak: number;
   CurrencyAmount: number;
+  LastEntry: number;
   InventoryOfItems: InventoryItem[];
 }
 

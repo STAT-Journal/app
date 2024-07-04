@@ -6,7 +6,7 @@ import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 import { useColorScheme } from "@/components/useColorScheme";
 import Colors from "@/constants/Colors";
 
-import { setupDatabase } from "@/database/queries";
+import { checkStreak, setupDatabase } from "@/database/queries";
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 //COLE: Apply FontAwesome filter to the above site to get accurate list of icons
 //Possible options for text entry icon: 'plus-square-o', 'pencil-square-o', 'comment-o'
@@ -23,10 +23,10 @@ export default function TabLayout() {
   // Setup the database on app start
   React.useEffect(() => {
     setupDatabase();
+    checkStreak();
   }, []);
 
-  // Setup the database on app start
-  setupDatabase();
+
 
   return (
     <Tabs

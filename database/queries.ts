@@ -56,6 +56,8 @@ export const getEntryTimes = async () => {
   return arr
 }
 export const checkStreak = async () => {
+const AUTOCHECK_INTERVAL_IN_MINS = 3;
+
   const entryTimes = await getEntryTimes();
   if(entryTimes.length === 0){
     return 0;
@@ -67,10 +69,11 @@ export const checkStreak = async () => {
   const breakTime = 60;
   const result = calculateStreak(entryTimes, currentTime, waitTime, breakTime);
   console.log(`Current streak: ${result}`);
+
+  setTimeout(checkStreak, AUTOCHECK_INTERVAL_IN_MINS * 60000); 
   return result;
-  
-  
 };
+
 function calculateStreak(entryTimes: number[], currentTime :number, waitTime :number, breakTime :number) {
   if (entryTimes.length === 0) {
     return 0;
@@ -117,6 +120,7 @@ function calculateStreak(entryTimes: number[], currentTime :number, waitTime :nu
 
   return streak;
 }
+
 
 export const createTextEntry = async (entry: string) => {
   const db = await dbPromise;

@@ -21,6 +21,7 @@ const EntriesPage = () => {
     useEffect(() => {
         const fetchEntries = async () => {
             const result = await readTextEntries();
+            console.log(result as TextEntry[])
             setEntries(result as TextEntry[]);
         };
         fetchEntries();
@@ -90,7 +91,7 @@ const EntriesPage = () => {
             {entries.map((entry: TextEntry) => (
                 <Pressable key={entry.ID} onPress={() => handleEdit(entry)}>
                     <Card style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black' }}>
-                        <Card.Title title={entry.ID ? entry.ID : 0} />
+                        <Card.Title title={(entry.ID ? entry.ID : 0).toString() + " --- " + (entry.CreatedAt ? entry.CreatedAt : 0).toString() } />
                         <Card.Content>
                             <View style={{ flexDirection: 'column', justifyContent: 'space-between', right: 0 }}>
                                 <Button mode="contained"

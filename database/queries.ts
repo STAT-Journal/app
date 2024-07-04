@@ -1,6 +1,17 @@
 import * as SQLite from 'expo-sqlite';
 import { Element, TextEntry, InventoryItem } from './models';
 
+/****************************************************************
+
+
+
+NOTE
+I believe, because this file is not a functional component, changes made to it will not be hotloaded during runtime.
+To see changes, you must restart the server. 
+
+
+
+*/
 const dbPromise = SQLite.openDatabaseAsync('app.db');
 
 export const setupDatabase = async () => {

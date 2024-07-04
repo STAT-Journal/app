@@ -91,21 +91,28 @@ const EntriesPage = () => {
             {entries.map((entry: TextEntry) => (
                 <Pressable key={entry.ID} onPress={() => handleEdit(entry)}>
                     <Card style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black' }}>
-                        <Card.Title title={(entry.ID ? entry.ID : 0).toString() + " --- " + (entry.CreatedAt ? entry.CreatedAt : 0).toString() } />
+                        <Card.Title title={"(id: " + (entry.ID ? entry.ID : 0).toString() + ") (created at: " + (entry.CreatedAt ? new Date(parseInt(entry.CreatedAt) * 1000).toLocaleString() : 0).toString() + ")"} />
                         <Card.Content>
-                            <View style={{ flexDirection: 'column', justifyContent: 'space-between', right: 0 }}>
-                                <Button mode="contained"
-                                    style={{ position: 'absolute', right: -10, bottom: 0, padding: 0, margin: 0, justifyContent: 'center', alignItems: 'center' }}
-                                    buttonColor='brown'
-                                    onPress={() => {
-                                        removeTextEntry(entry.ID);
-                                        setEntriesUpdated(prev => prev + 1);
-                                    }}>
-                                    <Ionicons size={25} name='remove' color='white' />
-                                </Button>
-                            </View>
                             <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{entry.Entry}</Text>
                         </Card.Content>
+                        <Card.Actions>
+                            <Button mode="contained"
+                                style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
+                                buttonColor='limegreen'
+                                onPress={() => handleEdit(entry)}>
+                                Edit
+                            </Button>
+                            <Button mode="contained"
+                                style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
+                                buttonColor='brown'
+                                onPress={() => {
+                                    removeTextEntry(entry.ID);
+                                    setEntriesUpdated(prev => prev + 1);
+                                }}>
+                                Remove
+                            </Button>
+                        </Card.Actions>
+
                     </Card>
                 </Pressable>
             ))}

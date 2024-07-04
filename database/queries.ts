@@ -63,8 +63,8 @@ export const checkStreak = async () => {
 
   const currentTime = Math.floor(Date.now() / 1000);
 
-  const waitTime = 120; // 2 mins in seconds
-  const breakTime = 60; // 1 min in seconds
+  const waitTime = 30; 
+  const breakTime = 60;
   const result = calculateStreak(entryTimes, currentTime, waitTime, breakTime);
   console.log(`Current streak: ${result}`);
   return result;
@@ -87,10 +87,15 @@ function calculateStreak(entryTimes: number[], currentTime :number, waitTime :nu
 
     // Calculate the time difference between consecutive entries
     const timeDifference = entryTime - lastEntryTime;
-    
-    if (timeDifference <= breakTime) {
+
+    if (timeDifference <= breakTime ) {
       // If the time difference is within the allowed break time, increment the streak
-      streak++;
+      if (timeDifference >= waitTime) {
+        streak++;
+      }
+      else{
+
+      }
     } else {
       // If the time difference exceeds the break time, reset the streak
       streak = 1;

@@ -1,23 +1,22 @@
-export interface TextElement {
+export interface Element {
   x: number;
   y: number;
+  scale: number;
+  rotation: number;
   text: string;
 }
 
-export interface ImageElement {
-  x: number;
-  y: number;
-  file_location: string;
-}
-
-export interface ElementsJSON {
-  text_elements: TextElement[];
-  image_elements: ImageElement[];
-}
-
 export interface Entry {
-  ID?: number;
-  Elements_JSON: ElementsJSON;
+  ID: number;
+  Snapshot_URI: string;
+  Elements_JSON: Element[];
+  CreatedAt: number;
+}
+
+export interface TextEntry {
+  ID: number;
+  Entry: string;
+  CreatedAt: string;
 }
 
 export interface AppUser {
@@ -29,9 +28,10 @@ export interface AppUser {
 }
 
 export interface InventoryItem {
+  id: number;
   name: string;
   cost: number;
-  image: string;
+  icon: string;
 }
 
 export interface ItemJSON {

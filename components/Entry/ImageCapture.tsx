@@ -106,15 +106,12 @@ export default function ImageCapture() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     minHeight: heightPercentageToDP("20%"),
   },
   camera: {
-    flex: 1,
     justifyContent: "space-between",
   },
   buttonContainer: {
-    flex: 1,
     backgroundColor: "transparent",
   },
   swapButton: {
@@ -144,7 +141,6 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   fullSizePreviewContainer: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.8)",

@@ -1,125 +1,85 @@
 import * as SQLite from 'expo-sqlite';
-import { AppUser, ElementsJSON, Entry, InventoryItem } from './models';
-import { time } from 'drizzle-orm/mysql-core';
+import {  Element, TextEntry, InventoryItem } from './models';
+
 
 const dbPromise = SQLite.openDatabaseAsync('app.db');
 
 export const setupDatabase = async () => {
   const db = await dbPromise;
-
-    //if you have issues with the database, uncomment the following line to drop the tables and then comment it back after running the app once
-    //Drop tables if they exist
-   /* await db.execAsync(`
-      DROP TABLE IF EXISTS Entries;
-      DROP TABLE IF EXISTS App;
-      DROP TABLE IF EXISTS Item_json;
-    `);*/
-
-  //Create tables
   await db.execAsync(`
     PRAGMA journal_mode = WAL;
+    DROP Table IF EXISTS Entries;
     CREATE TABLE IF NOT EXISTS Entries (
       ID INTEGER PRIMARY KEY AUTOINCREMENT,
       Elements_JSON TEXT
+      CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+    DROP Table IF EXISTS App;
     CREATE TABLE IF NOT EXISTS App (
-      Username TEXT PRIMARY KEY,
+      StreakLastChecked INTEGER,
       Streak INTEGER,
       CurrencyAmount INTEGER,
-      LastEntry INTERGER,
       InventoryOfItems TEXT
     );
+    INSERT INTO App (StreakLastChecked, Streak, CurrencyAmount, InventoryOfItems)
+    VALUES (-1, 0, 100, '[]');
+    DROP Table IF EXISTS Item_json;
     CREATE TABLE IF NOT EXISTS Item_json (
       items TEXT
     );
+    INSERT INTO Item_json (items) 
+    VALUES ('[{"id": 1, "name": "apple", "cost": 10, "icon": "🍎" }, 
+              {"id": 2, "name": "banana", "cost": 20, "icon": "🍌" },
+              {"id": 3, "name": "cherry", "cost": 30, "icon": "🍒" },
+              {"id": 4, "name": "grapes", "cost": 40, "icon": "🍇" },
+              {"id": 5, "name": "lemon", "cost": 50, "icon": "🍋" },
+              {"id": 6, "name": "orange", "cost": 60, "icon": "🍊" },
+              {"id": 7, "name": "pear", "cost": 70, "icon": "🍐" },
+              {"id": 8, "name": "pineapple", "cost": 80, "icon": "🍍" },
+              {"id": 9, "name": "strawberry", "cost": 90, "icon": "🍓" },
+              {"id": 10, "name": "watermelon", "cost": 100, "icon": "🍉" }
+              ]');
+    DROP Table IF EXISTS Text_Entries;
+    CREATE TABLE IF NOT EXISTS Text_Entries (
+      ID INTEGER PRIMARY KEY AUTOINCREMENT,
+      Entry TEXT
+      CreatedAt TEXT DEFAULT CURRENT_TIMESTAMP
+    );
   `);
-
-  //uncomment the following line to test the user creation and streak incrementation then comment it back after running the app once
- //testUser();
 };
-
-const testUser = async () => {
-  const username = 'testUser';
-  const streak = 0;
-  const currencyAmount = 100;
-  const lastEntry = new Date().getTime() / 1000;
-  const inventoryOfItems: InventoryItem[] = [];
-
-  await createUser(username, streak, currencyAmount, lastEntry, inventoryOfItems);
-  console.log('Test user created successfully');
-};
-
-export const createEntry = async (elementsJSON: ElementsJSON, username: string) => {
-  const db = await dbPromise;
-  const result = await db.runAsync('INSERT INTO Entries (Elements_JSON) VALUES (?)', JSON.stringify(elementsJSON));
-  const lastInsertId = result.lastInsertRowId;
-  console.log(`Inserted row with ID: ${lastInsertId}`);
-
-  //Get current date/time
-  const currentDateTime = new Date().getTime() / 1000;
-
-  //Update the LastEntry for the user
-  const updateResult = await db.runAsync('UPDATE App SET LastEntry = ? WHERE Username = ?', [currentDateTime, username]);
-  console.log(`Updated LastEntry for username: ${username}, affected rows: ${updateResult.changes}`);
-};
-
-
-export const updateStreak = async (username: string) => {
-  const db = await dbPromise;
-  const user = await db.getFirstAsync<AppUser>('SELECT * FROM App WHERE Username = ?', [username]);
-
-  if (user) {
-    const lastEntryTime = new Date(user.LastEntry * 1000); // Convert back to milliseconds
-    const currentTime = new Date();
-    const timeDifference = (currentTime.getTime() - lastEntryTime.getTime()) / 1000; // in seconds
-
-    //console.log('lastEntryTime: ', lastEntryTime.getTime() / 1000); // Log in seconds
-    //console.log('timeDifference: ', timeDifference);
-
-
-    //reset the streak if the user streak is 0 and the user has not entered in the last 7 days
-    if (user.Streak > 0 && timeDifference > 604800){
-      //Reset streak
-      await db.runAsync('UPDATE App SET Streak = 0 WHERE Username = ?', [username]);
-      console.log(`Streak reset for username: ${username}`);
-    }
-  }
-};
-
-export const incrementStreak = async (username: string) => {
-
-  const db = await dbPromise;
-  const user = await db.getFirstAsync<AppUser>('SELECT * FROM App WHERE Username = ?', [username]);
+export const checkLastEntryTime = async () => {
   
-  if(user) {
-    const lastEntryTime = new Date(user.LastEntry * 1000); //Convert back to milliseconds
-    const currentTime = new Date();
-    const timeDifference = (currentTime.getTime() - lastEntryTime.getTime()) / 1000; //in seconds
-
-    //Increment the streak if the user has not entered in the last 24 hours or if the streak is 0
-    if (timeDifference >= 86400 || user.Streak === 0){
-      //Increment streak
-      const newStreak = user.Streak + 1;
-      await db.runAsync('UPDATE App SET Streak = ? WHERE Username = ?', [newStreak, username]);
-      console.log(`Streak incremented for username: ${username}, new streak: ${newStreak}`);
-    }
-  }
+  
+}
+export const checkStreak = async () => {
+  
 };
 
-export const getUserStreak = async (username: string): Promise<number> => {
+export const createTextEntry = async (entry: string) => {
   const db = await dbPromise;
-  const user = await db.getFirstAsync<AppUser>('SELECT Streak FROM App WHERE Username = ?', [username]);
-  return user ? user.Streak : 0;
-};
+  const result = await db.runAsync('INSERT INTO Text_Entries (Entry) VALUES (?)', entry);
+}
 
-
-export const createUser = async (username: string, streak: number, currencyAmount: number, lastEntry: number, inventoryOfItems: InventoryItem[]) => {
+export const readTextEntries = async () => {
   const db = await dbPromise;
-  const result = await db.runAsync(
-    'INSERT INTO App (Username, Streak, CurrencyAmount, LastEntry, InventoryOfItems) VALUES (?, ?, ?, ?, ?)',
-    username, streak, currencyAmount, lastEntry, JSON.stringify(inventoryOfItems)
-  );
-  console.log(`Inserted row with Username: ${username}`);
+  const rows = await db.getAllAsync('SELECT * FROM Text_Entries');
+  return rows;
+}
+
+export const removeTextEntry = async (id: number) => {
+  const db = await dbPromise;
+  const result = await db.runAsync('DELETE FROM Text_Entries WHERE ID = ?', id);
+}
+
+export const updateTextEntry = async (id: number, entry: string) => {
+  const db = await dbPromise;
+  const result = await db.runAsync('UPDATE Text_Entries SET Entry = ? WHERE ID = ?', entry, id);
+}
+
+export const createEntry = async (elementsJSON: Element[]) => {
+  const db = await dbPromise;
+  console.log(JSON.stringify(elementsJSON));
+  const result = await db.runAsync('INSERT INTO Entries (Elements_JSON) VALUES (?)', JSON.stringify(elementsJSON));
 };
 
 export const createItem = async (items: InventoryItem[]) => {
@@ -131,7 +91,7 @@ export const createItem = async (items: InventoryItem[]) => {
 export const readEntries = async () => {
   const db = await dbPromise;
   const rows = await db.getAllAsync('SELECT * FROM Entries');
-  console.log(rows);
+  //console.log(rows);
   return rows;
 };
 
@@ -156,7 +116,7 @@ export const readItems = async (): Promise<InventoryItem[]> => {
 };
 
 
-export const readElementsJSON = async (id: number): Promise<ElementsJSON | null> => {
+export const readElementsJSON = async (id: number): Promise<Element[] | null> => {
   const db = await dbPromise;
   const row: { Elements_JSON: string } | null = await db.getFirstAsync<{ Elements_JSON: string }>(
     'SELECT Elements_JSON FROM Entries WHERE ID = ?',
@@ -164,22 +124,22 @@ export const readElementsJSON = async (id: number): Promise<ElementsJSON | null>
   );
   
   if (row) {
-    return JSON.parse(row.Elements_JSON) as ElementsJSON;
+    return JSON.parse(row.Elements_JSON) as Element[];
   }
   return null;
 };
 
-export const updateEntry = async (id: number, elementsJSON: ElementsJSON) => {
+export const updateEntry = async (id: number, elementsJSON:Element[]) => {
   const db = await dbPromise;
   const result = await db.runAsync('UPDATE Entries SET Elements_JSON = ? WHERE ID = ?', JSON.stringify(elementsJSON), id);
   console.log(`Updated ${result.changes} row(s)`);
 };
 
-export const updateUser = async (username: string, streak: number, currencyAmount: number, lastEntry: number, inventoryOfItems: InventoryItem[]) => {
+export const updateUser = async (username: string, streak: number, currencyAmount: number, inventoryOfItems: InventoryItem[]) => {
   const db = await dbPromise;
   const result = await db.runAsync(
-    'UPDATE App SET Streak = ?, CurrencyAmount = ?, LastEntry = ?, InventoryOfItems = ? WHERE Username = ?',
-    streak, currencyAmount, lastEntry, JSON.stringify(inventoryOfItems), username
+    'UPDATE App SET Streak = ?, CurrencyAmount = ?, InventoryOfItems = ? WHERE Username = ?',
+    streak, currencyAmount, JSON.stringify(inventoryOfItems), username
   );
   console.log(`Updated ${result.changes} row(s)`);
 };
@@ -190,15 +150,6 @@ export const updateItem = async (items: InventoryItem[]) => {
   console.log(`Updated ${result.changes} row(s)`);
 };
 
-export const updateElementsJSON = async (id: number, elementsJSON: ElementsJSON) => {
-  const db = await dbPromise;
-  const result = await db.runAsync(
-    'UPDATE Entries SET Elements_JSON = ? WHERE ID = ?',
-    JSON.stringify(elementsJSON),
-    id
-  );
-  console.log(`Updated ${result.changes} row(s)`);
-};
 
 export const deleteEntry = async (id: number) => {
   const db = await dbPromise;
@@ -222,4 +173,4 @@ export const deleteElementsJSON = async (id: number) => {
   const db = await dbPromise;
   const result = await db.runAsync('DELETE FROM Entries WHERE ID = ?', id);
   console.log(`Deleted ${result.changes} row(s)`);
-};
+}

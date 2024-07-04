@@ -8,6 +8,7 @@ import {
   MD3LightTheme as DefaultTheme,
   PaperProvider,
 } from "react-native-paper";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider } from "./auth";
 
 export {
@@ -57,9 +58,11 @@ function RootLayoutNav() {
   return (
     <PaperProvider theme={theme}>
       <AuthProvider>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        </Stack>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+        </GestureHandlerRootView>
       </AuthProvider>
     </PaperProvider>
   );

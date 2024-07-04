@@ -1,24 +1,31 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Element } from '@/database/models';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
-    withSpring
 } from 'react-native-reanimated';
+
 
 interface DraggableProps {
     onDragStart?: () => void;
     onDragEnd?: () => void;
-    springBack?: boolean;
-    children: React.ReactNode;
+    element: Element;
 }
 
-const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, springBack, children }) => {
-    const translateX = useSharedValue(0);
-    const translateY = useSharedValue(0);
-    const offsetX = useSharedValue(0);
-    const offsetY = useSharedValue(0);
+const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, element }) => {
+    const translateX = useSharedValue(element.x);
+    const translateY = useSharedValue(element.y);
+    const offsetX = useSharedValue(element.x);
+    const offsetY = useSharedValue(element.y);
+    const scale = useSharedValue(1);
+    const baseScale = useSharedValue(element.scale);
+    const rotation = useSharedValue(0);
+    const baseRotation = useSharedValue(element.rotation);
+    const focalY = useSharedValue(0);
+    const fontSize = 100; // Assuming the font size is 100 as per styles.emoji
 
     const panGesture = Gesture.Pan()
         .onBegin(() => {
@@ -33,33 +40,60 @@ const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, springBac
         .onEnd(() => {
             offsetX.value = translateX.value;
             offsetY.value = translateY.value;
-            if (springBack === true) {
-                translateX.value = withSpring(0);
-                translateY.value = withSpring(0);
-                offsetX.value = 0;
-                offsetY.value = 0;
-            }
+            element.x = translateX.value;
+            element.y = translateY.value;
             if (onDragEnd) {
                 onDragEnd();
             }
         });
 
+    const pinchGesture = Gesture.Pinch()
+        .onUpdate((event) => {
+            scale.value = baseScale.value * event.scale;
+        })
+        .onEnd(() => {
+            baseScale.value = scale.value;
+            element.scale = scale.value;
+        });
+
+    const rotateGesture = Gesture.Rotation()
+        .onUpdate((event) => {
+            rotation.value = baseRotation.value + (event.rotation  * 1);
+        })
+        .onEnd(() => {
+            baseRotation.value = rotation.value;
+            element.rotation = rotation.value;
+        });
+
     const animatedStyle = useAnimatedStyle(() => {
+        const adjustedTranslateX = translateX.value - (fontSize / 2) * scale.value;
+        const adjustedTranslateY = translateY.value - (fontSize / 2) * scale.value;
         return {
+            position: 'absolute',
             transform: [
-                { translateX: translateX.value },
-                { translateY: translateY.value },
+                { translateX: adjustedTranslateX },
+                { translateY: adjustedTranslateY },
+                { scale: scale.value },
+                { rotate: `${rotation.value}rad` },
             ],
         };
     });
 
     return (
-        <GestureDetector gesture={panGesture}>
-            <Animated.View style={animatedStyle}>
-                {children}
+        <GestureDetector gesture={Gesture.Simultaneous(panGesture, pinchGesture, rotateGesture)}>
+            <Animated.View style={[{ flex: 1 }, animatedStyle]}>
+                <Text style={styles.emoji}>
+                    {element.text}
+                </Text>
             </Animated.View>
         </GestureDetector>
     );
 };
 
 export default Draggable;
+
+const styles = StyleSheet.create({
+    emoji: {
+        fontSize: 100,
+    },
+});

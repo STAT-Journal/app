@@ -1,53 +1,42 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { Menu, Divider, Button, MD3LightTheme } from "react-native-paper";
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from "react-native-responsive-screen";
-
-import { View } from "@/components/Themed";
 import CalendarEvents from "@/components/CalendarEvents";
 import ImageCapture from "@/components/Entry/ImageCapture";
 import ImageGallery from "@/components/Entry/ImageGallery";
 import AudioRecorder from "@/components/Entry/AudioCapture";
+import { ScrollView } from "react-native-gesture-handler";
+import { router } from "expo-router";
 import StreakTracking from "@/components/StreakTracking";
-import { updateStreak, getUserStreak, createUser } from "@/database/queries"; //Import your database functions
+import ExportJSONButton from "@/components/Export/ExportJSON";
+import ExportCSVButton from "@/components/Export/ExportCSV";
+import ExportPDFButton from "@/components/Export/ExportPDF";
+import { checkStreak } from "@/database/queries";
+
+
 
 export default function DebugScreen() {
-  const [streak, setStreak] = useState<number>(0);
-  const username = 'testUser'; //Replace with actual username
-
-  useEffect(() => {
-    const fetchAndUpdateStreak = async () => {
-      await updateStreak(username); 
-      const userStreak = await getUserStreak(username); //Replace with actual username
-      //console.log(`Streak for username: ${username}, streak: ${userStreak}`);
-      setStreak(userStreak);
-      //console.log(`Streak updated for username: ${username}, new streak: ${userStreak}`);
-      
-    };
-
-    //Initial fetch and update
-    fetchAndUpdateStreak();
-
-    //Set interval to update streak every second
-    const interval = setInterval(fetchAndUpdateStreak, 1000);
-
-    //Clear interval on component unmount
-    return () => clearInterval(interval);
-  }, []);
 
   return (
-    <View style={styles.container}>
-      <StreakTracking streak={streak} />
+    <ScrollView >
+      <Button mode='outlined' style={{margin:10}} onPress={() => {
+        router.navigate('/dragdrop')
+      }}>Launch Emoji/Draggables thing</Button>
+      <Button mode='outlined' style={{margin:10}} onPress={() => {
+        checkStreak()
+      }
+      }>Check Streak</Button>
+      <ExportJSONButton />
+      <ExportCSVButton />
+      <ExportPDFButton />
+      <StreakTracking streak={12} />
       <AudioRecorder />
       <ImageGallery />
       <Divider />
       <ImageCapture />
       <Divider />
       <CalendarEvents />
-    </View>
+    </ScrollView>
   );
 }
 

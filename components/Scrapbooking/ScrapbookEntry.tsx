@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableWithoutFeedback, Modal,  } from "react-native";
+import { View, StyleSheet, Text, TouchableWithoutFeedback, Modal } from "react-native";
 import ScrapbookMenu from "./ScrapbookMenu";
-import ScrapbookCanvas from "./ScrapbookCanvas";
 import SpeedDial from "../Entry/SpeedDial";
 import EmojiPicker from "rn-emoji-picker";
 import { emojis } from "rn-emoji-picker/dist/data";
@@ -9,37 +8,44 @@ import { StatusBar } from 'expo-status-bar';
 import { Emoji } from "rn-emoji-picker/dist/interfaces";
 import Draggable from "./Draggable";
 import { widthPercentageToDP } from "react-native-responsive-screen";
-import { Button } from "react-native-paper";
-import { createEntry, getUserStreak, readEntries, updateStreak, incrementStreak } from "@/database/queries";
-import { ElementsJSON } from "@/database/models";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
-const ScrapbookEntry = () => {
+import { Button, Portal } from "react-native-paper";
+import { createEntry, readEntries } from "@/database/queries";
+import { Element, Entry } from "@/database/models";
+import { LinearGradient } from "expo-linear-gradient";
+
+interface ScrapbookEntryProps {
+    entry? : Entry
+}
+
+const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
     const [selectedEmoji, setSelectedEmoji] = useState('');
     const [recent, setRecent] = useState([]);
     const [showPicker, setShowPicker] = useState(false);
-    const [emojisOnCanvas, setEmojisOnCanvas] = useState<{ emoji: string; x: any; y: any; }[]>([]);
+    const [elements, setElements] = useState<Element[]>([]);
+
+    
 
     const addText = () => {
         console.log("Add text");
     }
-    const saveEntry = async (username: string) => {
+    
+    const saveEntry = () => {
+        createEntry(elements);
         console.log("Save entry");
-        const elements: ElementsJSON = {
-            text_elements: emojisOnCanvas.map((item) => ({ x: item.x, y: item.y, text: item.emoji })),
+        /* const elements: ElementsJSON = {
+            text_elements: emojisOnCanvas.map((emojis) => ({ x: item.x, y: item.y, text: item.emoji })),
             image_elements: [],
         };
-
-        //Update streak
-        await incrementStreak(username);
-
-        const streak = await getUserStreak(username)
-        console.log(await "Streak updated" + " " + username + "Streak amount " + streak)
-
-        //Create a new entry
-        await createEntry(elements, username);
-        console.log(await readEntries());
+        
+        console.log(readEntries()); */
     }
-    
+
+    const reloadEntry = (entry: Entry)=> {
+        const elements = JSON.parse(entry.Elements_JSON.toString());
+        console.log(elements);
+        setElements(elements);
+    }
+
     const addEmoji = () => {
         setShowPicker(true);
     }
@@ -52,33 +58,30 @@ const ScrapbookEntry = () => {
     const handleCanvasPress = (event: { nativeEvent: { locationX: any; locationY: any; }; }) => {
         const { locationX, locationY } = event.nativeEvent;
         if (selectedEmoji) {
-            setEmojisOnCanvas([
-                ...emojisOnCanvas,
-                { emoji: selectedEmoji, x: locationX, y: locationY }
+            setElements([
+                ...elements,
+                { x: locationX, y: locationY, text: selectedEmoji, scale: 1, rotation: 0}
             ]);
         }
     }
 
     const handleClearCanvas = () => {
-        setEmojisOnCanvas([]);
+        setElements([]);
     }
 
     return (
         <View style={styles.container}>
-            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={() => saveEntry("testUser")}/>
+            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{width:widthPercentageToDP(100), height:1000, position:'absolute', top:0, left:0, right:0, bottom:0}}/>
+            <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry} reloadEntry={reloadEntry}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
                 <View style={styles.canvas}>
-                    <ScrapbookCanvas />
-                    {emojisOnCanvas.map((item, index) => (
-                        <Draggable key={index} springBack={false}>
-                            <Text key={index} style={{ ...styles.emoji, top: item.y, left: item.x }}>
-                                {item.emoji}
-                            </Text>
-                        </Draggable>
+                    {elements.map((item, index) => (
+                        <Draggable key={index} element={item}/>
                     ))}
                 </View>
             </TouchableWithoutFeedback>
             <SpeedDial openTextEntry={addText} openEmojiEntry={addEmoji} />
+            <Portal>
             <Modal
                 visible={showPicker}
                 transparent={true}
@@ -104,6 +107,7 @@ const ScrapbookEntry = () => {
                         </View>
                 </View>
             </Modal>
+            </Portal>
             <StatusBar style="light" />
         </View>
     );
@@ -113,16 +117,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
-        backgroundColor: 'yellow',
     },
     canvas: {
         flex: 1,
         position: 'relative',
-        backgroundColor: 'orange',
     },
     emoji: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 100,
     },
     selectedEmoji: {
         fontSize: 30,
@@ -139,7 +141,6 @@ const styles = StyleSheet.create({
     closeButton: {
         position: 'absolute',
         bottom: 10,
-
     },
     emojiMenuContainer: {
         width: widthPercentageToDP(95),
@@ -147,7 +148,6 @@ const styles = StyleSheet.create({
         flexGrow:1,
         backgroundColor: '#fff',
         borderRadius: 10,
-
     },
 });
 

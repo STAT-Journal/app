@@ -19,6 +19,11 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  
+  // Setup the database on app start
+  React.useEffect(() => {
+    setupDatabase();
+  }, []);
 
   // Setup the database on app start
   setupDatabase();
@@ -33,7 +38,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="feed"
+        name="index"
         options={{
           title: "Feed",
           tabBarIcon: ({ color }: { color: string }) => (
@@ -41,16 +46,26 @@ export default function TabLayout() {
           ),
         }}
       />
+      
       <Tabs.Screen
-        name="index"
+        name="store"
         options={{
-          title: "Scrapbooking Entry",
+          title: "Store",
           tabBarIcon: ({ color }: { color: string }) => (
-            <TabBarIcon name="plus-square-o" color={color} />
+            <TabBarIcon name="shopping-basket" color={color} />
           ),
         }}
       />
       <Tabs.Screen
+      name="profile"
+      options={{
+        title: "Profile",
+        tabBarIcon: ({ color }: { color: string }) => (
+          <TabBarIcon name="user" color={color} />
+        ),
+      }}
+    />
+     <Tabs.Screen
         name="debug"
         options={{
           title: "Debug",
@@ -68,6 +83,25 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+      name="export"
+      options={{
+        title: "Export",
+        tabBarIcon: ({ color }: { color: string }) => (
+          <TabBarIcon name="download" color={color} />
+        ),
+      }}
+    />
+    <Tabs.Screen
+      name="dragdrop"
+      options={{
+        title: "Emojis",
+        tabBarIcon: ({ color }: { color: string }) => (
+          <TabBarIcon name="smile-o" color={color} />
+        ),
+      }}
+    />
     </Tabs>
+    
   );
 }

@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Button, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import * as FileSystem from 'expo-file-system';
 import Papa from 'papaparse';
+import { Button } from 'react-native-paper';
 
 const ExportCSVButton: React.FC = () => {
   const handleExportCSV = async () => {
@@ -66,7 +67,9 @@ const ExportCSVButton: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Button title="Export CSV" onPress={handleExportCSV} />
+      <Button mode="contained" onPress={handleExportCSV}>
+        Export CSV
+      </Button>
     </View>
   );
 };

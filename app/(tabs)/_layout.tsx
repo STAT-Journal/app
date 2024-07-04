@@ -68,6 +68,16 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+      name="export"
+      options={{
+        title: "Export",
+        tabBarIcon: ({ color }: { color: string }) => (
+          <TabBarIcon name="download" color={color} />
+        ),
+      }}
+    />
     </Tabs>
+    
   );
 }

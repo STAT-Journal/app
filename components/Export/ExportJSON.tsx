@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Button, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
 import * as FileSystem from 'expo-file-system';
+import { Button } from 'react-native-paper';
 
 const ExportJSONButton: React.FC = () => {
   const handleExportJSON = async () => {
@@ -44,7 +45,9 @@ const ExportJSONButton: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Button title="Export JSON" onPress={handleExportJSON} />
+      <Button mode="contained" onPress={handleExportJSON}>
+        Export JSON
+      </Button>
     </View>
   );
 };

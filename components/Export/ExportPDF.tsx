@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Button, Alert } from 'react-native';
+import { View, Alert } from 'react-native';
+import { Button } from 'react-native-paper';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 
@@ -97,7 +98,9 @@ const ExportPDFButton: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Button title="Export PDF" onPress={handleExportPDF} />
+      <Button mode="contained" onPress={handleExportPDF}>
+        Export PDF
+      </Button>
     </View>
   );
 };

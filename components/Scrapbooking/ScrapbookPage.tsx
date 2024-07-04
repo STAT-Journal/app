@@ -1,6 +1,6 @@
 import React from 'react';
 import { Entry, TextEntry } from '@/database/models';
-import { createTextEntry, readTextEntries, removeTextEntry, updateTextEntry } from '@/database/queries';
+import { checkStreak, createTextEntry, readTextEntries, removeTextEntry, updateTextEntry } from '@/database/queries';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
 import { View, Text, Touchable, Pressable } from 'react-native';
@@ -21,7 +21,6 @@ const EntriesPage = () => {
     useEffect(() => {
         const fetchEntries = async () => {
             const result = await readTextEntries();
-            console.log(result as TextEntry[])
             setEntries(result as TextEntry[]);
         };
         fetchEntries();
@@ -68,6 +67,7 @@ const EntriesPage = () => {
                                     buttonColor='limegreen'
                                     onPress={() => {
                                         createTextEntry(newEntry);
+                                        checkStreak();
                                         setEntriesUpdated(prev => prev + 1);
                                         setIsCreating(false);
                                         setNewEntry('');

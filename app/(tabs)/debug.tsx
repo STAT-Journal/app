@@ -12,10 +12,22 @@ import ExportJSONButton from "@/components/Export/ExportJSON";
 import ExportCSVButton from "@/components/Export/ExportCSV";
 import ExportPDFButton from "@/components/Export/ExportPDF";
 import { checkStreak } from "@/database/queries";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 
 export default function DebugScreen() {
+
+  const [streak, setStreak] = useState(0);
+  
+  useFocusEffect(() => {
+    const updateStreak = async () => {
+      const streak = await checkStreak();
+      setStreak(streak);
+    }
+    updateStreak();
+
+    });
 
   return (
     <ScrollView >
@@ -29,7 +41,7 @@ export default function DebugScreen() {
       <ExportJSONButton />
       <ExportCSVButton />
       <ExportPDFButton />
-      <StreakTracking streak={12} />
+      <StreakTracking streak={streak} />
       <AudioRecorder />
       <ImageGallery />
       <Divider />

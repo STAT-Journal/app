@@ -21,7 +21,7 @@ const MentalHealthComponent: React.FC = () => {
     }
 
     const handleRedirectFive = () => {
-        Linking.openURL('hhttps://cmha.ca/brochure/getting-help/');
+        Linking.openURL('https://cmha.ca/brochure/getting-help/');
     }
 
     const handleRedirectSix = () => {

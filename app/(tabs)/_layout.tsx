@@ -101,6 +101,15 @@ export default function TabLayout() {
         ),
       }}
     />
+    <Tabs.Screen
+      name="mentalhelp"
+      options={{
+        title: "Mental Help",
+        tabBarIcon: ({ color }: { color: string }) => (
+          <TabBarIcon name="heart" color={color} />
+        ),
+      }}
+    />              
     </Tabs>
     
   );

@@ -67,7 +67,10 @@ export const getEntryTimes = async () => {
   return arr
 }
 export const checkStreak = async () => {
-const AUTOCHECK_INTERVAL_IN_MINS = 3;
+  const STREAK_BREAK_TIME_IN_SECONDS = 60*24*60;
+  const STREAK_WAIT_TIME_IN_SECONDS = 60*12*60;
+  const AUTOCHECK_INTERVAL_IN_SECONDS = 60*24*60;
+
 
   const entryTimes = await getEntryTimes();
   if(entryTimes.length === 0){
@@ -76,12 +79,11 @@ const AUTOCHECK_INTERVAL_IN_MINS = 3;
 
   const currentTime = Math.floor(Date.now() / 1000);
 
-  const waitTime = 30; 
-  const breakTime = 60;
-  const result = calculateStreak(entryTimes, currentTime, waitTime, breakTime);
+
+  const result = calculateStreak(entryTimes, currentTime, STREAK_WAIT_TIME_IN_SECONDS, STREAK_BREAK_TIME_IN_SECONDS);
   console.log(`Current streak: ${result}`);
 
-  setTimeout(checkStreak, AUTOCHECK_INTERVAL_IN_MINS * 60000); 
+  setTimeout(checkStreak, AUTOCHECK_INTERVAL_IN_SECONDS * 60000); 
   return result;
 };
 

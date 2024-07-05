@@ -9,6 +9,7 @@ import { Button, Card, Modal, Portal, TextInput } from 'react-native-paper';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import StreakTracker from '../StreakTracking';
 
 const EntriesPage = () => {
     const [entries, setEntries] = useState<TextEntry[]>([]);
@@ -17,6 +18,7 @@ const EntriesPage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [currentEntry, setCurrentEntry] = useState<TextEntry | null>(null);
     const [entriesUpdated, setEntriesUpdated] = useState(0);
+    const [streak, setStreak] = useState(0);
 
     useEffect(() => {
         const fetchEntries = async () => {
@@ -40,7 +42,7 @@ const EntriesPage = () => {
             setNewEntry('');
         }
     };
-
+    
     return (
         <ScrollView contentContainerStyle={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: widthPercentageToDP(100), flexGrow: 1 }}>
             <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{ width: widthPercentageToDP(100), height: heightPercentageToDP(100), position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
@@ -65,9 +67,9 @@ const EntriesPage = () => {
                                 <Button mode="contained"
                                     style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
                                     buttonColor='limegreen'
-                                    onPress={() => {
+                                    onPress={async() => {
                                         createTextEntry(newEntry);
-                                        checkStreak();
+                                        setStreak(await checkStreak());
                                         setEntriesUpdated(prev => prev + 1);
                                         setIsCreating(false);
                                         setNewEntry('');
@@ -80,14 +82,17 @@ const EntriesPage = () => {
                 </Modal>
             </Portal>
 
-            <Button mode="elevated"
-                style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black' }}
-                onPress={() =>
-                    setIsCreating(true)
-                }>
-                Create
-            </Button>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: widthPercentageToDP(90) }}>
 
+                <Button mode="elevated"
+                    style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black', flex: 2}}
+                    onPress={() =>
+                        setIsCreating(true)
+                    }>
+                    Create
+                </Button>
+                <StreakTracker streak={streak} />
+            </View>
             {entries.map((entry: TextEntry) => (
                 <Pressable key={entry.ID} onPress={() => handleEdit(entry)}>
                     <Card style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black' }}>

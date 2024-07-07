@@ -2,7 +2,7 @@ import React from "react";
 import { createContext } from "react";
 import * as SecureStorage from "expo-secure-store";
 
-const api_endpoint = "http://10.0.0.222:4000";
+const api_endpoint = "https://stat-api.gigalixirapp.com/";
 
 interface AuthContextType {
   user: UserType | undefined;
@@ -88,7 +88,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           throw new Error(response.error);
         } else {
           const auth = { user: response.user, apiToken: response.token };
-          SecureStorage.setItemAsync("auth", JSON.stringify(auth)).then(() => {
+          console.log(auth);
+          SecureStorage
+          .setItemAsync("auth", JSON.stringify(auth))
+          .then(() => {
             setAuthState(auth);
           });
         }

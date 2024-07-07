@@ -49,6 +49,8 @@ export default function User() {
   const { user, logIn, logOut } = useAuth();
   const [formData, setFormData] = React.useState<LoginFormData>({ email: "", password: "" });
 
+  console.log(user);
+
   return (
     <View style={UserStyles.container}>
         <UserStatusDisplay email={user?.email} />

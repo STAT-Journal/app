@@ -30,7 +30,7 @@ const ExportJSONButton: React.FC = () => {
         // Add more users as needed
       ],
     };
-
+    
     const jsonData = JSON.stringify(data, null, 2);
     const filePath = `${FileSystem.documentDirectory}database.json`;
 

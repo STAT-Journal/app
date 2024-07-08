@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableWithoutFeedback, Modal } from "react-native";
+import { View, TouchableWithoutFeedback, Modal } from "react-native";
 import ScrapbookMenu from "./ScrapbookMenu";
 import SpeedDial from "../Entry/SpeedDial";
 import EmojiPicker from "rn-emoji-picker";
@@ -12,6 +12,7 @@ import { Button, Portal } from "react-native-paper";
 import { createEntry, readEntries } from "@/database/queries";
 import { Element, Entry } from "@/database/models";
 import { LinearGradient } from "expo-linear-gradient";
+import { ScrapbookEntryStyles } from "@/styles/styles";
 
 interface ScrapbookEntryProps {
     entry? : Entry
@@ -70,11 +71,11 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={ScrapbookEntryStyles.container}>
             <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{width:widthPercentageToDP(100), height:1000, position:'absolute', top:0, left:0, right:0, bottom:0}}/>
             <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry} reloadEntry={reloadEntry}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
-                <View style={styles.canvas}>
+                <View style={ScrapbookEntryStyles.canvas}>
                     {elements.map((item, index) => (
                         <Draggable key={index} element={item}/>
                     ))}
@@ -88,8 +89,8 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
                 animationType="slide"
                 onRequestClose={() => setShowPicker(false)}
             >
-                <View style={styles.modalContainer}>
-                    <View style={styles.emojiMenuContainer}> 
+                <View style={ScrapbookEntryStyles.modalContainer}>
+                    <View style={ScrapbookEntryStyles.emojiMenuContainer}> 
                         <EmojiPicker
                             emojis={emojis}
                             recent={recent}
@@ -100,7 +101,7 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
                             onSelect={handleEmojiSelect}
                         /> 
                         </View>
-                        <View style={styles.closeButton}>
+                        <View style={ScrapbookEntryStyles.closeButton}>
                             <Button onPress={()=>setShowPicker(false)} mode="elevated" buttonColor="grey" textColor="white" >
                                 Close
                             </Button>
@@ -113,42 +114,6 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%',
-    },
-    canvas: {
-        flex: 1,
-        position: 'relative',
-    },
-    emoji: {
-        position: 'absolute',
-        fontSize: 100,
-    },
-    selectedEmoji: {
-        fontSize: 30,
-        color: '#000',
-        textAlign: 'center',
-        marginTop: 20,
-    },
-    modalContainer: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.5)',
-    },
-    closeButton: {
-        position: 'absolute',
-        bottom: 10,
-    },
-    emojiMenuContainer: {
-        width: widthPercentageToDP(95),
-        height: widthPercentageToDP(100),
-        flexGrow:1,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-    },
-});
+
 
 export default ScrapbookEntry;

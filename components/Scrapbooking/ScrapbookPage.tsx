@@ -1,9 +1,9 @@
 import React from 'react';
-import { Entry, TextEntry } from '@/database/models';
+import { TextEntry } from '@/database/models';
 import { checkStreak, createTextEntry, readTextEntries, removeTextEntry, updateTextEntry } from '@/database/queries';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
-import { View, Text, Touchable, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { ScrollView } from 'react-native';
 import { Button, Card, Modal, Portal, TextInput } from 'react-native-paper';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';

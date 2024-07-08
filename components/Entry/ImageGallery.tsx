@@ -2,15 +2,13 @@ import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import {
   Button,
-  StyleSheet,
   View,
   Image,
   TouchableWithoutFeedback,
   Modal,
 } from "react-native";
-
-import ImagePreviewScroll from "./ImagePreviewScroll"; // Make sure to import the ImagePreviewScroll component
-import { heightPercentageToDP } from "react-native-responsive-screen";
+import { ImageGalleryStyles } from "@/styles/styles";
+import ImagePreviewScroll from "./ImagePreviewScroll";
 
 export default function ImageGallery() {
   const [selectedImages, setSelectedImages] = useState<string[]>([]);
@@ -38,7 +36,7 @@ export default function ImageGallery() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={ImageGalleryStyles.container}>
       <Button title="Select Images" onPress={pickImage} />
       {/* Use the ImagePreviewScroll component here */}
       <ImagePreviewScroll
@@ -54,10 +52,10 @@ export default function ImageGallery() {
           <TouchableWithoutFeedback
             onPress={() => setIsFullPreviewVisible(false)}
           >
-            <View style={styles.fullSizePreviewContainer}>
+            <View style={ImageGalleryStyles.fullSizePreviewContainer}>
               <Image
                 source={{ uri: fullPreviewUri }}
-                style={styles.fullSizePreviewImage}
+                style={ImageGalleryStyles.fullSizePreviewImage}
               />
             </View>
           </TouchableWithoutFeedback>
@@ -66,20 +64,3 @@ export default function ImageGallery() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    
-  },
-  fullSizePreviewContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
-    minHeight: heightPercentageToDP("100%"),
-  },
-  fullSizePreviewImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-  },
-});

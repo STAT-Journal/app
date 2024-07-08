@@ -3,7 +3,7 @@ import { Tabs } from "expo-router";
 import * as React from "react";
 
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import { useColorScheme } from "@/components/useColorScheme";
+import { useColorScheme } from "react-native";
 import Colors from "@/constants/Colors";
 
 import { checkStreak, setupDatabase } from "@/database/queries";

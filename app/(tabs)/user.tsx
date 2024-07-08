@@ -3,7 +3,7 @@ import { Button, TextInput } from "react-native-paper"
 import { View } from "@/components/Themed";
 import { useAuth } from "../auth";
 import { Text } from "react-native";
-import { StyleSheet } from "react-native";
+import { UserStyles } from "@/styles/styles";
 
 interface LoginFormData {
     email: string;
@@ -50,7 +50,7 @@ export default function User() {
   const [formData, setFormData] = React.useState<LoginFormData>({ email: "", password: "" });
 
   return (
-    <View style={styles.container}>
+    <View style={UserStyles.container}>
         <UserStatusDisplay email={user?.email} />
         <LoginForm
             formData={formData}
@@ -61,21 +61,3 @@ export default function User() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#fff", // Background color can be from your theme
-      padding: 0,
-    },
-    title: {
-      fontSize: 20,
-      fontWeight: "bold",
-      marginBottom: 20,
-    },
-    separator: {
-      marginVertical: 20,
-      height: 1,
-      width: "100%",
-    },
-  });

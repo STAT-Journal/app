@@ -51,12 +51,3 @@ export default function DebugScreen() {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 0,
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: MD3LightTheme.colors.background,
-  },
-});

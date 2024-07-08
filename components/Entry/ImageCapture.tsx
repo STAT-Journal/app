@@ -4,7 +4,6 @@ import * as MediaLibrary from 'expo-media-library';
 import React, { useRef, useState } from "react";
 import {
   Button,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -13,7 +12,7 @@ import {
   Modal,
 } from "react-native";
 import { Divider } from "react-native-paper";
-import { heightPercentageToDP } from "react-native-responsive-screen";
+import { ImageCaptureStyles } from "@/styles/styles";
 
 import ImagePreviewScroll from "./ImagePreviewScroll"; 
 
@@ -32,7 +31,7 @@ export default function ImageCapture() {
 
   if (!permission.granted || !mediaStatus.granted) {
     return (
-      <View style={styles.container}>
+      <View style={ImageCaptureStyles.container}>
         <Text style={{ textAlign: "center" }}>
           We need your permission to show the camera and save images
         </Text>
@@ -64,15 +63,15 @@ export default function ImageCapture() {
 
   return (
     <>
-      <View style={styles.container}>
-        <CameraView style={styles.camera}>
-          <View style={styles.buttonContainer}>
+      <View style={ImageCaptureStyles.container}>
+        <CameraView style={ImageCaptureStyles.camera}>
+          <View style={ImageCaptureStyles.buttonContainer}>
             
             <TouchableOpacity
-              style={styles.captureButton}
+              style={ImageCaptureStyles.captureButton}
               onPress={captureImage}
             >
-              <Text style={styles.text}>Capture</Text>
+              <Text style={ImageCaptureStyles.text}>Capture</Text>
             </TouchableOpacity>
           </View>
         </CameraView>
@@ -91,10 +90,10 @@ export default function ImageCapture() {
           <TouchableWithoutFeedback
             onPress={() => setIsFullPreviewVisible(false)}
           >
-            <View style={styles.fullSizePreviewContainer}>
+            <View style={ImageCaptureStyles.fullSizePreviewContainer}>
               <Image
                 source={{ uri: fullPreviewUri }}
-                style={styles.fullSizePreviewImage}
+                style={ImageCaptureStyles.fullSizePreviewImage}
               />
             </View>
           </TouchableWithoutFeedback>
@@ -103,52 +102,3 @@ export default function ImageCapture() {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    minHeight: heightPercentageToDP("20%"),
-  },
-  camera: {
-    justifyContent: "space-between",
-  },
-  buttonContainer: {
-    backgroundColor: "transparent",
-  },
-  swapButton: {
-    alignSelf: "flex-start",
-    margin: 30,
-  },
-  captureButton: {
-    justifyContent: "center",
-    alignContent: "center",
-    alignSelf: "center",
-    margin: 30,
-  },
-  text: {
-    fontSize: 18,
-    color: 'white',
-  },
-  previewContainer: {
-    maxHeight: 50, 
-  },
-  previewContentContainer: {
-    alignItems: "center", 
-    padding: 4, 
-  },
-  previewImage: {
-    width: 45,
-    height: 45,
-    margin: 4,
-  },
-  fullSizePreviewContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
-    minHeight: heightPercentageToDP("100%"),
-  },
-  fullSizePreviewImage: {
-    width: "100%",
-    height: "100%",
-    resizeMode: "contain",
-  },
-});

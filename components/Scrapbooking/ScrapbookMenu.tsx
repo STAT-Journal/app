@@ -2,8 +2,9 @@ import React from 'react';
 import { Entry, Element } from '@/database/models';
 import { readEntries } from '@/database/queries';
 import {useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { Button, Card, Modal, Portal, } from 'react-native-paper';
+import { ScrapbookMenuStyles } from '@/styles/styles';
 
 interface ScrapbookMenuProps {
     onClear: () => void;
@@ -78,20 +79,20 @@ const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentE
 
         <View>
             <Text>Scrapbook Menu</Text>
-            <View style={styles.row}>
-                <Button onPress={onClear} style={styles.clearButton} labelStyle={styles.clearLabel}>
+            <View style={ScrapbookMenuStyles.row}>
+                <Button onPress={onClear} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
                     Clear
                 </Button>
-                <Text style={styles.emojiLabel}>
+                <Text style={ScrapbookMenuStyles.emojiLabel}>
                     Emoji: {currentEmoji}
                 </Text>
-                <Button onPress={onSave} style={styles.clearButton} labelStyle={styles.clearLabel}>
+                <Button onPress={onSave} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
                     Save
                 </Button>
-                <Button onPress={listExistingEntries} style={styles.clearButton} labelStyle={styles.clearLabel}>
+                <Button onPress={listExistingEntries} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
                     Log 
                 </Button>
-                <Button onPress={onLoad} style={styles.clearButton} labelStyle={styles.clearLabel}>
+                <Button onPress={onLoad} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
                     Load
                     </Button>
                 
@@ -101,24 +102,5 @@ const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentE
         </>
     );
 };
-
-const styles = StyleSheet.create({
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    clearButton: {
-        borderColor: 'red',
-        borderWidth: 1,
-    },
-    clearLabel: {
-        color: 'red',
-        fontSize: 20,
-    },
-    emojiLabel: {
-        fontSize: 20,
-        marginLeft: 10, 
-    },
-});
 
 export default ScrapbookMenu;

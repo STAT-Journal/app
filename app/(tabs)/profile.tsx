@@ -1,4 +1,4 @@
-import InventoryCard from '@/components/Store/StoreOptions';
+import InventoryCard from '@/components/Store/InventoryCard';
 import ProfileCard from '@/components/Profile/ProfileCard';
 import React from 'react';
 import { View, Text } from 'react-native';

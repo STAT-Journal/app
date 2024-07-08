@@ -3,7 +3,7 @@ import { Entry, Element } from '@/database/models';
 import { readEntries } from '@/database/queries';
 import {useEffect, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { Avatar, Button, Card, List, Modal, Paragraph, Portal, Title, } from 'react-native-paper';
+import { Button, Card, Modal, Portal, } from 'react-native-paper';
 
 interface ScrapbookMenuProps {
     onClear: () => void;

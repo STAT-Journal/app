@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 
-const InventoryCard: React.FC = () => {
+const StoreOptionsCard: React.FC = () => {
     const [items, setItems] = React.useState<InventoryItem[]>([]);
 
     useEffect(() => {
@@ -43,4 +43,4 @@ const InventoryCard: React.FC = () => {
     );
 };
 
-export default InventoryCard;
+export default StoreOptionsCard;

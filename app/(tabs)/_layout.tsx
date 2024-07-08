@@ -23,7 +23,8 @@ export default function TabLayout() {
   // Setup the database on app start
   React.useEffect(() => {
     setupDatabase();
-    checkStreak();
+    const checkStreakEvery24Hours = true;
+    checkStreak(checkStreakEvery24Hours);
   }, []);
 
 

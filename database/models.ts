@@ -24,9 +24,8 @@ export interface AppUser {
   Streak: number;
   CurrencyAmount: number;
   LastEntry: number;
-  InventoryOfItems: InventoryItem[];
+  InventoryOfItems:Array<ItemAndCount>;
 }
-
 export interface InventoryItem {
   id: number;
   name: string;
@@ -34,6 +33,7 @@ export interface InventoryItem {
   icon: string;
 }
 
-export interface ItemJSON {
-  items: InventoryItem[];
+export interface ItemAndCount{
+  item: InventoryItem;
+  count: number ;
 }

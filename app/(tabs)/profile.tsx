@@ -1,10 +1,11 @@
-import InventoryCard from '@/components/Store/StoreOptions';
+import StoreOptionsCard from '@/components/Store/StoreOptions';
 import ProfileCard from '@/components/Profile/ProfileCard';
 import React from 'react';
 import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import {LinearGradient} from 'expo-linear-gradient';
+import InventoryCard from '@/components/Profile/Inventory';
 
 const Profile = () => {
     return (
@@ -13,6 +14,7 @@ const Profile = () => {
         <ScrollView contentContainerStyle={{  alignItems: 'center', justifyContent: 'center', top:0 }}>
             
            <ProfileCard/>
+           <InventoryCard/>
            
         </ScrollView></>
     );

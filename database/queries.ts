@@ -1,5 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import { Element, TextEntry, InventoryItem } from './models';
+import { Element, TextEntry, InventoryItem, ItemAndCount } from './models';
 
 /****************************************************************
 
@@ -31,7 +31,10 @@ export const setupDatabase = async () => {
       InventoryOfItems TEXT
     );
     INSERT INTO App (StreakLastChecked, Streak, CurrencyAmount, InventoryOfItems)
-    VALUES (-1, 0, 100, '[]');
+    VALUES (-1,
+      0,
+      100,
+      '[{"item": {"id": 1, "name": "apple", "cost": 10, "icon": "🍎"}, "count": 1}]');
     DROP TABLE IF EXISTS Item_json;
     CREATE TABLE IF NOT EXISTS Item_json (
       items TEXT
@@ -66,7 +69,7 @@ export const getEntryTimes = async () => {
      
   return arr
 }
-export const checkStreak = async () => {
+export const checkStreak = async (loopRecursively : boolean = false) => {
   const STREAK_BREAK_TIME_IN_SECONDS = 60*24*60;
   const STREAK_WAIT_TIME_IN_SECONDS = 60*12*60;
   const AUTOCHECK_INTERVAL_IN_SECONDS = 60*24*60;
@@ -82,8 +85,9 @@ export const checkStreak = async () => {
 
   const result = calculateStreak(entryTimes, currentTime, STREAK_WAIT_TIME_IN_SECONDS, STREAK_BREAK_TIME_IN_SECONDS);
   console.log(`Current streak: ${result}`);
-
-  setTimeout(checkStreak, AUTOCHECK_INTERVAL_IN_SECONDS * 60000); 
+  if (loopRecursively === true){
+    setTimeout(checkStreak, AUTOCHECK_INTERVAL_IN_SECONDS * 60000); 
+  }
   return result;
 };
 
@@ -134,6 +138,36 @@ function calculateStreak(entryTimes: number[], currentTime :number, waitTime :nu
   return streak;
 }
 
+export const readInventory = async () => {
+  const db = await dbPromise;
+  const rows : {InventoryOfItems:string}[]= await db.getAllAsync('SELECT InventoryOfItems FROM App');
+  console.log(rows);
+
+  const inventoryString = rows[0].InventoryOfItems;
+  const inventory = JSON.parse(inventoryString);
+
+  return(inventory);
+}
+export const getCurrencyAmount = async () => {
+  const db = await dbPromise;
+  const rows: {CurrencyAmount: number}[] = await db.getAllAsync('SELECT CurrencyAmount FROM App');
+  return rows[0].CurrencyAmount;
+}
+export const reduceCurrency = async (amount: number) => {
+  const db = await dbPromise;
+  const rows : {CurrencyAmount: number}[]= await db.getAllAsync('SELECT CurrencyAmount FROM App');
+  const newAmount = rows[0].CurrencyAmount - amount;
+  const result = await db.runAsync('UPDATE App SET CurrencyAmount = ?', newAmount);
+  console.log(`Updated ${result.changes} row(s)`);
+}
+
+export const addCurrency = async (amount: number) => {
+  const db = await dbPromise;
+  const rows : {CurrencyAmount: number}[]= await db.getAllAsync('SELECT CurrencyAmount FROM App');
+  const newAmount = rows[0].CurrencyAmount + amount;
+  const result = await db.runAsync('UPDATE App SET CurrencyAmount = ?', newAmount);
+  console.log(`Updated ${result.changes} row(s), current currency amount: ${newAmount}`);
+}
 
 export const createTextEntry = async (entry: string) => {
   const db = await dbPromise;

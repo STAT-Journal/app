@@ -14,5 +14,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, ".old/components/Entry/EntryView.tsx", ".old/components/Entry/IndividualEntry.tsx", ".old/components/Profile/Inventory.tsx", ".old/components/Scrapbooking/ScrapbookCanvas.tsx", ".old/components/ForYouCard.tsx", ".old/components/ForYouPage.tsx", ".old/components/ImageCapture.tsx", ".old/components/useClientOnlyValue.web.ts"  ]
 }

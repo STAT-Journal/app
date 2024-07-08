@@ -2,11 +2,11 @@ import React from 'react';
 import ExportCSV from '@/components/Export/ExportCSV';
 import ExportJSON from '@/components/Export/ExportJSON';
 import ExportPDF from '@/components/Export/ExportPDF';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
+import { ExportStyles } from '@/styles/styles';
 import { Card, Text  } from 'react-native-paper';
 
 const ExportPage: React.FC = () => {
-
     const data = {
         entries: [
           {
@@ -34,18 +34,18 @@ const ExportPage: React.FC = () => {
       };
 
     return (
-        <View style={styles.container}>
-            <Card style={styles.cardTwo}>
+        <View style={ExportStyles.container}>
+            <Card style={ExportStyles.cardTwo}>
                 <Card.Content>
-                    <Text style={styles.description}>
+                    <Text style={ExportStyles.description}>
                         Export your data in various formats for backup or sharing purposes.
                     </Text>
-                    <Text style={styles.description}>
+                    <Text style={ExportStyles.description}>
                         data: {JSON.stringify(data)}
                     </Text>
                 </Card.Content>
             </Card>
-            <Card style={styles.card}>
+            <Card style={ExportStyles.card}>
                 <Card.Content>
                     <ExportCSV />
                     <ExportJSON />
@@ -55,50 +55,5 @@ const ExportPage: React.FC = () => {
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        padding: 20,
-    },
-    description: {
-        fontSize: 13,
-        marginBottom: 20,
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    card: {
-        width: '85%',
-        height: '50%',
-        backgroundColor: '#f0f0f0',
-        borderRadius: 10,
-        padding: 20,
-    },
-    cardTwo: {
-        width: '85%',
-        height: '45%',
-        backgroundColor: '#f0f0f0',
-        borderRadius: 10,
-        padding: 20,
-        marginBottom: 20,
-    },
-    cardThree: {
-        width: '85%',
-        height: '25%',
-        backgroundColor: '#f0f0f0',
-        borderRadius: 10,
-        padding: 20,
-        marginBottom: 20,
-    },
-    button: {
-        marginVertical: 10,
-        width: '100%',
-        borderRadius: 10,
-        backgroundColor: '#6200ee',
-    },
-});
 
 export default ExportPage;

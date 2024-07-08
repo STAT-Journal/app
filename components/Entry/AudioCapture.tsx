@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import {
   Button,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import { AudioCaptureStyles } from "@/styles/styles";
 
 export default function AudioRecorder() {
   const [recording, setRecording] = useState<Recording | undefined>(undefined);
@@ -68,16 +68,16 @@ export default function AudioRecorder() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={AudioCaptureStyles.container}>
       <Button
         title={recording ? "Stop Recording" : "Start Recording"}
         onPress={toggleRecording}
       />
-      <ScrollView style={styles.recordingsContainer} horizontal>
+      <ScrollView style={AudioCaptureStyles.recordingsContainer} horizontal>
         {recordings.map((recording, index) => (
           <TouchableOpacity
             key={index}
-            style={styles.recording}
+            style={AudioCaptureStyles.recording}
             onPress={() => playSound(recording.uri)}
           >
             <Text>Play Recording {index + 1}</Text>
@@ -87,22 +87,3 @@ export default function AudioRecorder() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 0,
-  },
-  recordingsContainer: {
-    marginTop: 10,
-    maxHeight: 40,
-  },
-  recording: {
-    backgroundColor: "#f0f0f0",
-    padding: 10,
-    marginHorizontal: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

@@ -1,5 +1,6 @@
 import React from "react";
-import { ScrollView, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { ScrollView, TouchableOpacity, Image } from "react-native";
+import { ImagePreviewStyles } from "@/styles/styles";
 
 interface ImagePreviewScrollProps {
   imageUris: string[];
@@ -12,32 +13,17 @@ const ImagePreviewScroll: React.FC<ImagePreviewScrollProps> = ({
 }) => {
   return (
     <ScrollView
-      style={styles.previewContainer}
-      contentContainerStyle={styles.previewContentContainer}
+      style={ImagePreviewStyles.previewContainer}
+      contentContainerStyle={ImagePreviewStyles.previewContentContainer}
       horizontal
     >
       {imageUris.map((uri, index) => (
         <TouchableOpacity key={index} onPress={() => onImagePress(uri)}>
-          <Image source={{ uri }} style={styles.previewImage} />
+          <Image source={{ uri }} style={ImagePreviewStyles.previewImage} />
         </TouchableOpacity>
       ))}
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  previewContainer: {
-    maxHeight: 50,
-  },
-  previewContentContainer: {
-    alignItems: "center",
-    padding: 4,
-  },
-  previewImage: {
-    width: 45,
-    height: 45,
-    margin: 4,
-  },
-});
 
 export default ImagePreviewScroll;

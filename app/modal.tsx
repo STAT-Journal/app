@@ -1,16 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Platform, StyleSheet } from "react-native";
-
+import { Platform } from "react-native";
+import { ModalScreenStyles } from "@/styles/styles";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
 
 export default function ModalScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Modal</Text>
+    <View style={ModalScreenStyles.container}>
+      <Text style={ModalScreenStyles.title}>Modal</Text>
       <View
-        style={styles.separator}
+        style={ModalScreenStyles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
@@ -21,20 +21,3 @@ export default function ModalScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});

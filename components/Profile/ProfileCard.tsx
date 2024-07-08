@@ -7,7 +7,6 @@ import { widthPercentageToDP } from 'react-native-responsive-screen';
 const Profile = () => {
     
     return (
-        
         <Card style={{ margin:20, width:widthPercentageToDP(95),}}>
             <Card.Content>
                 <Title>User Name</Title>

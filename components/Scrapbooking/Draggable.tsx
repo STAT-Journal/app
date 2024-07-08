@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { StyleSheet } from 'react-native';
 import { Element } from '@/database/models';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
 } from 'react-native-reanimated';
+import { DraggableStyles } from '@/styles/styles';
 
 
 interface DraggableProps {
@@ -82,7 +82,7 @@ const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, element }
     return (
         <GestureDetector gesture={Gesture.Simultaneous(panGesture, pinchGesture, rotateGesture)}>
             <Animated.View style={[{ flex: 1 }, animatedStyle]}>
-                <Text style={styles.emoji}>
+                <Text style={DraggableStyles.emoji}>
                     {element.text}
                 </Text>
             </Animated.View>
@@ -91,9 +91,3 @@ const Draggable: React.FC<DraggableProps> = ({ onDragStart, onDragEnd, element }
 };
 
 export default Draggable;
-
-const styles = StyleSheet.create({
-    emoji: {
-        fontSize: 100,
-    },
-});

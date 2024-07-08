@@ -6,7 +6,8 @@
 //
 import * as Calendar from "expo-calendar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Button } from "react-native";
+import { View, Text, Button } from "react-native";
+import { CalendarEventsStyles } from "@/styles/styles";
 
 interface Event {
   id: string;
@@ -145,23 +146,25 @@ const CalendarEvents: React.FC = () => {
 
   // Render component
   return (
-    <View style={styles.container}>
+    <View style={CalendarEventsStyles.container}>
       {/* Buttons to fetch events */}
-      <View style={styles.buttonContainer}>
+      <View style={CalendarEventsStyles.buttonContainer}>
         <Button title="Get Events for Today" onPress={handleGetEventsForDay} />
         <Button title="Get Events for Week" onPress={handleGetEventsForWeek} />
       </View>
       {/* Display fetched events */}
-      <View style={styles.eventsContainer}>
-        <Text style={styles.eventsTitle}>Events: </Text>
+      <View style={CalendarEventsStyles.eventsContainer}>
+        <Text style={CalendarEventsStyles.eventsTitle}>Events: </Text>
         {events.map((event) => (
-          <Text key={event.id} style={styles.eventText}>
+          <Text key={event.id} style={CalendarEventsStyles.eventText}>
             {event.title} - {event.startDate.toString()}
           </Text>
         ))}
         {/* Display message if there are no events */}
         {events.length === 0 && (
-          <Text style={styles.noEventsText}>No events to display</Text>
+          <Text style={CalendarEventsStyles.noEventsText}>
+            No events to display
+          </Text>
         )}
       </View>
     </View>
@@ -169,38 +172,5 @@ const CalendarEvents: React.FC = () => {
 };
 
 // Styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    width: "100%",
-    marginBottom: 20,
-  },
-  eventsTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  eventsContainer: {
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  eventText: {
-    fontSize: 16,
-    marginBottom: 5,
-  },
-  noEventsText: {
-    fontSize: 16,
-    fontStyle: "italic",
-    marginBottom: 5,
-  },
-});
 
 export default CalendarEvents;

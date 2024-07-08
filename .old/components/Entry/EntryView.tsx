@@ -1,26 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
-
-import ScrapbookCanvas from "../Scrapbooking/ScrapbookCanvas";
-import ScrapbookMenu from "../Scrapbooking/ScrapbookMenu";
-import ScrapbookEntry from "../Scrapbooking/ScrapbookEntry";
+import ScrapbookEntry from "../../../components/Scrapbooking/ScrapbookEntry";
 
 interface Props {}
 
 const EntryView: React.FC<Props> = () => {
 
-  const [entries, setEntries] = useState([]);
-
   return (
-    <>
-
       <ScrapbookEntry />
-      
-    </>
   );
 };
 

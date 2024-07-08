@@ -3,6 +3,7 @@ import * as WebBrowser from "expo-web-browser";
 import React from "react";
 import { Platform } from "react-native";
 
+// Maybe Linking.openURL is a good alternative to WebBrowser.openBrowserAsync
 export function ExternalLink(
   props: Omit<React.ComponentProps<typeof Link>, "href"> & { href: string },
 ) {
@@ -10,7 +11,6 @@ export function ExternalLink(
     <Link
       target="_blank"
       {...props}
-      // @ts-expect-error: External URLs are not typed.
       href={props.href}
       onPress={(e) => {
         if (Platform.OS !== "web") {

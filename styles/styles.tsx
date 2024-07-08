@@ -1,89 +1,91 @@
 import { StyleSheet } from "react-native";
-import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from "react-native-responsive-screen";
 
 export const AudioCaptureStyles = StyleSheet.create({
-    container: {
-      alignItems: "center",
-      justifyContent: "center",
-      padding: 0,
-    },
-    recordingsContainer: {
-      marginTop: 10,
-      maxHeight: 40,
-    },
-    recording: {
-      backgroundColor: "#f0f0f0",
-      padding: 10,
-      marginHorizontal: 5,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  });
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 0,
+  },
+  recordingsContainer: {
+    marginTop: 10,
+    maxHeight: 40,
+  },
+  recording: {
+    backgroundColor: "#f0f0f0",
+    padding: 10,
+    marginHorizontal: 5,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
 
 export const ImageCaptureStyles = StyleSheet.create({
-    container: {
-      minHeight: heightPercentageToDP("20%"),
-    },
-    camera: {
-      justifyContent: "space-between",
-    },
-    buttonContainer: {
-      backgroundColor: "transparent",
-    },
-    swapButton: {
-      alignSelf: "flex-start",
-      margin: 30,
-    },
-    captureButton: {
-      justifyContent: "center",
-      alignContent: "center",
-      alignSelf: "center",
-      margin: 30,
-    },
-    text: {
-      fontSize: 18,
-      color: 'white',
-    },
-    previewContainer: {
-      maxHeight: 50, 
-    },
-    previewContentContainer: {
-      alignItems: "center", 
-      padding: 4, 
-    },
-    previewImage: {
-      width: 45,
-      height: 45,
-      margin: 4,
-    },
-    fullSizePreviewContainer: {
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.8)",
-      minHeight: heightPercentageToDP("100%"),
-    },
-    fullSizePreviewImage: {
-      width: "100%",
-      height: "100%",
-      resizeMode: "contain",
-    },
-  });
+  container: {
+    minHeight: heightPercentageToDP("20%"),
+  },
+  camera: {
+    justifyContent: "space-between",
+  },
+  buttonContainer: {
+    backgroundColor: "transparent",
+  },
+  swapButton: {
+    alignSelf: "flex-start",
+    margin: 30,
+  },
+  captureButton: {
+    justifyContent: "center",
+    alignContent: "center",
+    alignSelf: "center",
+    margin: 30,
+  },
+  text: {
+    fontSize: 18,
+    color: "white",
+  },
+  previewContainer: {
+    maxHeight: 50,
+  },
+  previewContentContainer: {
+    alignItems: "center",
+    padding: 4,
+  },
+  previewImage: {
+    width: 45,
+    height: 45,
+    margin: 4,
+  },
+  fullSizePreviewContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    minHeight: heightPercentageToDP("100%"),
+  },
+  fullSizePreviewImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+  },
+});
 
 export const ImageGalleryStyles = StyleSheet.create({
-    container: {  
-    },
-    fullSizePreviewContainer: {
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.8)",
-      minHeight: heightPercentageToDP("100%"),
-    },
-    fullSizePreviewImage: {
-      width: "100%",
-      height: "100%",
-      resizeMode: "contain",
-    },
-  });
+  container: {},
+  fullSizePreviewContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.8)",
+    minHeight: heightPercentageToDP("100%"),
+  },
+  fullSizePreviewImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+  },
+});
 
 export const ImagePreviewStyles = StyleSheet.create({
   previewContainer: {
@@ -118,64 +120,64 @@ export const SpeedDialStyles = StyleSheet.create({
 
 export const DraggableStyles = StyleSheet.create({
   emoji: {
-      fontSize: 100,
+    fontSize: 100,
   },
 });
 
 export const ScrapbookEntryStyles = StyleSheet.create({
   container: {
-      flex: 1,
-      width: '100%',
+    flex: 1,
+    width: "100%",
   },
   canvas: {
-      flex: 1,
-      position: 'relative',
+    flex: 1,
+    position: "relative",
   },
   emoji: {
-      position: 'absolute',
-      fontSize: 100,
+    position: "absolute",
+    fontSize: 100,
   },
   selectedEmoji: {
-      fontSize: 30,
-      color: '#000',
-      textAlign: 'center',
-      marginTop: 20,
+    fontSize: 30,
+    color: "#000",
+    textAlign: "center",
+    marginTop: 20,
   },
   modalContainer: {
-      flexGrow: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'rgba(0,0,0,0.5)',
+    flexGrow: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
   closeButton: {
-      position: 'absolute',
-      bottom: 10,
+    position: "absolute",
+    bottom: 10,
   },
   emojiMenuContainer: {
-      width: widthPercentageToDP(95),
-      height: widthPercentageToDP(100),
-      flexGrow:1,
-      backgroundColor: '#fff',
-      borderRadius: 10,
+    width: widthPercentageToDP(95),
+    height: widthPercentageToDP(100),
+    flexGrow: 1,
+    backgroundColor: "#fff",
+    borderRadius: 10,
   },
 });
 
 export const ScrapbookMenuStyles = StyleSheet.create({
   row: {
-      flexDirection: 'row',
-      alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   clearButton: {
-      borderColor: 'red',
-      borderWidth: 1,
+    borderColor: "red",
+    borderWidth: 1,
   },
   clearLabel: {
-      color: 'red',
-      fontSize: 20,
+    color: "red",
+    fontSize: 20,
   },
   emojiLabel: {
-      fontSize: 20,
-      marginLeft: 10, 
+    fontSize: 20,
+    marginLeft: 10,
   },
 });
 
@@ -275,46 +277,46 @@ export const ModalScreenStyles = StyleSheet.create({
 
 export const ExportStyles = StyleSheet.create({
   container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      padding: 20,
+    flex: 1,
+    backgroundColor: "#fff",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    padding: 20,
   },
   description: {
-      fontSize: 13,
-      marginBottom: 20,
-      textAlign: 'center',
-      fontWeight: 'bold',
+    fontSize: 13,
+    marginBottom: 20,
+    textAlign: "center",
+    fontWeight: "bold",
   },
   card: {
-      width: '85%',
-      height: '50%',
-      backgroundColor: '#f0f0f0',
-      borderRadius: 10,
-      padding: 20,
+    width: "85%",
+    height: "50%",
+    backgroundColor: "#f0f0f0",
+    borderRadius: 10,
+    padding: 20,
   },
   cardTwo: {
-      width: '85%',
-      height: '45%',
-      backgroundColor: '#f0f0f0',
-      borderRadius: 10,
-      padding: 20,
-      marginBottom: 20,
+    width: "85%",
+    height: "45%",
+    backgroundColor: "#f0f0f0",
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
   },
   cardThree: {
-      width: '85%',
-      height: '25%',
-      backgroundColor: '#f0f0f0',
-      borderRadius: 10,
-      padding: 20,
-      marginBottom: 20,
+    width: "85%",
+    height: "25%",
+    backgroundColor: "#f0f0f0",
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
   },
   button: {
-      marginVertical: 10,
-      width: '100%',
-      borderRadius: 10,
-      backgroundColor: '#6200ee',
+    marginVertical: 10,
+    width: "100%",
+    borderRadius: 10,
+    backgroundColor: "#6200ee",
   },
 });
 
@@ -338,20 +340,20 @@ export const IndexStyles = StyleSheet.create({
 
 export const MentalHelpStyles = StyleSheet.create({
   container: {
-      flex: 1,
-      padding: 20,
-      backgroundColor: '#f0f0f0',
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#f0f0f0",
   },
   card: {
-      marginBottom: 20,
+    marginBottom: 20,
   },
   cardTwo: {
-      marginBottom: 20,
+    marginBottom: 20,
   },
   description: {
-      fontSize: 16,
-      marginBottom: 10,
-      fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 10,
+    fontWeight: "bold",
   },
 });
 

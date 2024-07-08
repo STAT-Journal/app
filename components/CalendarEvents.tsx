@@ -162,7 +162,9 @@ const CalendarEvents: React.FC = () => {
         ))}
         {/* Display message if there are no events */}
         {events.length === 0 && (
-          <Text style={CalendarEventsStyles.noEventsText}>No events to display</Text>
+          <Text style={CalendarEventsStyles.noEventsText}>
+            No events to display
+          </Text>
         )}
       </View>
     </View>
@@ -170,6 +172,5 @@ const CalendarEvents: React.FC = () => {
 };
 
 // Styles
-
 
 export default CalendarEvents;

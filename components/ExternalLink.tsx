@@ -11,7 +11,6 @@ export function ExternalLink(
     <Link
       target="_blank"
       {...props}
-
       href={props.href}
       onPress={(e) => {
         if (Platform.OS !== "web") {

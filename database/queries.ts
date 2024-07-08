@@ -61,7 +61,6 @@ export const setupDatabase = async () => {
 export const getEntryTimes = async () => {
   const db = await dbPromise;
   const rows :{CreatedAt:string}[]= await db.getAllAsync('SELECT CreatedAt FROM Text_Entries ORDER BY CreatedAt');
-  //Create array just from created At values
   let arr: number[] = [];
   rows.map((row) => {
     arr.push(parseInt(row.CreatedAt))
@@ -81,10 +80,7 @@ export const checkStreak = async (loopRecursively : boolean = false) => {
   }
 
   const currentTime = Math.floor(Date.now() / 1000);
-
-
   const result = calculateStreak(entryTimes, currentTime, STREAK_WAIT_TIME_IN_SECONDS, STREAK_BREAK_TIME_IN_SECONDS);
-  console.log(`Current streak: ${result}`);
   if (loopRecursively === true){
     setTimeout(checkStreak, AUTOCHECK_INTERVAL_IN_SECONDS * 60000); 
   }
@@ -148,12 +144,19 @@ export const readInventory = async () => {
 
   return(inventory);
 }
+
+export const updateInventory = async (inventory: ItemAndCount[]) => {
+  const db = await dbPromise;
+  const result = await db.runAsync('UPDATE App SET InventoryOfItems = ?', JSON.stringify(inventory));
+  console.log(`Updated ${result.changes} row(s)`);
+}
+
 export const getCurrencyAmount = async () => {
   const db = await dbPromise;
   const rows: {CurrencyAmount: number}[] = await db.getAllAsync('SELECT CurrencyAmount FROM App');
   return rows[0].CurrencyAmount;
 }
-export const reduceCurrency = async (amount: number) => {
+export const reduceCurrencyAmount = async (amount: number) => {
   const db = await dbPromise;
   const rows : {CurrencyAmount: number}[]= await db.getAllAsync('SELECT CurrencyAmount FROM App');
   const newAmount = rows[0].CurrencyAmount - amount;
@@ -161,7 +164,7 @@ export const reduceCurrency = async (amount: number) => {
   console.log(`Updated ${result.changes} row(s)`);
 }
 
-export const addCurrency = async (amount: number) => {
+export const addCurrencyAmount = async (amount: number) => {
   const db = await dbPromise;
   const rows : {CurrencyAmount: number}[]= await db.getAllAsync('SELECT CurrencyAmount FROM App');
   const newAmount = rows[0].CurrencyAmount + amount;

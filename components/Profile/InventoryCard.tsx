@@ -1,5 +1,4 @@
-import { InventoryItem, ItemAndCount } from '@/database/models';
-import { readInventory, readItems } from '@/database/queries';
+
 import useInventory from '@/hooks/useInventory';
 import { useFocusEffect } from '@react-navigation/native';
 import React, { useCallback, useEffect, useRef } from 'react';
@@ -11,8 +10,6 @@ import { widthPercentageToDP } from 'react-native-responsive-screen';
 const InventoryCard: React.FC = () => {
     const { inventory,  refreshInventory , addItem, removeItem} = useInventory();
     
-    const isInitialRender = useRef(true);
-
     useFocusEffect(
         useCallback(() => {
             refreshInventory();

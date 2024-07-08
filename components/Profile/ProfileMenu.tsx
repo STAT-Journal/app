@@ -19,8 +19,8 @@ const ProfileMenu: React.FC<ProfileMenuProps> = ({ visible, setVisible }) => {
             <Modal visible={visible} onDismiss={hideModal}>
                 <Card style={{ width: widthPercentageToDP(90), justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}>
                     <Card.Content>
-                        <Text>Profile Menu</Text>
-                        <Text>Add or Remove Currency</Text>
+                        <Text>Dev Currency Debug Menu</Text>
+                        <Text>(Close to see updates in UI)</Text>
                         <Button
                             style={{ padding: 3, margin: 5 }}
                             mode={'outlined'}

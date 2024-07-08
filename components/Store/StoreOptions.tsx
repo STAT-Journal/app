@@ -1,8 +1,9 @@
 import { InventoryItem, ItemAndCount } from '@/database/models';
-import { getCurrencyAmount, readItems, reduceCurrencyAmount } from '@/database/queries';
+import {readItems,  } from '@/database/queries';
 import useCurrency from '@/hooks/useCurrency';
 import useInventory from '@/hooks/useInventory';
-import React, { useEffect } from 'react';
+import { useFocusEffect } from 'expo-router';
+import React, { useCallback, useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Card, Title, Paragraph, Divider } from 'react-native-paper';
@@ -18,15 +19,18 @@ const StoreOptionsCard: React.FC = () => {
         const fetchData = async () => {
             let i = await readItems();
             setItems(i);
+            refreshCurrency();
         };
         fetchData();
-
     },[]);
+
+
 
     const handlePurchase = async (item: InventoryItem) => {
         if (currency >= item.cost) {
             addItem(item);
             reduceCurrency(item.cost);
+            refreshCurrency();
             refreshInventory();
             Toast.show({
                 type: 'success',
@@ -54,8 +58,6 @@ const StoreOptionsCard: React.FC = () => {
                         return (
                             <Card key={item.id} style={{margin:5, alignContent:'center', padding:10}}>
                             <TouchableOpacity  onPress={() => handlePurchase(item)} >
-                               
-
                                 <Card.Content style={{alignContent:'center', justifyContent:'center', }}>
                                     <Title style={{fontSize:28}}> {item.icon}</Title>
                                     <Paragraph style={{fontSize:18}}>💰 {item.cost}</Paragraph>

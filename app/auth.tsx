@@ -89,9 +89,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         } else {
           const auth = { user: response.user, apiToken: response.token };
           console.log(auth);
-          SecureStorage
-          .setItemAsync("auth", JSON.stringify(auth))
-          .then(() => {
+          SecureStorage.setItemAsync("auth", JSON.stringify(auth)).then(() => {
             setAuthState(auth);
           });
         }

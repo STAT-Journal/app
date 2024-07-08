@@ -10,7 +10,7 @@ import {
 } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider } from "./auth";
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -57,17 +57,16 @@ function RootLayoutNav() {
   };
   return (
     <>
-    <PaperProvider theme={theme}>
-      <AuthProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-        </GestureHandlerRootView>
-      </AuthProvider>
-    </PaperProvider>
-    <Toast config={toastConfig}
-          topOffset={90}/>
+      <PaperProvider theme={theme}>
+        <AuthProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            </Stack>
+          </GestureHandlerRootView>
+        </AuthProvider>
+      </PaperProvider>
+      <Toast config={toastConfig} topOffset={90} />
     </>
   );
 }
@@ -77,47 +76,45 @@ const toastConfig = {
     Overwrite 'success' type,
     by modifying the existing `BaseToast` component
   */
-    success: (props : any) => (
-      <BaseToast
-        {...props}
-        style={{ borderLeftColor: 'limegreen',  }}
-        contentContainerStyle={{ margin:0 }}
-        text1Style={{
-          fontSize: 24,
-          fontWeight: '400'
-        }}
-        text1NumberOfLines={2}
-        text2Style={{
-          fontSize: 14,
-          fontWeight: '400'
-        }}
-        text2NumberOfLines={1}
-      />
-    ),
-    /*
+  success: (props: any) => (
+    <BaseToast
+      {...props}
+      style={{ borderLeftColor: "limegreen" }}
+      contentContainerStyle={{ margin: 0 }}
+      text1Style={{
+        fontSize: 24,
+        fontWeight: "400",
+      }}
+      text1NumberOfLines={2}
+      text2Style={{
+        fontSize: 14,
+        fontWeight: "400",
+      }}
+      text2NumberOfLines={1}
+    />
+  ),
+  /*
       Overwrite 'error' type,
       by modifying the existing `ErrorToast` component
     */
-    error: (props : any) => (
-      <ErrorToast
-        {...props}
-        style={{ borderLeftColor: 'brown',  }}
-        contentContainerStyle={{ margin:0 }}
-        
-        text1Style={{
-          fontSize: 24,
-          fontWeight: '400'
-        }}
-        text1NumberOfLines={2}
-        text2Style={{
-          fontSize: 14,
-          fontWeight: '400'
-        }}
-        text2NumberOfLines={1}
-      
-      />
-    ),
-    /*
+  error: (props: any) => (
+    <ErrorToast
+      {...props}
+      style={{ borderLeftColor: "brown" }}
+      contentContainerStyle={{ margin: 0 }}
+      text1Style={{
+        fontSize: 24,
+        fontWeight: "400",
+      }}
+      text1NumberOfLines={2}
+      text2Style={{
+        fontSize: 14,
+        fontWeight: "400",
+      }}
+      text2NumberOfLines={1}
+    />
+  ),
+  /*
       Or create a completely new type - `tomatoToast`,
       building the layout from scratch.
   
@@ -130,4 +127,4 @@ const toastConfig = {
         <Text>{props.uuid}</Text>
       </View>
     )*/
-  };
+};

@@ -3,9 +3,6 @@ import { Tabs } from "expo-router";
 import * as React from "react";
 
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-import { useColorScheme } from "react-native";
-import Colors from "@/constants/Colors";
-
 import { checkStreak, setupDatabase } from "@/database/queries";
 // You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
 //COLE: Apply FontAwesome filter to the above site to get accurate list of icons
@@ -17,9 +14,7 @@ function TabBarIcon(props: {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  
+export default function TabLayout() {  
   // Setup the database on app start
   React.useEffect(() => {
     setupDatabase();

@@ -7,6 +7,7 @@ import * as React from "react";
 import { PaperProvider } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider } from "./auth";
+import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import { Appearance } from "react-native";
 
 export {
@@ -60,6 +61,50 @@ function RootLayoutNav() {
           </Stack>
         </GestureHandlerRootView>
       </AuthProvider>
+      <Toast config={toastConfig} topOffset={90} />
     </PaperProvider>
   );
 }
+
+const toastConfig = {
+  /*
+    Overwrite 'success' type,
+    by modifying the existing `BaseToast` component
+  */
+  success: (props: any) => (
+    <BaseToast
+      {...props}
+      contentContainerStyle={{ margin: 0 }}
+      text1Style={{
+        fontSize: 24,
+        fontWeight: "400",
+      }}
+      text1NumberOfLines={2}
+      text2Style={{
+        fontSize: 14,
+        fontWeight: "400",
+      }}
+      text2NumberOfLines={1}
+    />
+  ),
+  /*
+      Overwrite 'error' type,
+      by modifying the existing `ErrorToast` component
+    */
+  error: (props: any) => (
+    <ErrorToast
+      {...props}
+      contentContainerStyle={{ margin: 0 }}
+      text1Style={{
+        fontSize: 24,
+        fontWeight: "400",
+      }}
+      text1NumberOfLines={2}
+      text2Style={{
+        fontSize: 14,
+        fontWeight: "400",
+      }}
+      text2NumberOfLines={1}
+    />
+  ),
+};

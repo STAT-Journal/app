@@ -47,8 +47,7 @@ const styles = StyleSheet.create({
     padding: 16,
     margin: 8,
     borderRadius: 8,
-    borderWidth: 2,
-    borderColor: "black",
+    borderWidth: 2
   },
   title: {
     fontSize: 18,
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
     position: "absolute",
   },
   deleteButtonIcon: {
-    color: "white",
     textAlign: "center",
   },
 });

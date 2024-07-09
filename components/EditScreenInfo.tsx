@@ -4,8 +4,6 @@ import { MonoText } from "./StyledText";
 import { Text, View } from "react-native";
 import { EditScreenInfoStyles } from "@/styles/styles";
 
-import Colors from "@/constants/Colors";
-
 export default function EditScreenInfo({ path }: { path: string }) {
   return (
     <View>

@@ -58,7 +58,7 @@ export default function ImageCapture({ visible }: ImageCaptureProps) {
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
               <Text style={styles.text}>Flip Camera</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>width: widthPercentageToDP(90),
           </View>
         </Camera>
       </Modal>
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
+    fontWeight: "bold"
   },
 });

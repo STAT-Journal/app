@@ -32,42 +32,42 @@ const MentalHealthComponent: React.FC = () => {
         <View>
         <Card style={styles.card}>
             <Card.Content>
-                <Button mode="contained" onPress={handleRedirect}>
+                <Button onPress={handleRedirect}>
                     Canadian Mental Health Association
                 </Button>
             </Card.Content>
         </Card>
         <Card style={styles.card}>
             <Card.Content >
-                <Button mode="contained" onPress={handleRedirectTwo}>
+                <Button onPress={handleRedirectTwo}>
                     Feeling Lonely? 
                 </Button>
             </Card.Content>
           </Card>
             <Card style={styles.card}>
                 <Card.Content>
-                    <Button mode="contained" onPress={handleRedirectThree}>
+                    <Button onPress={handleRedirectThree}>
                         Fast Facts about Mental Health
                     </Button>
                 </Card.Content>
             </Card>
             <Card style={styles.card}>
                 <Card.Content>
-                    <Button mode="contained" onPress={handleRedirectFour}>
+                    <Button onPress={handleRedirectFour}>
                         Feeling Angry? 
                     </Button>
                 </Card.Content>
             </Card>
             <Card style={styles.card}>
                 <Card.Content>
-                    <Button mode="contained" onPress={handleRedirectFive}>
+                    <Button onPress={handleRedirectFive}>
                         Getting Help 
                     </Button>
                 </Card.Content>
             </Card>
             <Card style={styles.card}>
                 <Card.Content>
-                    <Button mode="contained" onPress={handleRedirectSix}>
+                    <Button onPress={handleRedirectSix}>
                         Grieving? 
                     </Button>
                 </Card.Content>

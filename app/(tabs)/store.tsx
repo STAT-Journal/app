@@ -40,7 +40,6 @@ const EntriesPage = () => {
 
     return (
         <ScrollView contentContainerStyle={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: widthPercentageToDP(100), flexGrow: 1 }}>
-
             <InventoryCard />
         </ScrollView>
     );

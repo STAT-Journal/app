@@ -31,10 +31,10 @@ export default function DebugScreen() {
 
   return (
     <ScrollView >
-      <Button mode='outlined' style={{margin:10}} onPress={() => {
+      <Button style={{margin:10}} onPress={() => {
         router.navigate('/dragdrop')
       }}>Launch Emoji/Draggables thing</Button>
-      <Button mode='outlined' style={{margin:10}} onPress={() => {
+      <Button style={{margin:10}} onPress={() => {
         checkStreak()
       }
       }>Check Streak</Button>

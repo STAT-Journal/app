@@ -45,7 +45,7 @@ const ExportJSONButton: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Button mode="contained" onPress={handleExportJSON}>
+      <Button onPress={handleExportJSON}>
         Export JSON
       </Button>
     </View>

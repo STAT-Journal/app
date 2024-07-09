@@ -1,13 +1,11 @@
 import React from 'react';
 import { TextEntry } from '@/database/models';
 import { checkStreak, createTextEntry, readTextEntries, removeTextEntry, updateTextEntry } from '@/database/queries';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native';
 import { Button, Card, Modal, Portal, TextInput } from 'react-native-paper';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import StreakTracker from '../StreakTracking';
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 
 const EntriesPage = () => {
     const [entries, setEntries] = useState<TextEntry[]>([]);
@@ -42,82 +40,52 @@ const EntriesPage = () => {
     };
     
     return (
-        <ScrollView contentContainerStyle={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: widthPercentageToDP(100), flexGrow: 1 }}>
-
-            <Portal>
-                <Modal visible={isCreating} onDismiss={() => setIsCreating(false)}>
-                    <Card style={{ width: widthPercentageToDP(90), margin: 20 }}>
-                        <Card.Title title="Create Entry" />
-                        <Card.Content>
-                            <TextInput
-                                label="What's on your mind?"
-                                value={newEntry}
-                                onChangeText={text => setNewEntry(text)} />
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Button mode="contained"
-                                    style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                    buttonColor='brown'
-                                    onPress={() => {
-                                        setIsCreating(false);
-                                    }}>
-                                    Cancel
-                                </Button>
-                                <Button mode="contained"
-                                    style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                    buttonColor='limegreen'
-                                    onPress={async() => {
-                                        createTextEntry(newEntry);
-                                        setStreak(await checkStreak());
-                                        setEntriesUpdated(prev => prev + 1);
-                                        setIsCreating(false);
-                                        setNewEntry('');
-                                    }}>
-                                    Create
-                                </Button>
-                            </View>
-                        </Card.Content>
-                    </Card>
-                </Modal>
-            </Portal>
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: widthPercentageToDP(90) }}>
-
-                <Button mode="elevated"
-                    style={{ margin: 10, width: widthPercentageToDP(90), borderStyle: 'solid', borderWidth: 3, borderColor: 'black', flex: 2}}
-                    onPress={() =>
-                        setIsCreating(true)
-                    }>
-                    Create
-                </Button>
-                <StreakTracker streak={streak} />
-            </View>
+        <ScrollView>
+            <TextInput
+                label="What's on your mind?"
+                value={newEntry}
+                onChangeText={text => setNewEntry(text)} />
+            <Button 
+                style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
+                onPress={() => {
+                    setIsCreating(false);
+                }}>
+                Cancel
+            </Button>
+            <Button 
+                style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
+                onPress={async() => {
+                    createTextEntry(newEntry);
+                    setStreak(await checkStreak());
+                    setEntriesUpdated(prev => prev + 1);
+                    setIsCreating(false);
+                    setNewEntry('');
+                }}>
+                Create
+            </Button>
             {entries.map((entry: TextEntry) => (
-                <Pressable key={entry.ID} onPress={() => handleEdit(entry)}>
-                    <Card style={{ margin: 10, width: widthPercentageToDP(90), borderStyle: 'solid', borderWidth: 3, borderColor: 'black' }}>
-                        <Card.Title title={"(id: " + (entry.ID ? entry.ID : 0).toString() + ") (created at: " + (entry.CreatedAt ? new Date(parseInt(entry.CreatedAt) * 1000).toLocaleString() : 0).toString() + ")"} />
-                        <Card.Content>
-                            <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{entry.Entry}</Text>
-                        </Card.Content>
-                        <Card.Actions>
-                            <Button mode="contained"
-                                style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                buttonColor='limegreen'
-                                onPress={() => handleEdit(entry)}>
-                                Edit
-                            </Button>
-                            <Button mode="contained"
-                                style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                buttonColor='brown'
-                                onPress={() => {
-                                    removeTextEntry(entry.ID);
-                                    setEntriesUpdated(prev => prev + 1);
-                                }}>
-                                Remove
-                            </Button>
-                        </Card.Actions>
-
-                    </Card>
-                </Pressable>
+                <Card style={{ margin: 10 }} key={entry.ID}>
+                    <Card.Title title={"(id: " + (entry.ID ? entry.ID : 0).toString() + ") (created at: " + (entry.CreatedAt ? new Date(parseInt(entry.CreatedAt) * 1000).toLocaleString() : 0).toString() + ")"} />
+                    <Card.Content>
+                        <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{entry.Entry}</Text>
+                    </Card.Content>
+                    <Card.Actions>
+                        <Button 
+                            style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
+                            onPress={() => handleEdit(entry)}>
+                            Edit
+                        </Button>
+                        <Button 
+                            style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
+                            buttonColor='brown'
+                            onPress={() => {
+                                removeTextEntry(entry.ID);
+                                setEntriesUpdated(prev => prev + 1);
+                            }}>
+                            Remove
+                        </Button>
+                    </Card.Actions>
+                </Card>
             ))}
 
             <Portal>
@@ -130,13 +98,13 @@ const EntriesPage = () => {
                                 value={newEntry}
                                 onChangeText={text => setNewEntry(text)} />
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Button mode="contained"
+                                <Button 
                                     style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
                                     buttonColor='brown'
                                     onPress={() => setIsEditing(false)}>
                                     Cancel
                                 </Button>
-                                <Button mode="contained"
+                                <Button 
                                     style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
                                     buttonColor='limegreen'
                                     onPress={handleSave}>

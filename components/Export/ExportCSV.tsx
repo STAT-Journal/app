@@ -67,7 +67,7 @@ const ExportCSVButton: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Button mode="contained" onPress={handleExportCSV}>
+      <Button onPress={handleExportCSV}>
         Export CSV
       </Button>
     </View>

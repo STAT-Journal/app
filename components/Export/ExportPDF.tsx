@@ -98,7 +98,7 @@ const ExportPDFButton: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Button mode="contained" onPress={handleExportPDF}>
+      <Button onPress={handleExportPDF}>
         Export PDF
       </Button>
     </View>

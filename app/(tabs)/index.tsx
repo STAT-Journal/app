@@ -5,7 +5,7 @@ import ScrapbookPage from "@/components/Scrapbooking/ScrapbookPage";
 
 export default function ForYouPageScreen() {
   return (
-    <View style={IndexStyles.container}>
+    <View>
       <ScrapbookPage />
     </View>
   );

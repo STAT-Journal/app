@@ -102,14 +102,14 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
                         /> 
                         </View>
                         <View style={ScrapbookEntryStyles.closeButton}>
-                            <Button onPress={()=>setShowPicker(false)} mode="elevated" buttonColor="grey" textColor="white" >
+                            <Button onPress={()=>setShowPicker(false)} >
                                 Close
                             </Button>
                         </View>
                 </View>
             </Modal>
             </Portal>
-            <StatusBar style="light" />
+            <StatusBar />
         </View>
     );
 }

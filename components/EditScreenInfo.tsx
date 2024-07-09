@@ -10,8 +10,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
   return (
     <View>
       <View style={EditScreenInfoStyles.getStartedContainer}>
-        <Text
-          style={EditScreenInfoStyles.getStartedText}>
+        <Text style={EditScreenInfoStyles.getStartedText}>
           Open up the code for this screen:
         </Text>
 
@@ -19,12 +18,12 @@ export default function EditScreenInfo({ path }: { path: string }) {
           style={[
             EditScreenInfoStyles.codeHighlightContainer,
             EditScreenInfoStyles.homeScreenFilename,
-          ]}>
+          ]}
+        >
           <MonoText>{path}</MonoText>
         </View>
 
-        <Text
-          style={EditScreenInfoStyles.getStartedText}>
+        <Text style={EditScreenInfoStyles.getStartedText}>
           Change any of the text, save the file, and your app will automatically
           update.
         </Text>
@@ -35,8 +34,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
           style={EditScreenInfoStyles.helpLink}
           href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet"
         >
-          <Text
-            style={EditScreenInfoStyles.helpLinkText}>
+          <Text style={EditScreenInfoStyles.helpLinkText}>
             Tap here if your app doesn't automatically update after making
             changes
           </Text>

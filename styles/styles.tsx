@@ -15,7 +15,6 @@ export const AudioCaptureStyles = StyleSheet.create({
     maxHeight: 40,
   },
   recording: {
-
     padding: 10,
     marginHorizontal: 5,
     alignItems: "center",
@@ -30,9 +29,7 @@ export const ImageCaptureStyles = StyleSheet.create({
   camera: {
     justifyContent: "space-between",
   },
-  buttonContainer: {
-
-  },
+  buttonContainer: {},
   swapButton: {
     alignSelf: "flex-start",
     margin: 30,
@@ -141,9 +138,7 @@ export const ScrapbookEntryStyles = StyleSheet.create({
     textAlign: "center",
     marginTop: 20,
   },
-  modalContainer: {
-
-  },
+  modalContainer: {},
   closeButton: {
     position: "absolute",
     bottom: 10,
@@ -308,7 +303,6 @@ export const ExportStyles = StyleSheet.create({
     marginVertical: 10,
     width: "100%",
     borderRadius: 10,
-
   },
 });
 
@@ -333,7 +327,6 @@ export const MentalHelpStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-
   },
   card: {
     marginBottom: 20,

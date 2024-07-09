@@ -72,7 +72,7 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
 
     return (
         <View style={ScrapbookEntryStyles.container}>
-            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{width:widthPercentageToDP(100), height:1000, position:'absolute', top:0, left:0, right:0, bottom:0}}/>
+
             <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry} reloadEntry={reloadEntry}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
                 <View style={ScrapbookEntryStyles.canvas}>

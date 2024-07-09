@@ -6,6 +6,7 @@ import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native';
 import { Button, Card, Modal, Portal, TextInput } from 'react-native-paper';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
+import StreakTracker from '../StreakTracking';
 
 const EntriesPage = () => {
     const [entries, setEntries] = useState<TextEntry[]>([]);
@@ -40,54 +41,36 @@ const EntriesPage = () => {
     };
     
     return (
-        <ScrollView contentContainerStyle={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: widthPercentageToDP(100), flexGrow: 1 }}>
-            <Portal>
-                <Modal visible={isCreating} onDismiss={() => setIsCreating(false)}>
-                    <Card style={{ width: widthPercentageToDP(90), margin: 20, backgroundColor: 'rgba(255,255,255,1)', }}>
-                        <Card.Title title="Create Entry" />
-                        <Card.Content>
-                            <TextInput
-                                label="What's on your mind?"
-                                value={newEntry}
-                                onChangeText={text => setNewEntry(text)} />
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Button mode="contained"
-                                    style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                    buttonColor='brown'
-                                    onPress={() => {
-                                        setIsCreating(false);
-                                    }}>
-                                    Cancel
-                                </Button>
-                                <Button mode="contained"
-                                    style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                    buttonColor='limegreen'
-                                    onPress={async() => {
-                                        createTextEntry(newEntry);
-                                        setStreak(await checkStreak());
-                                        setEntriesUpdated(prev => prev + 1);
-                                        setIsCreating(false);
-                                        setNewEntry('');
-                                    }}>
-                                    Create
-                                </Button>
-                            </View>
-                        </Card.Content>
-                    </Card>
-                </Modal>
-            </Portal>
+        <ScrollView>
+            <Card>
+                <Card.Title title="Create Entry" />
+                <Card.Content>
+                    <TextInput
+                        label="What's on your mind?"
+                        value={newEntry}
+                        onChangeText={text => setNewEntry(text)} />
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
+                        <Button mode="contained"
+                            onPress={() => {
+                                setIsCreating(false);
+                            }}>
+                            Cancel
+                        </Button>
+                        <Button mode="contained"
+                            onPress={async() => {
+                                createTextEntry(newEntry);
+                                setStreak(await checkStreak());
+                                setEntriesUpdated(prev => prev + 1);
+                                setIsCreating(false);
+                                setNewEntry('');
+                            }}>
+                            Create
+                        </Button>
+                    </View>
+                </Card.Content>
+            </Card>
 
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: widthPercentageToDP(90) }}>
-
-                <Button mode="elevated"
-                    style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black', flex: 2}}
-                    onPress={() =>
-                        setIsCreating(true)
-                    }>
-                    Create
-                </Button>
-                <StreakTracker streak={streak} />
-            </View>
+            <StreakTracker streak={streak} />
             {entries.map((entry: TextEntry) => (
                 <Card style={{ margin: 10 }} key={entry.ID}>
                     <Card.Title title={"(id: " + (entry.ID ? entry.ID : 0).toString() + ") (created at: " + (entry.CreatedAt ? new Date(parseInt(entry.CreatedAt) * 1000).toLocaleString() : 0).toString() + ")"} />
@@ -102,7 +85,6 @@ const EntriesPage = () => {
                         </Button>
                         <Button 
                             style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                            buttonColor='brown'
                             onPress={() => {
                                 removeTextEntry(entry.ID);
                                 setEntriesUpdated(prev => prev + 1);
@@ -125,13 +107,11 @@ const EntriesPage = () => {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Button 
                                     style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                    buttonColor='brown'
                                     onPress={() => setIsEditing(false)}>
                                     Cancel
                                 </Button>
                                 <Button 
                                     style={{ margin: 10, flex: 1, justifyContent: 'space-between' }}
-                                    buttonColor='limegreen'
                                     onPress={handleSave}>
                                     Save
                                 </Button>

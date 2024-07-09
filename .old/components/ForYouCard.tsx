@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 10,
     padding: 20,
-    shadowColor: MD3LightTheme.colors.shadow,
     shadowOffset: {
       width: 0,
       height: 2,

@@ -53,16 +53,16 @@ function RootLayoutNav() {
   // set to dark mode, the app will have some dark elements other light ones.
 
   return (
-      <PaperProvider>
-        <AuthProvider>
-          <GestureHandlerRootView>
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            </Stack>
-          </GestureHandlerRootView>
-        </AuthProvider>
-        <Toast config={toastConfig} topOffset={90} />
-      </PaperProvider>
+    <PaperProvider>
+      <AuthProvider>
+        <GestureHandlerRootView>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          </Stack>
+        </GestureHandlerRootView>
+      </AuthProvider>
+      <Toast config={toastConfig} topOffset={90} />
+    </PaperProvider>
   );
 }
 
@@ -74,7 +74,6 @@ const toastConfig = {
   success: (props: any) => (
     <BaseToast
       {...props}
-      style={{ borderLeftColor: "limegreen" }}
       contentContainerStyle={{ margin: 0 }}
       text1Style={{
         fontSize: 24,
@@ -95,7 +94,6 @@ const toastConfig = {
   error: (props: any) => (
     <ErrorToast
       {...props}
-      style={{ borderLeftColor: "brown" }}
       contentContainerStyle={{ margin: 0 }}
       text1Style={{
         fontSize: 24,
@@ -109,17 +107,4 @@ const toastConfig = {
       text2NumberOfLines={1}
     />
   ),
-  /*
-      Or create a completely new type - `tomatoToast`,
-      building the layout from scratch.
-  
-      I can consume any custom `props` I want.
-      They will be passed when calling the `show` method (see below)
-    
-    tomatoToast: ({ text1, props }) => (
-      <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
-        <Text>{text1}</Text>
-        <Text>{props.uuid}</Text>
-      </View>
-    )*/
 };

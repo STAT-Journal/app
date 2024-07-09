@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper';
 
 const ExportJSONButton: React.FC = () => {
   const handleExportJSON = async () => {
+    // TODO: make this a prop
     const data = {
       entries: [
         {

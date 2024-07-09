@@ -6,6 +6,7 @@ import * as Sharing from 'expo-sharing';
 
 const ExportPDFButton: React.FC = () => {
   const handleExportPDF = async () => {
+    // TODO: This data should be provided as props from the parent component
     const data = {
       entries: [
         {

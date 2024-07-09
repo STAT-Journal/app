@@ -6,6 +6,8 @@ import { Button } from 'react-native-paper';
 
 const ExportCSVButton: React.FC = () => {
   const handleExportCSV = async () => {
+    // This data should be provided as props from the parent component
+    // TODO: fix this
     const data = {
       entries: [
         {

@@ -4,6 +4,8 @@ import { Button, Card } from 'react-native-paper';
 import { View, StyleSheet } from 'react-native';
 
 const MentalHealthComponent: React.FC = () => {
+    // TODO: Receive this as a prop
+    // Prop should be an array
     const handleRedirect = () => {
         Linking.openURL('https://cmha.ca/find-info/mental-health/');
     };
@@ -30,20 +32,20 @@ const MentalHealthComponent: React.FC = () => {
 
     return (
         <View>
-        <Card style={styles.card}>
-            <Card.Content>
-                <Button onPress={handleRedirect}>
-                    Canadian Mental Health Association
-                </Button>
-            </Card.Content>
-        </Card>
-        <Card style={styles.card}>
-            <Card.Content >
-                <Button onPress={handleRedirectTwo}>
-                    Feeling Lonely? 
-                </Button>
-            </Card.Content>
-          </Card>
+            <Card style={styles.card}>
+                <Card.Content>
+                    <Button onPress={handleRedirect}>
+                        Canadian Mental Health Association
+                    </Button>
+                </Card.Content>
+            </Card>
+            <Card style={styles.card}>
+                <Card.Content >
+                    <Button onPress={handleRedirectTwo}>
+                        Feeling Lonely? 
+                    </Button>
+                </Card.Content>
+            </Card>
             <Card style={styles.card}>
                 <Card.Content>
                     <Button onPress={handleRedirectThree}>

@@ -1,19 +1,17 @@
 import { router } from 'expo-router';
 import React from 'react';
-import { View, Text } from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import {  Button, Card, Title, Paragraph } from 'react-native-paper';
 
 const Profile = () => {
+    // Temporary avatar source
+    const AvatarSrc = "https://api.dicebear.com/9.x/adventurer/png?seed=Sammy"
     
     return (
-        <Card style={{ margin:20, width:widthPercentageToDP(95),}}>
+        // Todo: Add user name and related information as props
+        <Card style={{ margin:10}}>
+            <Card.Cover source={{ uri: AvatarSrc }} />
             <Card.Content>
-                <Title>User Name</Title>
-                <View style={{ right: widthPercentageToDP(1), justifyContent: 'space-between', position: 'absolute', margin: 10}}>
-                    
-                    <Avatar.Text size={80} label="Me" />
-                </View>
+                <Title>User Name</Title> 
                 <Paragraph>Current Streak: 2</Paragraph>
                 <Paragraph>Currency: 💰12 </Paragraph>
             </Card.Content>

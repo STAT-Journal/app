@@ -6,11 +6,7 @@ import {LinearGradient} from 'expo-linear-gradient';
 
 const Profile = () => {
     return (
-        <>
-
-        <ScrollView contentContainerStyle={{  alignItems: 'center', justifyContent: 'center', top:0 }}>
-           <ProfileCard/>
-        </ScrollView></>
+        <ProfileCard/>
     );
 };
 

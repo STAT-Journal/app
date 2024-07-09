@@ -5,6 +5,7 @@ import { Button } from 'react-native-paper';
 
 const ExportJSONButton: React.FC = () => {
   const handleExportJSON = async () => {
+    // TODO: make this a prop
     const data = {
       entries: [
         {
@@ -45,7 +46,7 @@ const ExportJSONButton: React.FC = () => {
 
   return (
     <View style={{ padding: 20 }}>
-      <Button mode="contained" onPress={handleExportJSON}>
+      <Button onPress={handleExportJSON}>
         Export JSON
       </Button>
     </View>

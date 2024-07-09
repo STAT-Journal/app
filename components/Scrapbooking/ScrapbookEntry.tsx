@@ -33,12 +33,6 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
     const saveEntry = () => {
         createEntry(elements);
         console.log("Save entry");
-        /* const elements: ElementsJSON = {
-            text_elements: emojisOnCanvas.map((emojis) => ({ x: item.x, y: item.y, text: item.emoji })),
-            image_elements: [],
-        };
-        
-        console.log(readEntries()); */
     }
 
     const reloadEntry = (entry: Entry)=> {
@@ -55,7 +49,7 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
         setSelectedEmoji(emoji.emoji);
         setShowPicker(false);
     }
-
+    EmojiPicker
     const handleCanvasPress = (event: { nativeEvent: { locationX: any; locationY: any; }; }) => {
         const { locationX, locationY } = event.nativeEvent;
         if (selectedEmoji) {
@@ -72,7 +66,6 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
 
     return (
         <View style={ScrapbookEntryStyles.container}>
-            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{width:widthPercentageToDP(100), height:1000, position:'absolute', top:0, left:0, right:0, bottom:0}}/>
             <ScrapbookMenu onClear={handleClearCanvas} currentEmoji={selectedEmoji} onSave={saveEntry} reloadEntry={reloadEntry}/>
             <TouchableWithoutFeedback onPress={handleCanvasPress}>
                 <View style={ScrapbookEntryStyles.canvas}>
@@ -83,14 +76,14 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
             </TouchableWithoutFeedback>
             <SpeedDial openTextEntry={addText} openEmojiEntry={addEmoji} />
             <Portal>
-            <Modal
-                visible={showPicker}
-                transparent={true}
-                animationType="slide"
-                onRequestClose={() => setShowPicker(false)}
-            >
-                <View style={ScrapbookEntryStyles.modalContainer}>
-                    <View style={ScrapbookEntryStyles.emojiMenuContainer}> 
+                <Modal
+                    visible={showPicker}
+                    transparent={false}
+                    animationType="slide"
+                    onRequestClose={() => setShowPicker(false)}
+                >
+                    <View style={{ marginTop: 50, height: "95%" }}>
+                        {/* TODO: we should use actual stickers instead of emojis */}
                         <EmojiPicker
                             emojis={emojis}
                             recent={recent}
@@ -99,17 +92,20 @@ const ScrapbookEntry: React.FC<ScrapbookEntryProps> = () => {
                             darkMode={false}
                             perLine={7}
                             onSelect={handleEmojiSelect}
-                        /> 
-                        </View>
-                        <View style={ScrapbookEntryStyles.closeButton}>
-                            <Button onPress={()=>setShowPicker(false)} mode="elevated" buttonColor="grey" textColor="white" >
-                                Close
+                        />
+                        <Button 
+                            mode="elevated"
+                            style={{ 
+                                position: "absolute", 
+                                bottom: 50,
+                                alignSelf: "center",
+                            }} onPress={() => setShowPicker(false)}
+                            >Close
                             </Button>
-                        </View>
-                </View>
-            </Modal>
+                    </View>
+                </Modal>
             </Portal>
-            <StatusBar style="light" />
+            <StatusBar />
         </View>
     );
 }

@@ -7,6 +7,7 @@ import { ExportStyles } from '@/styles/styles';
 import { Card, Text  } from 'react-native-paper';
 
 const ExportPage: React.FC = () => {
+    // TODO: Replace this with actual data from the database
     const data = {
         entries: [
           {
@@ -26,26 +27,14 @@ const ExportPage: React.FC = () => {
             LastEntry: 1625246523,
             InventoryOfItems: [
               { name: 'item1', cost: 50, image: '/path/to/item1.png' },
-              // Add more items as needed
             ],
           },
-          // Add more users as needed
         ],
       };
 
     return (
-        <View style={ExportStyles.container}>
-            <Card style={ExportStyles.cardTwo}>
-                <Card.Content>
-                    <Text style={ExportStyles.description}>
-                        Export your data in various formats for backup or sharing purposes.
-                    </Text>
-                    <Text style={ExportStyles.description}>
-                        data: {JSON.stringify(data)}
-                    </Text>
-                </Card.Content>
-            </Card>
-            <Card style={ExportStyles.card}>
+        <View>
+            <Card>
                 <Card.Content>
                     <ExportCSV />
                     <ExportJSON />

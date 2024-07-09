@@ -4,13 +4,12 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import * as React from "react";
-import {
-  MD3LightTheme as DefaultTheme,
-  PaperProvider,
-} from "react-native-paper";
+import { PaperProvider } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider } from "./auth";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
+import { Appearance } from "react-native";
+
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -49,25 +48,21 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-    },
-  };
+  Appearance.setColorScheme("light"); // TODO: adjust based on user settings
+  // Without ^^, the general theme is light, but if the user device is
+  // set to dark mode, the app will have some dark elements other light ones.
+
   return (
-    <>
-      <PaperProvider theme={theme}>
+      <PaperProvider>
         <AuthProvider>
-          <GestureHandlerRootView style={{ flex: 1 }}>
+          <GestureHandlerRootView>
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             </Stack>
           </GestureHandlerRootView>
         </AuthProvider>
+        <Toast config={toastConfig} topOffset={90} />
       </PaperProvider>
-      <Toast config={toastConfig} topOffset={90} />
-    </>
   );
 }
 

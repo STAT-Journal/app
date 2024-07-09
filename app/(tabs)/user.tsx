@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Button, TextInput } from "react-native-paper"
-import { View } from "@/components/Themed";
+import { View } from "react-native";
 import { useAuth } from "../auth";
 import { Text } from "react-native";
 import { UserStyles } from "@/styles/styles";

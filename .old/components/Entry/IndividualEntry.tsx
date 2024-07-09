@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     maxWidth: 900,
     padding: 16,
     margin: 8,
-    backgroundColor: "silver",
     borderRadius: 8,
     borderWidth: 2,
     borderColor: "black",
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   deleteButton: {
-    backgroundColor: "grey",
     paddingHorizontal: 6,
     paddingVertical: 4,
     borderRadius: 15,

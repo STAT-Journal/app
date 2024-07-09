@@ -1,7 +1,7 @@
 import React from "react";
 import { ExternalLink } from "./ExternalLink";
 import { MonoText } from "./StyledText";
-import { Text, View } from "./Themed";
+import { Text, View } from "react-native";
 import { EditScreenInfoStyles } from "@/styles/styles";
 
 import Colors from "@/constants/Colors";
@@ -11,10 +11,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
     <View>
       <View style={EditScreenInfoStyles.getStartedContainer}>
         <Text
-          style={EditScreenInfoStyles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
+          style={EditScreenInfoStyles.getStartedText}>
           Open up the code for this screen:
         </Text>
 
@@ -22,18 +19,12 @@ export default function EditScreenInfo({ path }: { path: string }) {
           style={[
             EditScreenInfoStyles.codeHighlightContainer,
             EditScreenInfoStyles.homeScreenFilename,
-          ]}
-          darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)"
-        >
+          ]}>
           <MonoText>{path}</MonoText>
         </View>
 
         <Text
-          style={EditScreenInfoStyles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
+          style={EditScreenInfoStyles.getStartedText}>
           Change any of the text, save the file, and your app will automatically
           update.
         </Text>
@@ -45,9 +36,7 @@ export default function EditScreenInfo({ path }: { path: string }) {
           href="https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet"
         >
           <Text
-            style={EditScreenInfoStyles.helpLinkText}
-            lightColor={Colors.light.tint}
-          >
+            style={EditScreenInfoStyles.helpLinkText}>
             Tap here if your app doesn't automatically update after making
             changes
           </Text>

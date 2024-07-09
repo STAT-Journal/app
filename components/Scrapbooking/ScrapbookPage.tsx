@@ -46,7 +46,7 @@ const EntriesPage = () => {
             <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{ width: widthPercentageToDP(100), height: heightPercentageToDP(100), position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
             <Portal>
                 <Modal visible={isCreating} onDismiss={() => setIsCreating(false)}>
-                    <Card style={{ width: widthPercentageToDP(90), margin: 20, backgroundColor: 'rgba(255,255,255,1)', }}>
+                    <Card style={{ width: widthPercentageToDP(90), margin: 20 }}>
                         <Card.Title title="Create Entry" />
                         <Card.Content>
                             <TextInput
@@ -83,7 +83,7 @@ const EntriesPage = () => {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: widthPercentageToDP(90) }}>
 
                 <Button mode="elevated"
-                    style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black', flex: 2}}
+                    style={{ margin: 10, width: widthPercentageToDP(90), borderStyle: 'solid', borderWidth: 3, borderColor: 'black', flex: 2}}
                     onPress={() =>
                         setIsCreating(true)
                     }>
@@ -93,7 +93,7 @@ const EntriesPage = () => {
             </View>
             {entries.map((entry: TextEntry) => (
                 <Pressable key={entry.ID} onPress={() => handleEdit(entry)}>
-                    <Card style={{ margin: 10, width: widthPercentageToDP(90), backgroundColor: 'rgba(255,255,255,1)', borderStyle: 'solid', borderWidth: 3, borderColor: 'black' }}>
+                    <Card style={{ margin: 10, width: widthPercentageToDP(90), borderStyle: 'solid', borderWidth: 3, borderColor: 'black' }}>
                         <Card.Title title={"(id: " + (entry.ID ? entry.ID : 0).toString() + ") (created at: " + (entry.CreatedAt ? new Date(parseInt(entry.CreatedAt) * 1000).toLocaleString() : 0).toString() + ")"} />
                         <Card.Content>
                             <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{entry.Entry}</Text>
@@ -122,7 +122,7 @@ const EntriesPage = () => {
 
             <Portal>
                 <Modal visible={isEditing} onDismiss={() => setIsEditing(false)}>
-                    <Card style={{ width: widthPercentageToDP(90), margin: 20, backgroundColor: 'rgba(255,255,255,1)', }}>
+                    <Card style={{ width: widthPercentageToDP(90), margin: 20, }}>
                         <Card.Title title="Edit Entry" />
                         <Card.Content>
                             <TextInput

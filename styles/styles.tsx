@@ -15,7 +15,7 @@ export const AudioCaptureStyles = StyleSheet.create({
     maxHeight: 40,
   },
   recording: {
-    backgroundColor: "#f0f0f0",
+
     padding: 10,
     marginHorizontal: 5,
     alignItems: "center",
@@ -31,7 +31,7 @@ export const ImageCaptureStyles = StyleSheet.create({
     justifyContent: "space-between",
   },
   buttonContainer: {
-    backgroundColor: "transparent",
+
   },
   swapButton: {
     alignSelf: "flex-start",
@@ -45,7 +45,6 @@ export const ImageCaptureStyles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: "white",
   },
   previewContainer: {
     maxHeight: 50,
@@ -62,7 +61,7 @@ export const ImageCaptureStyles = StyleSheet.create({
   fullSizePreviewContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
+
     minHeight: heightPercentageToDP("100%"),
   },
   fullSizePreviewImage: {
@@ -77,7 +76,7 @@ export const ImageGalleryStyles = StyleSheet.create({
   fullSizePreviewContainer: {
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.8)",
+
     minHeight: heightPercentageToDP("100%"),
   },
   fullSizePreviewImage: {
@@ -108,7 +107,6 @@ export const SpeedDialStyles = StyleSheet.create({
     margin: 0,
     right: 0,
     bottom: heightPercentageToDP(-9),
-    backgroundColor: "silver",
     alignContent: "center",
     justifyContent: "center",
   },
@@ -147,7 +145,7 @@ export const ScrapbookEntryStyles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+
   },
   closeButton: {
     position: "absolute",
@@ -157,7 +155,7 @@ export const ScrapbookEntryStyles = StyleSheet.create({
     width: widthPercentageToDP(95),
     height: widthPercentageToDP(100),
     flexGrow: 1,
-    backgroundColor: "#fff",
+
     borderRadius: 10,
   },
 });
@@ -278,7 +276,7 @@ export const ModalScreenStyles = StyleSheet.create({
 export const ExportStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+
     justifyContent: "flex-start",
     alignItems: "center",
     padding: 20,
@@ -292,14 +290,14 @@ export const ExportStyles = StyleSheet.create({
   card: {
     width: "85%",
     height: "50%",
-    backgroundColor: "#f0f0f0",
+
     borderRadius: 10,
     padding: 20,
   },
   cardTwo: {
     width: "85%",
     height: "45%",
-    backgroundColor: "#f0f0f0",
+
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
@@ -307,7 +305,7 @@ export const ExportStyles = StyleSheet.create({
   cardThree: {
     width: "85%",
     height: "25%",
-    backgroundColor: "#f0f0f0",
+
     borderRadius: 10,
     padding: 20,
     marginBottom: 20,
@@ -316,14 +314,13 @@ export const ExportStyles = StyleSheet.create({
     marginVertical: 10,
     width: "100%",
     borderRadius: 10,
-    backgroundColor: "#6200ee",
+
   },
 });
 
 export const IndexStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff", // Background color can be from your theme
     padding: 0,
   },
   title: {
@@ -342,7 +339,7 @@ export const MentalHelpStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f0f0f0",
+
   },
   card: {
     marginBottom: 20,
@@ -360,7 +357,7 @@ export const MentalHelpStyles = StyleSheet.create({
 export const UserStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff", // Background color can be from your theme
+
     padding: 0,
   },
   title: {

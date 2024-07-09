@@ -1,11 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { MD3LightTheme } from "react-native-paper";
+import { View } from "react-native";
 import Swiper from "react-native-swiper";
 
 import ForYouCard from "./ForYouCard";
-
-import { View } from "@/components/Themed";
 import { journalStories } from "@/constants/FakeForYouCardText";
 
 const ForYouPage: React.FC = () => {
@@ -32,7 +30,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: MD3LightTheme.colors.background,
   },
 });
 

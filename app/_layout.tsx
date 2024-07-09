@@ -58,7 +58,7 @@ function RootLayoutNav() {
   return (
     <PaperProvider theme={theme}>
       <AuthProvider>
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack>

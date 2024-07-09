@@ -31,7 +31,6 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
@@ -102,9 +101,9 @@ export default function TabLayout() {
       }}
     />
     <Tabs.Screen
-      name="mentalhelp"
+      name="mentalhealth"
       options={{
-        title: "Mental Help",
+        title: "Mental Health Resources",
         tabBarIcon: ({ color }: { color: string }) => (
           <TabBarIcon name="heart" color={color} />
         ),

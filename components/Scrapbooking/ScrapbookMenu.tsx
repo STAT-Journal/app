@@ -48,8 +48,6 @@ const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentE
             <Portal>
             <Modal visible={showPicker} style={{justifyContent:'center', alignContent:'center', position:'absolute'}} onDismiss={() => {setShowPicker(false)}}>
                 <ScrollView>
-                    
-                    
                 {
                 (entries).map((entry: Entry) => (
                         <TouchableOpacity key={entry.ID} onPress={() => {
@@ -79,20 +77,20 @@ const ScrapbookMenu: React.FC<ScrapbookMenuProps> = ({ onClear, onSave, currentE
 
         <View>
             <Text>Scrapbook Menu</Text>
-            <View style={ScrapbookMenuStyles.row}>
-                <Button onPress={onClear} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
+            <View>
+                <Button onPress={onClear}>
                     Clear
                 </Button>
-                <Text style={ScrapbookMenuStyles.emojiLabel}>
+                <Text style={{ alignSelf: "center" }}>
                     Emoji: {currentEmoji}
                 </Text>
-                <Button onPress={onSave} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
+                <Button onPress={onSave}>
                     Save
                 </Button>
-                <Button onPress={listExistingEntries} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
+                <Button onPress={listExistingEntries}>
                     Log 
                 </Button>
-                <Button onPress={onLoad} style={ScrapbookMenuStyles.clearButton} labelStyle={ScrapbookMenuStyles.clearLabel}>
+                <Button onPress={onLoad}>
                     Load
                     </Button>
                 

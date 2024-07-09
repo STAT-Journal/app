@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: MD3LightTheme.colors.background,
     borderRadius: 10,
     padding: 20,
     shadowColor: MD3LightTheme.colors.shadow,

@@ -17,9 +17,11 @@ import { useFocusEffect } from "@react-navigation/native";
 
 
 export default function DebugScreen() {
-
-  const [streak, setStreak] = useState(0);
+  // TODO: this should be provided elsewhere, probably as a hook 
+  // to use in other components
+  const [streak, setStreak] = useState(0); 
   
+  // TODO: remove when streak is hookitized
   useFocusEffect(() => {
     const updateStreak = async () => {
       const streak = await checkStreak();
@@ -31,16 +33,6 @@ export default function DebugScreen() {
 
   return (
     <ScrollView >
-      <Button mode='outlined' style={{margin:10}} onPress={() => {
-        router.navigate('/dragdrop')
-      }}>Launch Emoji/Draggables thing</Button>
-      <Button mode='outlined' style={{margin:10}} onPress={() => {
-        checkStreak()
-      }
-      }>Check Streak</Button>
-      <ExportJSONButton />
-      <ExportCSVButton />
-      <ExportPDFButton />
       <StreakTracking streak={streak} />
       <AudioRecorder />
       <ImageGallery />

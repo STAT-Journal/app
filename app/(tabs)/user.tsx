@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Button, TextInput } from "react-native-paper"
-import { View } from "@/components/Themed";
+import { View } from "react-native";
 import { useAuth } from "../auth";
 import { Text } from "react-native";
 import { UserStyles } from "@/styles/styles";
@@ -49,17 +49,14 @@ export default function User() {
   const { user, logIn, logOut } = useAuth();
   const [formData, setFormData] = React.useState<LoginFormData>({ email: "", password: "" });
 
-  console.log(user);
-
   return (
-    <View style={UserStyles.container}>
+    <View>
         <UserStatusDisplay email={user?.email} />
         <LoginForm
             formData={formData}
             setFormData={setFormData}
             logIn={logIn}
             logOut={logOut} />
-
     </View>
   );
 }

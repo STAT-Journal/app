@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
-import InventoryCard from '@/components/Store/InventoryCard';
+import Store from '@/components/Store/Store';
 
 const EntriesPage = () => {
     const [entries, setEntries] = useState<TextEntry[]>([]);
@@ -40,8 +40,7 @@ const EntriesPage = () => {
 
     return (
         <ScrollView contentContainerStyle={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: widthPercentageToDP(100), flexGrow: 1 }}>
-            <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={{ width: widthPercentageToDP(100), height: heightPercentageToDP(100), position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
-            <InventoryCard />
+            <Store />
         </ScrollView>
     );
 };

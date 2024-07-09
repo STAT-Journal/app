@@ -142,9 +142,6 @@ export const ScrapbookEntryStyles = StyleSheet.create({
     marginTop: 20,
   },
   modalContainer: {
-    flexGrow: 1,
-    justifyContent: "center",
-    alignItems: "center",
 
   },
   closeButton: {
@@ -152,11 +149,8 @@ export const ScrapbookEntryStyles = StyleSheet.create({
     bottom: 10,
   },
   emojiMenuContainer: {
-    width: widthPercentageToDP(95),
-    height: widthPercentageToDP(100),
-    flexGrow: 1,
-
-    borderRadius: 10,
+    width: "100%",
+    height: "100%",
   },
 });
 

@@ -62,8 +62,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
+    "@types/jest": "^29.5.12",
     "@types/papaparse": "^5.3.14",
     "@types/react": "~18.2.79",
+    "@types/react-test-renderer": "^18.3.0",
     "drizzle-kit": "^0.22.1",
     "eslint": "^8.57.0",
     "eslint-config-universe": "^13.0.0",

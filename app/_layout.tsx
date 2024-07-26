@@ -6,9 +6,52 @@ import { useEffect } from "react";
 import * as React from "react";
 import { PaperProvider } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { AuthProvider } from "./auth";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import { Appearance } from "react-native";
+import { graphql } from "@/gql/codegen";
+import { Client, cacheExchange, fetchExchange, Provider } from 'urql';
+import { AuthConfig, authExchange, AuthUtilities } from '@urql/exchange-auth';
+
+function devFetchSessionToken(utils: AuthUtilities) {
+  const mutation = graphql(`mutation devGetSessionToken {\n  devGetSessionToken\n}`)
+
+  return utils.mutate(mutation, {})
+}
+
+async function authExchangeConfiguration(utils: AuthUtilities): Promise<AuthConfig> {
+  let sessionToken = '';
+  return {
+    addAuthToOperation(operation: any) {
+      if (!sessionToken) {
+        return operation;
+      } else {
+        return utils.appendHeaders(operation, 
+          { Authorization: `Bearer ${sessionToken}` }
+        );
+      }
+    },
+    didAuthError({ }: any) {
+      return !sessionToken;
+    },
+    willAuthError({ }: any) {
+      return !sessionToken;
+    },
+    refreshAuth() {
+      return devFetchSessionToken(utils).then((result) => {
+        sessionToken = result.data?.devGetSessionToken??'';
+      });
+    },
+  }
+}
+
+const client = new Client({
+  url: process.env.EXPO_API_URL??'',
+  exchanges: [
+    cacheExchange,
+    authExchange(authExchangeConfiguration),
+    fetchExchange
+  ],
+})
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,13 +97,13 @@ function RootLayoutNav() {
 
   return (
     <PaperProvider>
-      <AuthProvider>
+      <Provider value={client}>
         <GestureHandlerRootView>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack>
         </GestureHandlerRootView>
-      </AuthProvider>
+      </Provider>
       <Toast config={toastConfig} topOffset={90} />
     </PaperProvider>
   );

@@ -24,8 +24,8 @@ const Store: React.FC = () => {
                 {items.map((item) => {
                     return (
                         <Card key={item.id} style={{margin:10, alignContent:'center', justifyContent:'center', }}>
+                            <Card.Title title={item.icon} />
                             <Card.Content style={{alignContent:'center', justifyContent:'center', }}>
-                                <Title style={{fontSize:27}}> {item.icon}</Title>
                                 <Paragraph style={{fontSize:18}}>💰 {item.cost}</Paragraph>
                             </Card.Content>
                         </Card>

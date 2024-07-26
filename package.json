@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "jest": {
     "preset": "jest-expo"
@@ -21,6 +22,7 @@
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/stack": "^6.4.0",
+    "@urql/exchange-auth": "^2.2.0",
     "babel-plugin-inline-import": "^3.0.0",
     "drizzle-orm": "^0.31.0",
     "expo": "^51.0.17",
@@ -44,6 +46,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
+    "graphql": "^15.8.0",
     "papaparse": "^5.4.1",
     "react-native": "^0.74.3",
     "react-native-fs": "^2.20.0",
@@ -58,10 +61,14 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-view-shot": "^3.8.0",
-    "rn-emoji-picker": "^1.1.6"
+    "rn-emoji-picker": "^1.1.6",
+    "urql": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.3.2",
+    "@graphql-codegen/typescript-urql": "^4.0.0",
     "@types/papaparse": "^5.3.14",
     "@types/react": "~18.2.79",
     "drizzle-kit": "^0.22.1",

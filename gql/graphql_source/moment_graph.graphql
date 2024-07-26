@@ -1,0 +1,6 @@
+query {
+    listMoments{
+        type
+        insertedAt
+    }
+}

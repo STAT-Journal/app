@@ -1,0 +1,3 @@
+mutation getSessionToken($renewalToken: String!) {
+    getSessionToken(renewalToken: $renewalToken)
+}

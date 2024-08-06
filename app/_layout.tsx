@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import * as React from "react";
-import { PaperProvider } from "react-native-paper";
+import { PaperProvider, useTheme } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider } from "./auth";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
@@ -24,6 +24,26 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+
+  //const theme = useTheme();
+  //Lightest yellow from the logo = faf59a
+  //Orange from the logo = fec260
+  //Dark pink: f06aa7
+  //light pink : f59eba
+  //
+/*  theme.colors.primary = "#f59eba"; // Pink
+ 
+  theme.colors.onPrimary = "#f59eba";
+  theme.colors.onPrimaryContainer = "#f59eba";
+
+  theme.colors.secondary = "#fec260"; //Dark orange from the logo
+  theme.colors.onSecondary = "#fec260";
+  theme.colors.onSecondaryContainer = "#fec260";
+
+  theme.colors.background = "#fec260"; // Light Grey
+  theme.colors.onBackground = "#fec260"; */
+  
+
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,

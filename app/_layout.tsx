@@ -11,6 +11,8 @@ import { Appearance } from "react-native";
 import { ProfileProvider, useProfileContext } from "@/database/ProfileProvider";
 import { Text } from "react-native";
 import ProfileCreator from "@/components/ProfileCreator";
+import { GraphqlProvider } from "@/components/GraphqlProvider";
+import { PresenceProvider } from "@/components/PresenceProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -76,14 +78,18 @@ function RootLayoutNav() {
 
   return (
     <PaperProvider>
-      <GestureHandlerRootView>
-        <ProfileProvider>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-          <Toast config={toastConfig} topOffset={90} />
-        </ProfileProvider>
-      </GestureHandlerRootView>
+      <GraphqlProvider>
+        <PresenceProvider>
+          <GestureHandlerRootView>
+            <ProfileProvider>
+              <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              </Stack>
+              <Toast config={toastConfig} topOffset={90} />
+            </ProfileProvider>
+          </GestureHandlerRootView>
+        </PresenceProvider>
+      </GraphqlProvider>
     </PaperProvider>
   );
 }

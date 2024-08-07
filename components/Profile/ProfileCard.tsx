@@ -1,15 +1,25 @@
 import { useProfileContext } from '@/database/ProfileProvider';
 import { router } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {  Button, Card, Title, Paragraph, Modal, Portal, Surface } from 'react-native-paper';
 import { SvgUri } from 'react-native-svg';
 import ProfileCreator from '../ProfileCreator';
+import { useMutation } from 'urql';
 
 const Profile = () => {
     const profileContext = useProfileContext();
     // Temporary avatar source
 
     const [showProfileCreator, setShowProfileCreator] = React.useState(false);
+    const mutation = `mutation bePresent($avatarSvg: String!) { bePresent(avatarSvg: $avatarSvg) }`
+    const [result, executeMutation] = useMutation(mutation)
+
+    useEffect(() => {
+        if (profileContext.profile) {
+            executeMutation({avatarSvg:profileContext.profile.AvatarSVG})
+            // .then((result) => {console.log(result)});
+        }
+    }, [profileContext.profile])
     
     return (
         // Todo: Add user name and related information as props

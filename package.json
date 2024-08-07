@@ -17,6 +17,7 @@
     "extends": "universe/native"
   },
   "dependencies": {
+    "@absinthe/socket": "^0.2.1",
     "@dicebear/collection": "^9.2.1",
     "@dicebear/converter": "^9.2.1",
     "@dicebear/core": "^9.2.1",
@@ -48,6 +49,7 @@
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
     "papaparse": "^5.4.1",
+    "phoenix": "^1.7.14",
     "react-native": "^0.74.3",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.16.2",
@@ -61,10 +63,12 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-view-shot": "^3.8.0",
-    "rn-emoji-picker": "^1.1.6"
+    "rn-emoji-picker": "^1.1.6",
+    "urql": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
+    "@types/absinthe__socket": "^0.2.6",
     "@types/papaparse": "^5.3.14",
     "@types/react": "~18.2.79",
     "drizzle-kit": "^0.22.1",

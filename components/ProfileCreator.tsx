@@ -64,9 +64,7 @@ export default function ProfileCreator({callbackOnDone}: {callbackOnDone?: () =>
     }
   });
 
-  const complete = () => {
-    console.log("Completing profile");
-    console.log("userContext", userContext);
+  const complete = () => {;
     userContext?.setProfile({ Username: username, AvatarSVG: avatarSVG });
     if (callbackOnDone) {
       callbackOnDone();

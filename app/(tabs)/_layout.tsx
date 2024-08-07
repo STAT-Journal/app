@@ -71,15 +71,6 @@ export default function TabLayout() {
             ),
           }}
         />
-        {__DEV__ && (<Tabs.Screen
-            name="debug"
-            options={{
-              title: "Debug",
-              tabBarIcon: ({ color }: { color: string }) => (
-                <TabBarIcon name="bug" color={color} />
-              ),
-            }}
-          />) }
           {/* <Tabs.Screen
             name="user"
             options={{
@@ -115,7 +106,16 @@ export default function TabLayout() {
               <TabBarIcon name="heart" color={color} />
             ),
           }}
-        />              
+        />
+        <Tabs.Screen
+          name="presence"
+          options={{
+            title: "Other Users",
+            tabBarIcon: ({ color }: {color:string}) => (
+              <TabBarIcon name="comments" color={color} />
+            )
+          }} 
+        />             
         </Tabs>
       }
     </>

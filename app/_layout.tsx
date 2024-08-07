@@ -4,11 +4,13 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import * as React from "react";
-import { PaperProvider, useTheme } from "react-native-paper";
+import { Modal, PaperProvider, Portal, Surface, useTheme } from "react-native-paper";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { AuthProvider } from "./auth";
 import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
 import { Appearance } from "react-native";
+import { ProfileProvider, useProfileContext } from "@/database/ProfileProvider";
+import { Text } from "react-native";
+import ProfileCreator from "@/components/ProfileCreator";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -31,18 +33,18 @@ export default function RootLayout() {
   //Dark pink: f06aa7
   //light pink : f59eba
   //
-/*  theme.colors.primary = "#f59eba"; // Pink
- 
-  theme.colors.onPrimary = "#f59eba";
-  theme.colors.onPrimaryContainer = "#f59eba";
-
-  theme.colors.secondary = "#fec260"; //Dark orange from the logo
-  theme.colors.onSecondary = "#fec260";
-  theme.colors.onSecondaryContainer = "#fec260";
-
-  theme.colors.background = "#fec260"; // Light Grey
-  theme.colors.onBackground = "#fec260"; */
+  /*  theme.colors.primary = "#f59eba"; // Pink
+   
+    theme.colors.onPrimary = "#f59eba";
+    theme.colors.onPrimaryContainer = "#f59eba";
   
+    theme.colors.secondary = "#fec260"; //Dark orange from the logo
+    theme.colors.onSecondary = "#fec260";
+    theme.colors.onSecondaryContainer = "#fec260";
+  
+    theme.colors.background = "#fec260"; // Light Grey
+    theme.colors.onBackground = "#fec260"; */
+
 
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
@@ -74,14 +76,14 @@ function RootLayoutNav() {
 
   return (
     <PaperProvider>
-      <AuthProvider>
-        <GestureHandlerRootView>
+      <GestureHandlerRootView>
+        <ProfileProvider>
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           </Stack>
-        </GestureHandlerRootView>
-      </AuthProvider>
-      <Toast config={toastConfig} topOffset={90} />
+          <Toast config={toastConfig} topOffset={90} />
+        </ProfileProvider>
+      </GestureHandlerRootView>
     </PaperProvider>
   );
 }

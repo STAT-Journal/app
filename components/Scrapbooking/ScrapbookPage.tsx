@@ -51,12 +51,6 @@ const EntriesPage = () => {
                         onChangeText={text => setNewEntry(text)} />
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10 }}>
                         <Button mode="contained"
-                            onPress={() => {
-                                setIsCreating(false);
-                            }}>
-                            Cancel
-                        </Button>
-                        <Button mode="contained"
                             onPress={async() => {
                                 createTextEntry(newEntry);
                                 setStreak(await checkStreak());

@@ -1,3 +1,5 @@
+import { Style } from "@dicebear/core"
+
 export interface Element {
   x: number;
   y: number;
@@ -19,8 +21,12 @@ export interface TextEntry {
   CreatedAt: string;
 }
 
-export interface AppUser {
+export interface AppProfile {
+  AvatarSVG: string;
   Username: string;
+}
+
+export interface AppUser {
   Streak: number;
   CurrencyAmount: number;
   LastEntry: number;

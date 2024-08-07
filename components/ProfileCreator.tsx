@@ -34,7 +34,7 @@ function StyleOption(props: StyleOptionProps) {
   
 }
 
-export default function ProfileCreator() {
+export default function ProfileCreator({callbackOnDone}: {callbackOnDone?: () => void}) {
   const [username, setUsername] = useState("");
   const [selectedStyleIndex, setSelectedStyleIndex] = useState(-1);
   const [avatarSVG, setAvatarSVG] = useState<string>("");
@@ -68,6 +68,9 @@ export default function ProfileCreator() {
     console.log("Completing profile");
     console.log("userContext", userContext);
     userContext?.setProfile({ Username: username, AvatarSVG: avatarSVG });
+    if (callbackOnDone) {
+      callbackOnDone();
+    }
   }
 
     return (

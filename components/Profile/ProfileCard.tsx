@@ -14,28 +14,28 @@ const Profile = () => {
     return (
         // Todo: Add user name and related information as props
         <>
-            <Card style={{ margin:10}}>
-                <Card.Content>
-                    <SvgUri uri={profileContext.profile?.AvatarSVG??""} style={{maxHeight:50}} />
-                    <Title>{profileContext.profile?.Username}</Title> 
-                    <Paragraph>Current Streak: 2</Paragraph>
-                    <Paragraph>Currency: 💰12 </Paragraph>
-                </Card.Content>
-                <Card.Actions >
-                    <Button onPress={()=>{
-                        router.navigate('/store');
-                    }}>Store</Button>
-                    <Button>Inventory</Button>
-                    <Button onPress={() => setShowProfileCreator(true)}>Edit Profile</Button>
-                </Card.Actions>
-            </Card>
+            {!showProfileCreator &&
+                <Card style={{ margin:10}}>
+                    <Card.Content>
+                        <SvgUri uri={profileContext.profile?.AvatarSVG??""} style={{maxHeight:50}} />
+                        <Title>{profileContext.profile?.Username}</Title> 
+                        <Paragraph>Current Streak: 2</Paragraph>
+                        <Paragraph>Currency: 💰12 </Paragraph>
+                    </Card.Content>
+                    <Card.Actions >
+                        <Button onPress={()=>{
+                            router.navigate('/store');
+                        }}>Store</Button>
+                        <Button>Inventory</Button>
+                        <Button onPress={() => setShowProfileCreator(true)}>Edit Profile</Button>
+                    </Card.Actions>
+                </Card>
+            }
             {showProfileCreator &&
-            <Portal>
-            <Surface>
-                <ProfileCreator/>
+            <Surface style={{width: "100%", height: "100%"}}>
+                <ProfileCreator callbackOnDone={() => setShowProfileCreator(false)}/>
                 <Button onPress={() => setShowProfileCreator(false)}>Close</Button>
             </Surface>
-            </Portal>
             }
         </>
         
